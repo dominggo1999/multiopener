@@ -4,7 +4,7 @@ import { Box } from './Popup.style';
 const Popup = () => {
   return (
     <Box>
-      PopUp
+      PopUp xxxxxxxxxx
     </Box>
   );
 };

@@ -9,6 +9,7 @@ const { resolve } = require('path');
 export const isDev = process.env.NODE_ENV !== 'production';
 
 const r = (path) => resolve(__dirname, path);
+
 const generateOutputDir = (vendor) => {
   if(vendor === 'chromium') {
     return 'extension/chromium/dist';
@@ -17,6 +18,8 @@ const generateOutputDir = (vendor) => {
   if(vendor === 'mozilla') {
     return 'extension/mozilla/dist';
   }
+
+  return 'extension/chromium/dist';
 };
 
 // https://vitejs.dev/config/
@@ -39,7 +42,7 @@ export default defineConfig(() => {
       rollupOptions: {
         input: {
           popup: r('src/popup/index.html'),
-          inject: r('src/inject/main.jsx'),
+          inject: r('src/inject/index.html'),
         },
         output: {
           entryFileNames: 'assets/[name].js',
