@@ -10,7 +10,6 @@ export const SearchBoxContainer = styled.div`
     fixed 
     top-0 
     left-0 
-    z-[99999] 
   `}
 `;
 
@@ -29,8 +28,15 @@ export const Overlay = styled.div`
 export const SearchArea = styled.div`
   ${tw`
       min-w-[600px]
-      mt-24  
+      mt-24   
+      mx-auto
+      z-[99999] 
+      fixed 
+      top-0 
   `}
+
+  left : 50%;
+  transform : translateX(-50%);  
 `;
 
 export const WebsiteList = styled.ul`

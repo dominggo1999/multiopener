@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
   const keyBindings = (e) => {
     const key = e.key;
 
-    if(key === ',' && e.ctrlKey) {
+    if((key === ',' && e.ctrlKey) || key === 'Escape') {
       app.style.display = app.style.display === 'block' ? 'none' : 'block';
     }
   };

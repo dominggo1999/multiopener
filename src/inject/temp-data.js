@@ -34,6 +34,26 @@ export const links = [
     link: 'https://open.spotify.com/search/iamlazy',
     group: 'music',
   },
+  {
+    title: 'duckduckgo',
+    link: 'https://duckduckgo.com/?q=iamlazy',
+    group: 'search-engine',
+  },
+  {
+    title: 'google',
+    link: 'https://www.google.com/search?q=iamlazy',
+    group: 'search-engine',
+  },
+  {
+    title: 'bing',
+    link: 'https://www.bing.com/search?q=iamlazy',
+    group: 'search-engine',
+  },
+  {
+    title: 'yahoo',
+    link: 'https://id.search.yahoo.com/search?p=iamlazy',
+    group: 'search-engine',
+  },
 ];
 
 export const groups = [

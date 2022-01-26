@@ -86,7 +86,7 @@ chrome.runtime.onMessage.addListener((request) => {
 
   if(message === 'close frame') {
     const iframe = document.querySelector('iframe.injected');
-
+    iframe.style.display = 'none';
     iframe.blur();
   }
 });

@@ -12,6 +12,13 @@ const sendMessage = async (message) => {
 
 const browserTabs = chrome.tabs;
 
+const closeSearchBox = () => {
+  browserTabs?.query({}, (tabs) => {
+    const id = tabs.filter((i) => i.active)[0].id;
+    browserTabs.sendMessage(id, { message: 'close frame' });
+  });
+};
+
 const SearchBox = () => {
   const [query, setQuery] = useState('');
 
@@ -19,11 +26,8 @@ const SearchBox = () => {
     const keyBindings = (e) => {
       const key = e.key;
 
-      if(key === ',' && e.ctrlKey) {
-        browserTabs?.query({}, (tabs) => {
-          const id = tabs.filter((i) => i.active)[0].id;
-          browserTabs.sendMessage(id, { message: 'close frame' });
-        });
+      if((key === ',' && e.ctrlKey) || key === 'Escape') {
+        closeSearchBox();
       }
     };
 
@@ -36,23 +40,24 @@ const SearchBox = () => {
 
   return (
     <>
-      <Overlay />
-      <SearchBoxContainer>
-        <SearchArea>
-          <SearchBar
-            setQuery={setQuery}
-            query={query}
-          />
-          <TypeTitle>Groups</TypeTitle>
-          <WebsiteList>
-            <Groups query={query} />
-          </WebsiteList>
-          <TypeTitle>Single</TypeTitle>
-          <WebsiteList>
-            <Single query={query} />
-          </WebsiteList>
-        </SearchArea>
-      </SearchBoxContainer>
+      <Overlay
+        onClick={closeSearchBox}
+        role="button"
+      />
+      <SearchArea>
+        <SearchBar
+          setQuery={setQuery}
+          query={query}
+        />
+        <TypeTitle>Groups</TypeTitle>
+        <WebsiteList>
+          <Groups query={query} />
+        </WebsiteList>
+        <TypeTitle>Single</TypeTitle>
+        <WebsiteList>
+          <Single query={query} />
+        </WebsiteList>
+      </SearchArea>
     </>
   );
 };
