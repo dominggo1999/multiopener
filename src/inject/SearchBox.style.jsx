@@ -1,18 +1,5 @@
 import tw, { styled } from 'twin.macro';
 
-export const SearchBoxContainer = styled.div`
-  ${tw`
-    flex 
-    flex-col
-    items-center 
-    w-full 
-    h-full 
-    fixed 
-    top-0 
-    left-0 
-  `}
-`;
-
 export const Overlay = styled.div`
   ${tw`
     z-[99998] 

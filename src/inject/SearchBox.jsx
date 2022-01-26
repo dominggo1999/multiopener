@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  SearchBoxContainer, WebsiteList, SearchArea, TypeTitle, Overlay,
+  WebsiteList, SearchArea, TypeTitle, Overlay,
 } from './SearchBox.style';
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
