@@ -2,10 +2,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable array-callback-return */
 
-const extensionStorage = chrome ? chrome.storage.local : browser.storage.local;
-const runtime = chrome ? chrome.runtime : browser.runtime;
-
 const getValueInStore = (key) => {
+  const extensionStorage = chrome ? chrome.storage.local : browser.storage.local;
+
   return new Promise((resolve, reject) => {
     extensionStorage.get([key], (result) => {
       resolve(result);
@@ -77,3 +76,10 @@ document.dispatchEvent(new CustomEvent(contentScriptDestructionEvent));
 document.addEventListener(contentScriptDestructionEvent, destructor);
 
 initContentScript();
+
+console.log('Injected');
+
+// ON DISABLED
+chrome.runtime.connect().onDisconnect.addListener(() => {
+  deleteFrame();
+});

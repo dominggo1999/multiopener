@@ -27,7 +27,7 @@ const sendMessage = async (message) => {
   });
 };
 
-chrome.runtime.onInstalled.addListener(async () => {
+const startExtension = async () => {
   sendMessage('reload');
 
   const contentScripts = chrome.runtime.getManifest().content_scripts;
@@ -46,4 +46,10 @@ chrome.runtime.onInstalled.addListener(async () => {
       }
     });
   }
+};
+
+chrome.runtime.onInstalled.addListener(startExtension);
+chrome.management.onEnabled.addListener(startExtension);
+
+chrome.runtime.onConnect.addListener((port) => {
 });

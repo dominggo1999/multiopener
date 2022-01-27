@@ -35,8 +35,8 @@
     "storage",
     "activeTab",
     "unlimitedStorage",
-    "declarativeNetRequest",
-    "scripting"
+    "scripting",
+    "management"
   ],
   "web_accessible_resources": [
     {

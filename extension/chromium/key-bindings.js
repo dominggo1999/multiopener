@@ -48,3 +48,8 @@ document.dispatchEvent(new CustomEvent(destructionEvent));
 document.addEventListener(destructionEvent, destructor);
 
 initKeyBinding();
+
+// ON DISABLED
+chrome.runtime.connect().onDisconnect.addListener(() => {
+  window.removeEventListener('keydown', keyBindings);
+});
