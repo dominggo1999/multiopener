@@ -82,6 +82,5 @@ window.addEventListener('message', (e) => {
   if(!chrome.runtime.id) {
     const iframe = document.querySelector('iframe.injected');
     iframe.style.display = 'none';
-    iframe.blur();
   }
 });
