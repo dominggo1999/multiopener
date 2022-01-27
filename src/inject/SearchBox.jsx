@@ -6,17 +6,13 @@ import SearchBar from './SearchBar';
 import Groups from './links/Groups';
 import Single from './links/Single';
 
-const sendMessage = async (message) => {
-  await chrome.runtime?.sendMessage(message);
-};
-
 const browserTabs = chrome.tabs;
 
-const closeSearchBox = () => {
-  browserTabs?.query({}, (tabs) => {
-    const id = tabs.filter((i) => i.active)[0].id;
-    browserTabs.sendMessage(id, { message: 'close frame' });
-  });
+const closeSearchBox = async () => {
+  const queryOptions = { active: true, currentWindow: true };
+  const [tab] = await browserTabs.query(queryOptions);
+
+  browserTabs.sendMessage(tab.id, { message: 'close frame' });
 };
 
 const SearchBox = () => {
@@ -27,7 +23,9 @@ const SearchBox = () => {
       const key = e.key;
 
       if((key === ',' && e.ctrlKey) || key === 'Escape') {
-        closeSearchBox();
+        if (chrome.runtime?.id) {
+          closeSearchBox();
+        }
       }
     };
 

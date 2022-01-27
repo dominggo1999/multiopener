@@ -16,3 +16,34 @@ const setValueInStore = async (values, callback = () => {}) => {
 
   callback();
 };
+
+const browserTabs = chrome.tabs;
+
+const sendMessage = async (message) => {
+  await browserTabs?.query({}, (tabs) => {
+    tabs?.forEach((tab) => {
+      browserTabs.sendMessage(tab.id, message);
+    });
+  });
+};
+
+chrome.runtime.onInstalled.addListener(async () => {
+  sendMessage('reload');
+
+  const contentScripts = chrome.runtime.getManifest().content_scripts;
+
+  for (let i = 0; i < contentScripts.length; i += 1) {
+    const contScript = contentScripts[i];
+    chrome.tabs.query({ url: contScript.matches }, (foundTabs) => {
+      for (let j = 0; j < foundTabs.length; j += 1) {
+        const javaScripts = contScript.js;
+        chrome.scripting.executeScript(
+          {
+            target: { tabId: foundTabs[j].id },
+            files: javaScripts,
+          },
+        );
+      }
+    });
+  }
+});

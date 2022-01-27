@@ -13,71 +13,42 @@ const getValueInStore = (key) => {
   });
 };
 
-// const modules = [
-//   {
-//     element: 'script',
-//     src: '/dist/assets/inject.js',
-//   },
-//   {
-//     element: 'link',
-//     src: '/dist/assets/vendor.js',
-//   },
-//   {
-//     element: 'link',
-//     src: '/dist/assets/GlobalStyles.js',
-//   },
-// ];
+const deleteFrame = () => {
+  const app = document.querySelector('iframe.injected');
+  app?.remove();
+};
 
-// const injectModules = (list) => {
-//   list.forEach((m) => {
-//     const element = document.createElement(m.element);
+const createFrame = () => {
+  const iframe = document.createElement('iframe');
+  // Must be declared at web_accessible_resources in manifest.json
+  iframe.src = chrome.runtime.getURL('/dist/inject/index.html');
+  iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;';
+  iframe.ALLOWTRANSPARENCY = 'true';
+  iframe.style.display = 'none';
+  iframe.frameborder = '0';
 
-//     if(m.element === 'script') {
-//       element.type = 'module';
-//       element.crossorigin = true;
-//       element.src = chrome.runtime.getURL(m.src);
-//     }
+  iframe.classList.add('injected');
+  // Some styles for a fancy sidebar
 
-//     if(m.element === 'link') {
-//       element.rel = 'modulepreload';
-//       element.href = chrome.runtime.getURL(m.src);
-//     }
+  document.body.appendChild(iframe);
+};
 
-//     document.querySelector('head').appendChild(element);
-//   });
-// };
-
-// document.onreadystatechange = () => {
-//   if (document.readyState === 'interactive') {
-//     const app = document.createElement('div');
-//     app.id = 'root-inject';
-//     app.style.display = 'none';
-
-//     document.body.appendChild(app);
-
-//     injectModules(modules);
-//   }
-// };
-
-document.onreadystatechange = () => {
-  if (document.readyState === 'interactive') {
-    // Avoid recursive frame insertion...
-    const extensionOrigin = `chrome-extension://${chrome.runtime.id}`;
-    // eslint-disable-next-line no-restricted-globals
-    if (!location.ancestorOrigins.contains(extensionOrigin)) {
-      const iframe = document.createElement('iframe');
-      // Must be declared at web_accessible_resources in manifest.json
-      iframe.src = chrome.runtime.getURL('/dist/inject/index.html');
-      iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;';
-      iframe.ALLOWTRANSPARENCY = 'true';
-      iframe.style.display = 'none';
-      iframe.frameborder = '0';
-
-      iframe.classList.add('injected');
-      // Some styles for a fancy sidebar
-
-      document.body.appendChild(iframe);
+const initContentScript = () => {
+  document.onreadystatechange = () => {
+    if (document.readyState === 'interactive') {
+      // Avoid recursive frame insertion...
+      const extensionOrigin = `chrome-extension://${chrome.runtime.id}`;
+      // eslint-disable-next-line no-restricted-globals
+      if (!location.ancestorOrigins.contains(extensionOrigin)) {
+        deleteFrame();
+        createFrame();
+      }
     }
+  };
+
+  if(document.readyState === 'complete') {
+    deleteFrame();
+    createFrame();
   }
 };
 
@@ -90,3 +61,19 @@ chrome.runtime.onMessage.addListener((request) => {
     iframe.blur();
   }
 });
+
+// Clean up content script
+const contentScriptDestructionEvent = `destructContentScripts_${chrome.runtime.id}`;
+
+function destructor() {
+  // Destruction is needed only once
+  document.removeEventListener(contentScriptDestructionEvent, destructor);
+  // Tear down content script: Unbind events, clear timers, restore DOM, etc.
+  deleteFrame();
+}
+
+// Unload previous content script if needed
+document.dispatchEvent(new CustomEvent(contentScriptDestructionEvent));
+document.addEventListener(contentScriptDestructionEvent, destructor);
+
+initContentScript();
