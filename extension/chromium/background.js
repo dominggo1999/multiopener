@@ -28,8 +28,6 @@ const sendMessage = async (message) => {
 };
 
 const startExtension = async () => {
-  sendMessage('reload');
-
   const contentScripts = chrome.runtime.getManifest().content_scripts;
 
   for (let i = 0; i < contentScripts.length; i += 1) {
@@ -50,6 +48,3 @@ const startExtension = async () => {
 
 chrome.runtime.onInstalled.addListener(startExtension);
 chrome.management.onEnabled.addListener(startExtension);
-
-chrome.runtime.onConnect.addListener((port) => {
-});

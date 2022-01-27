@@ -10,6 +10,7 @@ const browserTabs = chrome.tabs;
 
 const closeSearchBox = async () => {
   const queryOptions = { active: true, currentWindow: true };
+
   const [tab] = await browserTabs.query(queryOptions);
 
   browserTabs.sendMessage(tab.id, { message: 'close frame' });
@@ -25,6 +26,8 @@ const SearchBox = () => {
       if((key === ',' && e.ctrlKey) || key === 'Escape') {
         if (chrome.runtime?.id) {
           closeSearchBox();
+        }else{
+          window.parent.postMessage('Second Page', '*');
         }
       }
     };
@@ -36,10 +39,18 @@ const SearchBox = () => {
     };
   }, []);
 
+  const handleOverlayClick = () => {
+    if (chrome.runtime?.id) {
+      closeSearchBox();
+    }else{
+      window.parent.postMessage('Second Page', '*');
+    }
+  };
+
   return (
     <>
       <Overlay
-        onClick={closeSearchBox}
+        onClick={handleOverlayClick}
         role="button"
       />
       <SearchArea>

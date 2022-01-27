@@ -2,7 +2,7 @@ const keyBindings = (e) => {
   const app = document.querySelector('iframe.injected');
   const key = e.key;
 
-  if(key === ',' && e.ctrlKey) {
+  if(key === ',' && e.ctrlKey && chrome.runtime?.id) {
     if(app.style.display === 'block') {
       app.style.display = 'none';
     }else if (app.style.display === 'none') {
@@ -49,7 +49,8 @@ document.addEventListener(destructionEvent, destructor);
 
 initKeyBinding();
 
-// ON DISABLED
-chrome.runtime.connect().onDisconnect.addListener(() => {
-  window.removeEventListener('keydown', keyBindings);
+window.addEventListener('message', (e) => {
+  if(!chrome.runtime.id) {
+    window.removeEventListener('keydown', keyBindings);
+  }
 });

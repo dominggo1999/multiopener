@@ -1,5 +1,15 @@
 import tw, { styled } from 'twin.macro';
 
+export const InjectedElement = styled.div`
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  min-height:100vh;
+  z-index:99998;
+  border:0;
+`;
+
 export const Overlay = styled.div`
   ${tw`
     z-[99998] 

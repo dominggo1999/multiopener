@@ -77,9 +77,11 @@ document.addEventListener(contentScriptDestructionEvent, destructor);
 
 initContentScript();
 
-console.log('Injected');
-
-// ON DISABLED
-chrome.runtime.connect().onDisconnect.addListener(() => {
-  deleteFrame();
+// ON Disable
+window.addEventListener('message', (e) => {
+  if(!chrome.runtime.id) {
+    const iframe = document.querySelector('iframe.injected');
+    iframe.style.display = 'none';
+    iframe.blur();
+  }
 });
