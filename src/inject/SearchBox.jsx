@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  WebsiteList, SearchArea, TypeTitle, Overlay,
+  WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper,
 } from './SearchBox.style';
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
@@ -74,20 +74,22 @@ const SearchBox = () => {
         onClick={handleOverlayClick}
         role="button"
       />
-      <SearchArea>
-        <SearchBar
-          setQuery={setQuery}
-          query={query}
-        />
-        <TypeTitle>Groups</TypeTitle>
-        <WebsiteList>
-          <Groups query={query} />
-        </WebsiteList>
-        <TypeTitle>Single</TypeTitle>
-        <WebsiteList>
-          <Single query={query} />
-        </WebsiteList>
-      </SearchArea>
+      <SearchAreaWrapper>
+        <SearchArea>
+          <SearchBar
+            setQuery={setQuery}
+            query={query}
+          />
+          <TypeTitle>Groups</TypeTitle>
+          <WebsiteList>
+            <Groups query={query} />
+          </WebsiteList>
+          <TypeTitle>Single</TypeTitle>
+          <WebsiteList>
+            <Single query={query} />
+          </WebsiteList>
+        </SearchArea>
+      </SearchAreaWrapper>
     </>
   );
 };

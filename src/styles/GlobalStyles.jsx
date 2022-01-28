@@ -4,7 +4,20 @@ import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro';
 
 const CustomStyles = createGlobalStyle`
   body {
-    ${tw`antialiased`}
+    ${tw`
+      antialiased 
+      relative
+      w-full 
+      min-h-screen
+    `}
+    font-size:100%;
+  }
+
+  #root-inject{
+    ${tw`
+      w-full 
+      min-h-screen 
+    `}
   }
 `;
 
