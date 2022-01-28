@@ -6,7 +6,7 @@ export const InjectedElement = styled.div`
   left:0;
   width:100%;
   min-height:100vh;
-  z-index:99998;
+  z-index:2147483647;
   border:0;
 `;
 
