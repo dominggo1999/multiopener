@@ -30,6 +30,9 @@ const Groups = ({ query }) => {
               <Link
                 href="#"
                 title={i.title}
+                style={{
+                  pointerEvents: query ? 'auto' : 'none',
+                }}
               />
             </li>
           );
