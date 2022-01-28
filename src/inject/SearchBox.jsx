@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper,
 } from './SearchBox.style';
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
 import Single from './links/Single';
+import { groups, links as singleLinks }from './temp-data';
 
 const browserTabs = chrome.tabs;
 
@@ -16,8 +17,14 @@ const closeSearchBox = async () => {
   browserTabs.sendMessage(tab.id, { message: 'close frame' });
 };
 
+const groupKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+const singleKeys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
+
 const SearchBox = () => {
   const [query, setQuery] = useState('');
+  const [keyMode, setKeyMode] = useState(true);
+  const groupRef = useRef();
+  const singleRef = useRef();
 
   useEffect(() => {
     const keyBindings = (e) => {
@@ -51,12 +58,33 @@ const SearchBox = () => {
       }
     };
 
+    const keyNavigation = (e) => {
+      if(document.activeElement !== firstFocusable) {
+        const key = e.key;
+
+        if(groupKeys.includes(key)) {
+          const index = groupKeys.indexOf(key);
+          const target = groupRef.current.querySelectorAll('button')[index];
+
+          target?.focus();
+        }
+
+        if(singleKeys.includes(key)) {
+          const index = singleKeys.indexOf(key);
+          const target = singleRef.current.querySelectorAll('a')[index];
+          target?.focus();
+        }
+      }
+    };
+
     window.addEventListener('keydown', keyBindings);
     window.addEventListener('keydown', tabNavigation);
+    window.addEventListener('keydown', keyNavigation);
 
     return () => {
       window.removeEventListener('keydown', keyBindings);
       window.removeEventListener('keydown', tabNavigation);
+      window.removeEventListener('keydown', keyNavigation);
     };
   }, []);
 
@@ -77,16 +105,31 @@ const SearchBox = () => {
       <SearchAreaWrapper>
         <SearchArea>
           <SearchBar
+            setKeyMode={setKeyMode}
             setQuery={setQuery}
             query={query}
           />
           <TypeTitle>Groups</TypeTitle>
-          <WebsiteList>
-            <Groups query={query} />
+          <WebsiteList
+            ref={groupRef}
+          >
+            <Groups
+              links={groups}
+              query={query}
+              groupKeys={groupKeys}
+              keyMode={keyMode}
+            />
           </WebsiteList>
           <TypeTitle>Single</TypeTitle>
-          <WebsiteList>
-            <Single query={query} />
+          <WebsiteList
+            ref={singleRef}
+          >
+            <Single
+              links={singleLinks}
+              query={query}
+              singleKeys={singleKeys}
+              keyMode={keyMode}
+            />
           </WebsiteList>
         </SearchArea>
       </SearchAreaWrapper>

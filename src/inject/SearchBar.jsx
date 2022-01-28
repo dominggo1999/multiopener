@@ -1,18 +1,30 @@
 import React, { useEffect, useRef } from 'react';
 import { SearchBarContainer } from './SearchBar.style';
 
-const SearchBar = ({ query, setQuery }) => {
+const SearchBar = ({ query, setQuery, setKeyMode }) => {
   const inputRef = useRef();
+  const activateKeyMode = () => setKeyMode(true);
+  const deactiveKeyMode = () => setKeyMode(false);
 
   useEffect(() => {
-    const focusOnIframe = () => {
+    const searchBarFocus = () => {
       inputRef.current.focus();
     };
 
-    window.addEventListener('focus', focusOnIframe);
+    const keyBindingFocusOnIframe = (e) => {
+      const key = e.key;
+
+      if(key === '.' && e.ctrlKey) {
+        searchBarFocus();
+      }
+    };
+
+    window.addEventListener('focus', searchBarFocus);
+    window.addEventListener('keydown', keyBindingFocusOnIframe);
 
     return () => {
-      window.removeEventListener('focus', focusOnIframe);
+      window.removeEventListener('focus', searchBarFocus);
+      window.removeEventListener('keydown', keyBindingFocusOnIframe);
     };
   }, []);
 
@@ -22,6 +34,8 @@ const SearchBar = ({ query, setQuery }) => {
         ref={inputRef}
         type="text"
         value={query}
+        onFocus={deactiveKeyMode}
+        onBlur={activateKeyMode}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search something"
       />

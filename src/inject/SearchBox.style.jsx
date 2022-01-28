@@ -15,7 +15,7 @@ export const SearchAreaWrapper = styled.div`
   ${tw`
     min-w-[90%] 
     absolute  
-    md:min-w-[600px]
+    md:min-w-[700px]
     top-0  
     left-0
   `}
@@ -28,8 +28,8 @@ export const SearchArea = styled.div`
       my-20
       bg-[#FFFFFF]
       rounded-lg
-      py-2 
-      px-3
+      py-5 
+      px-10
   `}
 
 
@@ -43,7 +43,7 @@ export const WebsiteList = styled.ul`
     flex-wrap 
     grid
     gap-x-5
-    gap-y-2 
+    gap-y-3 
     md:grid-cols-3 
     mb-5
   `}
