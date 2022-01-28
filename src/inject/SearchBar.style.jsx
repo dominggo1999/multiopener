@@ -8,7 +8,8 @@ export const SearchBarContainer = styled.form`
       px-4
       text-xl 
       font-semibold
-      outline-none
+      outline-none 
+      bg-[#F8F8F8]
     `}
     border-radius : 5px;
   }

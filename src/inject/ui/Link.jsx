@@ -4,19 +4,24 @@ import tw, { styled } from 'twin.macro';
 export const StyledLink = styled.a`
   ${tw`
     inline-block
-    bg-red-500 
     w-full 
-    py-2
-    px-1 
-    cursor-pointer
+    p-1 
+    cursor-pointer 
+    text-[#11494d] 
+    hover:text-[#EA4C89]
+    font-semibold  
+    capitalize
+    flex 
+    items-center
   `}
 `;
 
-const Link = ({ title, ...rest }) => {
+const Link = ({ title, children, ...rest }) => {
   return (
     <StyledLink
       {...rest}
     >
+      {children}
       {title}
     </StyledLink>
   );

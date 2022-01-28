@@ -24,14 +24,21 @@ export const Overlay = styled.div`
 
 export const SearchArea = styled.div`
   ${tw`
-      min-w-[600px]
+      min-w-[90%]
+      md:min-w-[600px]
       mt-24   
       mx-auto
       z-[99999] 
       fixed 
-      top-0 
+      top-0  
+      bg-[#FFFFFF]
+      rounded-lg
+      py-2 
+      px-3
   `}
 
+
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
   left : 50%;
   transform : translateX(-50%);  
 `;
@@ -41,20 +48,19 @@ export const WebsiteList = styled.ul`
     w-full 
     flex  
     flex-wrap 
-    justify-between 
-    gap-y-5
+    grid
+    gap-x-5
+    gap-y-2 
+    md:grid-cols-3 
+    mb-5
   `}
-
-  li{
-    width : calc((100% - 2rem) / 3);
-  }
 `;
 
 export const TypeTitle = styled.h3`
   ${tw`
     text-2xl
     mt-3 
-    text-white
+    text-black
     mb-2
   `}
 `;
