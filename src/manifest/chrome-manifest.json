@@ -12,7 +12,14 @@
     {
       "matches" :  ["*://*/*"],
       "js": [
-        "content-scripts.js",
+        "content-scripts.js"
+      ],
+      "all_frames": false,
+      "run_at": "document_start"
+    },
+    {
+      "matches" :  ["*://*/*"],
+      "js": [
         "key-bindings.js"
       ],
       "all_frames": true,
@@ -36,7 +43,8 @@
     "activeTab",
     "unlimitedStorage",
     "scripting",
-    "management"
+    "management",
+    "webNavigation"
   ],
   "web_accessible_resources": [
     {

@@ -43,7 +43,7 @@ const SearchBox = () => {
     if (chrome.runtime?.id) {
       closeSearchBox();
     }else{
-      window.parent.postMessage('Second Page', '*');
+      window.parent.postMessage('close iframe', '*');
     }
   };
 

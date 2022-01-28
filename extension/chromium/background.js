@@ -35,9 +35,15 @@ const startExtension = async () => {
     chrome.tabs.query({ url: contScript.matches }, (foundTabs) => {
       for (let j = 0; j < foundTabs.length; j += 1) {
         const javaScripts = contScript.js;
+
+        const allFrames = javaScripts[0] === 'key-bindings.js';
+
         chrome.scripting.executeScript(
           {
-            target: { tabId: foundTabs[j].id },
+            target: {
+              tabId: foundTabs[j].id,
+              allFrames,
+            },
             files: javaScripts,
           },
         );
