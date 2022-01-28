@@ -54,3 +54,50 @@ const startExtension = async () => {
 
 chrome.runtime.onInstalled.addListener(startExtension);
 chrome.management.onEnabled.addListener(startExtension);
+
+const openURLS = async (links) => {
+  const domainAndSubdomain = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
+
+  const tabs = await browserTabs?.query({});
+
+  const validTabs = [];
+  tabs.forEach((i) => {
+    const match = domainAndSubdomain.exec(i.url);
+
+    match && validTabs.push({
+      url: match[1],
+      id: i.id,
+    });
+  });
+
+  links.forEach((l) => {
+    const targetDomain = domainAndSubdomain.exec(l)[1];
+
+    // Find id of target url in existing tabs
+
+    const targetTab = validTabs.filter((i) => {
+      return i.url === targetDomain;
+    })[0];
+
+    if(targetTab) {
+      chrome.tabs.update(targetTab.id, {
+        url: l,
+      });
+    }else{
+      chrome.tabs.create(
+        {
+          url: l,
+          active: false,
+        },
+      );
+    }
+  });
+};
+
+chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
+  const { message, links } = req;
+
+  if(message === 'open group') {
+    openURLS(links);
+  }
+});

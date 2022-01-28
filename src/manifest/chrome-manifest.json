@@ -43,8 +43,7 @@
     "activeTab",
     "unlimitedStorage",
     "scripting",
-    "management",
-    "webNavigation"
+    "management"
   ],
   "web_accessible_resources": [
     {

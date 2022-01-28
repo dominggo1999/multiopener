@@ -11,9 +11,10 @@ const Groups = ({ query }) => {
       return createURL(query, i.link);
     });
 
-    linksWithQuery.forEach(((url) => {
-      window.open(url, '_blank', 'noopener=yes');
-    }));
+    chrome.runtime.sendMessage({
+      message: 'open group',
+      links: linksWithQuery,
+    });
   };
 
   return (
