@@ -31,11 +31,32 @@ const SearchBox = () => {
         }
       }
     };
+    const focusable = document.querySelectorAll('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const firstFocusable = focusable[0];
+    const lastFocusable = focusable[focusable.length - 1];
+
+    const tabNavigation = (e) => {
+      if (e.key.toLowerCase() === 'tab') {
+        const target = e.target;
+
+        if(e.shiftKey) {
+          if(target === firstFocusable) {
+            e.preventDefault();
+            lastFocusable.focus();
+          }
+        }else if(target === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
+    };
 
     window.addEventListener('keydown', keyBindings);
+    window.addEventListener('keydown', tabNavigation);
 
     return () => {
       window.removeEventListener('keydown', keyBindings);
+      window.removeEventListener('keydown', tabNavigation);
     };
   }, []);
 

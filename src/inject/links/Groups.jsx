@@ -28,6 +28,7 @@ const Groups = ({ query }) => {
               onClick={() => query && visitMultipleLinks(i.id)}
             >
               <Link
+                href="#"
                 title={i.title}
               />
             </li>
