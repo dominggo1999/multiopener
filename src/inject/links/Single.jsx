@@ -1,3 +1,4 @@
+/* eslint-disable no-script-url */
 import React from 'react';
 import { links }from '../temp-data';
 import Link from '../ui/Link';
@@ -17,9 +18,8 @@ const Single = ({ query }) => {
               key={i.link}
             >
               <Link
-                disable="true"
-                target="_blank"
-                href={url}
+                target={query ? '_blank' : '_self'}
+                href={query ? url : '#'}
                 title={i.title}
                 style={{
                   pointerEvents: query ? 'auto' : 'none',
