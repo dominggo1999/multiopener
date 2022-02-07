@@ -1,5 +1,7 @@
 /* eslint-disable import/extensions */
 
+import initSettings from './settings.js';
+
 const extensionStorage = chrome.storage.local || browser.storage.local;
 const runtime = chrome ? chrome.runtime : browser.runtime;
 
@@ -101,3 +103,5 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
     openURLS(links);
   }
 });
+
+try { initSettings(); } catch (e) { console.error(e); }

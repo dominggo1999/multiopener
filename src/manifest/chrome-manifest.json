@@ -34,6 +34,7 @@
     "default_icon": "./icons/icon-512.png",
     "default_popup": "./dist/popup/index.html"
   },
+  "options_page": "./dist/options/index.html",
   "host_permissions": [
     "*://*/*"
   ],
@@ -51,7 +52,8 @@
         "/dist/assets/inject.js",
         "/dist/inject/index.html",
         "/dist/assets/vendor.js",
-        "/dist/assets/GlobalStyles.js"
+        "/dist/assets/GlobalStyles.js",
+        "settings.js"
       ],
       "matches": [
         "<all_urls>"

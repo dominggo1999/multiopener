@@ -1,8 +1,8 @@
 (() => {
   const keyBindings = (e) => {
-    const app = document.querySelector('iframe.injected');
     const key = e.key;
 
+    // Toggle Frame
     if(key === ',' && e.ctrlKey && chrome.runtime?.id) {
       window.parent.postMessage('update frame', '*');
     }
@@ -29,6 +29,7 @@
     }
   };
 
+  // On disable then remove event listener
   const messageHandler = (e) => {
     if(!chrome.runtime.id) {
       window.removeEventListener('keydown', keyBindings);

@@ -43,6 +43,7 @@ export default defineConfig(() => {
         input: {
           popup: r('src/popup/index.html'),
           inject: r('src/inject/index.html'),
+          options: r('src/options/index.html'),
         },
         output: {
           entryFileNames: 'assets/[name].js',

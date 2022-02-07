@@ -27,7 +27,6 @@
     iframe.frameborder = '0';
 
     iframe.classList.add('injected');
-    // Some styles for a fancy sidebar
 
     iframe.style.display = 'none';
 
@@ -69,6 +68,7 @@
       iframe.style.display = 'none';
     }
 
+    // Toggle Frame
     if(e.data === 'update frame') {
       const app = document.querySelector('iframe.injected');
       if(app.style.display === 'block') {
