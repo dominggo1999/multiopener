@@ -3,6 +3,8 @@ import tw, { styled } from 'twin.macro';
 export const SidebarWrapper = styled.div`
   ${tw`
     w-64 
+    flex 
+    flex-col
     h-screen 
     overflow-hidden
     bg-background 
@@ -12,7 +14,7 @@ export const SidebarWrapper = styled.div`
     left-0
     -translate-x-64
     xl:translate-x-0
-    xl:static
+    xl:sticky
   `}
 
   transition-timing-function: cubic-bezier(.4,0,.2,1);
@@ -39,13 +41,14 @@ export const SidebarHeader = styled.div`
     flex 
     justify-between 
     items-center
-    py-2
-    px-3
+    py-4
+    px-8
   `}
 
   svg{
     ${tw`
-      text-2xl
+      text-white
+      text-2xl 
     `}
   }
 `;

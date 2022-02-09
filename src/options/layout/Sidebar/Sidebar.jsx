@@ -30,7 +30,7 @@ const Sidebar = () => {
     const links = gsap.utils.selector(navigationRef);
 
     if(show || !render) {
-      const animation = gsap.fromTo(links('li'),
+      gsap.fromTo(links('li'),
         {
           x: -150,
           opacity: 0.3,
@@ -52,12 +52,11 @@ const Sidebar = () => {
         handleClose={close}
       />
       <SidebarWrapper open={show}>
-        <SidebarScrollArea>
-          <SidebarHeader>
-            <SidebarBrand>
-              Iamlazy
-            </SidebarBrand>
-            {
+        <SidebarHeader>
+          <SidebarBrand>
+            Iamlazy
+          </SidebarBrand>
+          {
               !isXLarge
               && (
                 <button onClick={close}>
@@ -65,7 +64,8 @@ const Sidebar = () => {
                 </button>
               )
             }
-          </SidebarHeader>
+        </SidebarHeader>
+        <SidebarScrollArea>
           <NavMenu ref={navigationRef}>
             <NavItem>
               <NavLink to="/dist/options/index.html">
