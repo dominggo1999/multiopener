@@ -15,34 +15,64 @@ export const Group = styled.div`
     border
     border-accent 
     shadow 
-    bg-gray
+    bg-gray 
+    flex
+    flex-col 
+    justify-center
   `}
+
+  .sortable-ghost.sortable-chosen div{
+    ${tw`
+      bg-accent
+    `}
+
+    button:nth-child(2){
+      ${tw`
+        hidden
+      `}
+    }
+  }
 `;
 
 export const GroupHeader = styled.div`
   ${tw`
+    flex
+    justify-between
     text-xl 
-    mb-2 
-    px-4 
-    text-white
+    mb-3 
+    px-2
+    font-bold
+    text-accent 
   `}
+
+  ${({ empty }) => empty && tw`mb-0`}
 `;
 
-export const SingleLinkInGroup = styled.div`
+export const GroupHeaderLeft = styled.div`
   ${tw`
-    flex  
-    items-center 
-    justify-between
-    w-full 
-    rounded-lg 
-    bg-white
-    py-3
-    px-4 
-    shadow 
-    text-lg 
-    font-semibold
-    mb-2
-    border
-    border-accent
+    flex 
+    items-center
+    gap-x-3
   `}
+
+  svg{
+    ${tw`
+      mt-1 
+    `}
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+  }
+`;
+
+export const GroupHeaderRight = styled.div`
+  ${tw`
+    flex 
+    gap-x-3
+  `}
+
+  svg{
+    ${tw`
+      hover:text-white
+    `}
+  }
 `;

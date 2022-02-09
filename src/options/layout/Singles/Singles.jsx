@@ -6,6 +6,7 @@ import { AddButton } from '../../atom/Button';
 import { Form } from '../../atom/InputField';
 import SingleLink from '../../atom/SingleLink';
 import { ListContext } from '../../context/List.context';
+import { SinglesWrapper } from './Singles.style';
 
 const Singles = () => {
   const {
@@ -27,7 +28,7 @@ const Singles = () => {
   };
 
   return (
-    <div>
+    <SinglesWrapper>
       <ColHeader>Single Links</ColHeader>
       <AddButton><AiOutlinePlus /> Add New Link</AddButton>
       <Form>
@@ -48,7 +49,7 @@ const Singles = () => {
           </div>
         ))}
       </ReactSortable>
-    </div>
+    </SinglesWrapper>
   );
 };
 
