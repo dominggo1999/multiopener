@@ -8,6 +8,7 @@ import {
 }from './Sidebar.style';
 import { SidebarContext } from '../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
+import Backdrop from '../../atom/Backdrop';
 
 const Sidebar = () => {
   const { show, close } = useContext(SidebarContext);
@@ -19,13 +20,18 @@ const Sidebar = () => {
   }, [isXLarge]);
 
   return (
-    <SidebarWrapper open={show}>
-      <SidebarScrollArea>
-        <SidebarHeader>
-          <SidebarBrand>
-            Iamlazy
-          </SidebarBrand>
-          {
+    <>
+      <Backdrop
+        open={show}
+        handleClose={close}
+      />
+      <SidebarWrapper open={show}>
+        <SidebarScrollArea>
+          <SidebarHeader>
+            <SidebarBrand>
+              Iamlazy
+            </SidebarBrand>
+            {
             !isXLarge
             && (
               <button onClick={close}>
@@ -33,32 +39,33 @@ const Sidebar = () => {
               </button>
             )
           }
-        </SidebarHeader>
-        <NavMenu>
-          <NavItem>
-            <NavLink to="/dist/options/index.html">
-              <IoIosLink />
-              Links
-            </NavLink>
-          </NavItem>
+          </SidebarHeader>
+          <NavMenu>
+            <NavItem>
+              <NavLink to="/dist/options/index.html">
+                <IoIosLink />
+                Links
+              </NavLink>
+            </NavItem>
 
-          <NavItem>
-            <NavLink to="/dist/options/settings">
-              <FiSettings />
-              Settings
-            </NavLink>
-          </NavItem>
+            <NavItem>
+              <NavLink to="/dist/options/settings">
+                <FiSettings />
+                Settings
+              </NavLink>
+            </NavItem>
 
-          <NavItem>
-            <NavLink to="/dist/options/appearance">
-              <IoIosColorPalette />
-              Appearance
-            </NavLink>
-          </NavItem>
+            <NavItem>
+              <NavLink to="/dist/options/appearance">
+                <IoIosColorPalette />
+                Appearance
+              </NavLink>
+            </NavItem>
 
-        </NavMenu>
-      </SidebarScrollArea>
-    </SidebarWrapper>
+          </NavMenu>
+        </SidebarScrollArea>
+      </SidebarWrapper>
+    </>
   );
 };
 

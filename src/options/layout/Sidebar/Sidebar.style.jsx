@@ -7,6 +7,7 @@ export const SidebarWrapper = styled.div`
     overflow-hidden
     bg-background 
     absolute 
+    z-50
     top-0 
     left-0
     -translate-x-64
