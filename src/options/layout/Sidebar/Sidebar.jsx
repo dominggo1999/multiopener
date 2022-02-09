@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoIosLink, IoIosColorPalette } from 'react-icons/io';
+import { MdClose } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
 import {
-  SidebarWrapper, SidebarScrollArea, NavMenu, NavItem,
+  SidebarWrapper, SidebarScrollArea, SidebarHeader, NavMenu, NavItem, SidebarBrand,
 }from './Sidebar.style';
 import { SidebarContext } from '../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
@@ -20,6 +21,19 @@ const Sidebar = () => {
   return (
     <SidebarWrapper open={show}>
       <SidebarScrollArea>
+        <SidebarHeader>
+          <SidebarBrand>
+            Iamlazy
+          </SidebarBrand>
+          {
+            !isXLarge
+            && (
+              <button onClick={close}>
+                <MdClose />
+              </button>
+            )
+          }
+        </SidebarHeader>
         <NavMenu>
           <NavItem>
             <NavLink to="/dist/options/index.html">
@@ -29,14 +43,14 @@ const Sidebar = () => {
           </NavItem>
 
           <NavItem>
-            <NavLink to="/dist/options/index.html">
+            <NavLink to="/dist/options/settings">
               <FiSettings />
               Settings
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink to="/dist/options/index.html">
+            <NavLink to="/dist/options/appearance">
               <IoIosColorPalette />
               Appearance
             </NavLink>

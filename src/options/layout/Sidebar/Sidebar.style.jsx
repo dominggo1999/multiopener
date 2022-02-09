@@ -33,9 +33,34 @@ export const SidebarScrollArea = styled.div`
   `}
 `;
 
+export const SidebarHeader = styled.div`
+  ${tw`
+    flex 
+    justify-between 
+    items-center
+    py-2
+    px-3
+  `}
+
+  svg{
+    ${tw`
+      text-2xl
+    `}
+  }
+`;
+
+export const SidebarBrand = styled.div`
+  ${tw`
+    text-accent 
+    text-2xl 
+    font-bold
+  `}
+`;
+
 export const NavMenu = styled.ul`
   ${tw`
-    
+    flex
+    flex-col
   `}
 `;
 
