@@ -5,7 +5,14 @@ module.exports = {
       backgroundColor: {
         background: '#0F172A',
         white: '#ffffff',
-        gray: '#94A3B8',
+        gray: '#2C3344',
+        shade: '#1E293B',
+        accent: '#2DD4BF',
+      },
+      textColor: {
+        background: '#0F172A',
+        white: '#ffffff',
+        gray: '#2C3344',
         shade: '#1E293B',
         accent: '#2DD4BF',
       },

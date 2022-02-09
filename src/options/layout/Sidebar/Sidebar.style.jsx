@@ -32,3 +32,40 @@ export const SidebarScrollArea = styled.div`
     text-white
   `}
 `;
+
+export const NavMenu = styled.ul`
+  ${tw`
+    
+  `}
+`;
+
+export const NavItem = styled.li`
+  ${tw`
+    my-2 
+    text-white 
+  `}
+
+  a {
+    ${tw`
+      flex  
+      gap-x-3
+      items-center 
+      text-lg 
+      p-3
+      rounded-lg
+    `}
+  }
+
+  a:hover, a.active{
+    ${tw`
+      text-accent 
+      bg-gray
+    `}
+  }
+
+  svg{
+    ${tw`
+      text-2xl
+    `}
+  }
+`;
