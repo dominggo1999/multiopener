@@ -11,7 +11,7 @@ const StyledLink = styled.a`
     text-[#11494d] 
     hover:text-[#EA4C89]
     hover:bg-[#f0f0f0]
-    font-semibold  
+    font-medium  
     capitalize
     flex 
     items-center
@@ -28,7 +28,7 @@ export const StyledGroupLink = styled.button`
     text-[#11494d] 
     hover:text-[#EA4C89]
     hover:bg-[#f0f0f0]
-    font-semibold  
+    font-medium  
     capitalize
     flex 
     items-center

@@ -53,7 +53,8 @@ export const TypeTitle = styled.h3`
   ${tw`
     text-2xl
     mt-3 
-    text-black
-    mb-2
+    mb-2 
+    font-semibold 
+    text-[#11494d] 
   `}
 `;

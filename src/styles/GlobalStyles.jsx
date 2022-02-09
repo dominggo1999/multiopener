@@ -8,7 +8,6 @@ const CustomStyles = createGlobalStyle`
       antialiased 
       relative
       w-full 
-      min-h-screen
     `}
     font-size:100%;
   }
