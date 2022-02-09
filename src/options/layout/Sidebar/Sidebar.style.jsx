@@ -61,7 +61,8 @@ export const SidebarBrand = styled.div`
 export const NavMenu = styled.ul`
   ${tw`
     flex
-    flex-col
+    flex-col 
+    overflow-x-hidden
   `}
 `;
 
