@@ -6,4 +6,9 @@ export const SinglesWrapper = styled.div`
       bg-accent
     `}
   }
+
+  .sortable-drag{
+    opacity : 0.5 !important;
+    transform : rotate(-5deg);
+  }
 `;

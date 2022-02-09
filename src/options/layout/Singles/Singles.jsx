@@ -25,6 +25,7 @@ const Singles = () => {
     animation: 200,
     list: links,
     setList: handleSortableUpdateLinks,
+    forceFallback: true,
   };
 
   return (

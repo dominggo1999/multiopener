@@ -1,9 +1,6 @@
 import tw, { styled } from 'twin.macro';
 
 export const GroupsWrapper = styled.div`
-  ${tw`
-    
-  `}
 `;
 
 export const Group = styled.div`
@@ -31,6 +28,11 @@ export const Group = styled.div`
         hidden
       `}
     }
+  }
+
+  .sortable-drag{
+    opacity : 0.5 !important;
+    transform : rotate(-5deg);
   }
 `;
 
