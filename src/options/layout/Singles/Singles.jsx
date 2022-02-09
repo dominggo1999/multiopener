@@ -32,13 +32,6 @@ const Singles = () => {
     <SinglesWrapper>
       <ColHeader>Single Links</ColHeader>
       <AddButton><AiOutlinePlus /> Add New Link</AddButton>
-      <Form>
-        <input
-          placeholder="Search link"
-          type="text"
-        />
-      </Form>
-
       <ReactSortable {...linksSortableOptions}>
         {links.length > 0 && links.map((item) => (
           <div key={item.id}>

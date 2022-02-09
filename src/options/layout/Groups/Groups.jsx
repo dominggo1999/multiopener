@@ -67,12 +67,6 @@ const Groups = () => {
     <GroupsWrapper>
       <ColHeader>Group Links</ColHeader>
       <AddButton><AiOutlinePlus /> Add New Group</AddButton>
-      <Form>
-        <input
-          placeholder="Search group"
-          type="text"
-        />
-      </Form>
       <ReactSortable {...groupsSortableOptions}>
         {
           rendered && groups?.length > 0 && groups.map((group) => {
