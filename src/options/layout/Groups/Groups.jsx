@@ -127,7 +127,8 @@ const Groups = () => {
                             <div key={j.id}>
                               <SingleLinkInGroup
                                 removeLink={() => removeLinkFromGroup(group.id, j.id)}
-                                title={j.link}
+                                title={j.title}
+                                link={j.link}
                               />
                             </div>
                           );

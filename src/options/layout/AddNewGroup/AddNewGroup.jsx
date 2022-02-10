@@ -4,11 +4,13 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
 import {
   FormWrapper, FieldWrapper, Label, StyledErrorMessage,
 } from '../../atom/Form';
 import { AddButton } from '../../atom/Button';
 import { ListContext } from '../../context/List.context';
+import Link from '../../atom/RouterLink';
 
 const initialValue = {
   name: '',
@@ -36,36 +38,44 @@ const AddNewGroup = () => {
   }, []);
 
   return (
-    <FormWrapper>
-      <Formik
-        initialValues={initialValue}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <FieldWrapper>
-            <Label>Name</Label>
-            <Field
-              name="name"
-              type="text"
-              required
-              autoComplete="off"
-              innerRef={inputRef}
-            />
-            <ErrorMessage
-              name="name"
-              render={(msg) => (
-                <StyledErrorMessage>
-                  *{msg}
-                </StyledErrorMessage>
-              )}
-            />
-          </FieldWrapper>
+    <>
+      <Link to="/">
+        <AddButton>
+          <BiArrowBack />
+          Back
+        </AddButton>
+      </Link>
+      <FormWrapper>
+        <Formik
+          initialValues={initialValue}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <FieldWrapper>
+              <Label>Name</Label>
+              <Field
+                name="name"
+                type="text"
+                required
+                autoComplete="off"
+                innerRef={inputRef}
+              />
+              <ErrorMessage
+                name="name"
+                render={(msg) => (
+                  <StyledErrorMessage>
+                    *{msg}
+                  </StyledErrorMessage>
+                )}
+              />
+            </FieldWrapper>
 
-          <AddButton type="submit">Add Link</AddButton>
-        </Form>
-      </Formik>
-    </FormWrapper>
+            <AddButton type="submit">Add Link</AddButton>
+          </Form>
+        </Formik>
+      </FormWrapper>
+    </>
   );
 };
 

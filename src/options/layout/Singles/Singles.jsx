@@ -63,7 +63,8 @@ const Singles = () => {
           <div key={item.id}>
             <SingleLink
               deleteLink={deleteLink}
-              title={item.link}
+              link={item.link}
+              title={item.title}
               id={item.id}
             />
           </div>
