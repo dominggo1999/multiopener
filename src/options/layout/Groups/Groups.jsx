@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { AiOutlinePlus, AiOutlineEdit } from 'react-icons/ai';
 import { ReactSortable } from 'react-sortablejs';
 import { FaArrowsAlt } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { gsap } from 'gsap';
 import {
   GroupsWrapper, Group, GroupHeader as StyledHeader,
   GroupHeaderLeft, GroupHeaderRight,
@@ -47,6 +48,7 @@ const Groups = () => {
     deleteGroup,
     removeLinkFromGroup,
   } = useContext(ListContext);
+  const groupSortableRef = useRef();
 
   const groupsSortableOptions = {
     group: {
@@ -63,8 +65,27 @@ const Groups = () => {
     forceFallback: true,
   };
 
+  useEffect(() => {
+    if(rendered && groups.length) {
+      const links = gsap.utils.selector(groupSortableRef.current);
+
+      gsap.fromTo(links('.groups-only > div'),
+        {
+          y: 150,
+          opacity: 0.3,
+        }, {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.04,
+        });
+    }
+  }, [rendered]);
+
   return (
-    <GroupsWrapper>
+    <GroupsWrapper
+      ref={groupSortableRef}
+    >
       <ColHeader>Group Links</ColHeader>
       <AddButton><AiOutlinePlus /> Add New Group</AddButton>
       <ReactSortable {...groupsSortableOptions}>

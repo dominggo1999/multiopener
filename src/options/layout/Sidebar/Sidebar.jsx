@@ -68,21 +68,24 @@ const Sidebar = () => {
         <SidebarScrollArea>
           <NavMenu ref={navigationRef}>
             <NavItem>
-              <NavLink to="/dist/options/index.html">
+              <NavLink
+                exact
+                to="/"
+              >
                 <IoIosLink />
                 Links
               </NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink to="/dist/options/settings">
+              <NavLink to="/settings">
                 <FiSettings />
                 Settings
               </NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink to="/dist/options/appearance">
+              <NavLink to="/appearance">
                 <IoIosColorPalette />
                 Appearance
               </NavLink>
