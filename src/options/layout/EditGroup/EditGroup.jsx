@@ -1,9 +1,11 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, {
+  useContext, useRef, useEffect, useState,
+} from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import {
   FormWrapper, FieldWrapper, Label, StyledErrorMessage,
@@ -23,18 +25,33 @@ const validationSchema = Yup.object({
     .required('Required'),
 });
 
-const AddNewGroup = () => {
-  const { addGroup } = useContext(ListContext);
+const EditGroup = () => {
+  const { groupId } = useParams();
+  const { updateGroup } = useContext(ListContext);
   const history = useHistory();
   const inputRef = useRef();
+  const [details, setDetails] = useState({
+    name: '',
+  });
 
   const handleSubmit = (val) => {
-    addGroup(val);
+    updateGroup(groupId, val);
     history.push('/');
   };
 
   useEffect(() => {
     inputRef.current.focus();
+
+    const groups = JSON.parse(localStorage.getItem('groups'));
+
+    const target = groups.filter((i) => i.id === groupId)[0];
+
+    setDetails((prevDetails) => {
+      return {
+        ...prevDetails,
+        name: target.name,
+      };
+    });
   }, []);
 
   return (
@@ -47,7 +64,8 @@ const AddNewGroup = () => {
       </Link>
       <FormWrapper>
         <Formik
-          initialValues={initialValue}
+          enableReinitialize
+          initialValues={details}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -79,4 +97,4 @@ const AddNewGroup = () => {
   );
 };
 
-export default AddNewGroup;
+export default EditGroup;

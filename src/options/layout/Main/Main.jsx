@@ -7,6 +7,8 @@ import Links from '../Links/Links';
 import Options from '../../Template';
 import AddNewLink from '../AddNewLink/AddNewLink';
 import AddNewGroup from '../AddNewGroup/AddNewGroup';
+import EditLink from '../EditLink/EditLink';
+import EditGroup from '../EditGroup/EditGroup';
 
 const Main = () => {
   return (
@@ -43,6 +45,18 @@ const Main = () => {
             path="/add-new-group"
           >
             <AddNewGroup />
+          </Route>
+          <Route
+            exact
+            path="/edit-link/:linkId"
+          >
+            <EditLink />
+          </Route>
+          <Route
+            exact
+            path="/edit-group/:groupId"
+          >
+            <EditGroup />
           </Route>
         </Switch>
         {/* <Options /> */}

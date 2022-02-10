@@ -2,7 +2,7 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiOutlineEdit } from 'react-icons/ai';
-import useLists from '../../hooks/useLists';
+import Link from './RouterLink';
 
 export const StyledSingleLink = styled.div`
   ${tw`
@@ -54,7 +54,9 @@ const SingleLink = ({ title, id, deleteLink }) => {
           <RiDeleteBin6Line />
         </button>
         <button>
-          <AiOutlineEdit />
+          <Link to={`/edit-link/${id}`}>
+            <AiOutlineEdit />
+          </Link>
         </button>
       </Actions>
     </StyledSingleLink>

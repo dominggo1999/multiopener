@@ -85,6 +85,29 @@ const useLists = () => {
     setLinks(tempLinks);
 
     localStorage.setItem('links', JSON.stringify(tempLinks));
+
+    // update link in group too
+
+    const tempGroups = [...groups];
+
+    for (let i = 0; i < tempGroups.length; i += 1) {
+      const group = tempGroups[i];
+
+      // Find link in group children
+      const target = group.children.filter((link) => {
+        return link.id === id;
+      })[0];
+
+      const targetIndex = group.children.indexOf(target);
+
+      // If link exists in group, delete
+      if(targetIndex > -1) {
+        group.children[targetIndex] = updatedLink;
+      }
+    }
+
+    setGroups(tempGroups);
+    localStorage.setItem('groups', JSON.stringify(tempGroups));
   };
 
   // Delete link only from a certain group

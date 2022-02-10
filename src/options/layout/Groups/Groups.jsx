@@ -14,7 +14,9 @@ import { ListContext } from '../../context/List.context';
 import SingleLinkInGroup from '../../atom/SingleLinkInGroup';
 import Link from '../../atom/RouterLink';
 
-const GroupHeader = ({ title, empty, deleteGroup }) => {
+const GroupHeader = ({
+  id, title, empty, deleteGroup,
+}) => {
   return (
     <StyledHeader empty={empty}>
       <GroupHeaderLeft>
@@ -32,7 +34,9 @@ const GroupHeader = ({ title, empty, deleteGroup }) => {
           <RiDeleteBin6Line />
         </button>
         <button>
-          <AiOutlineEdit />
+          <Link to={`/edit-group/${id}`}>
+            <AiOutlineEdit />
+          </Link>
         </button>
       </GroupHeaderRight>
     </StyledHeader>
@@ -100,6 +104,7 @@ const Groups = () => {
                     empty={group.children.length === 0}
                     title={group.name}
                     deleteGroup={() => deleteGroup(group.id)}
+                    id={group.id}
                   />
                   <ReactSortable
                     animation={200}
