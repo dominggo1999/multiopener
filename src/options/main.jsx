@@ -8,6 +8,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router
       baseName="/dist/options"
+      hashType="noslash"
     >
       <GlobalStyles />
       <Options />

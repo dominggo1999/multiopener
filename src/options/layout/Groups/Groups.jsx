@@ -13,6 +13,7 @@ import { AddButton } from '../../atom/Button';
 import { Form } from '../../atom/InputField';
 import { ListContext } from '../../context/List.context';
 import SingleLinkInGroup from '../../atom/SingleLinkInGroup';
+import Link from '../../atom/RouterLink';
 
 const GroupHeader = ({ title, empty, deleteGroup }) => {
   return (
@@ -87,7 +88,9 @@ const Groups = () => {
       ref={groupSortableRef}
     >
       <ColHeader>Group Links</ColHeader>
-      <AddButton><AiOutlinePlus /> Add New Group</AddButton>
+      <Link to="/add-new-group">
+        <AddButton><AiOutlinePlus /> Add New Group</AddButton>
+      </Link>
       <ReactSortable {...groupsSortableOptions}>
         {
           rendered && groups?.length > 0 && groups.map((group) => {

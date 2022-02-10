@@ -7,6 +7,7 @@ import { AddButton } from '../../atom/Button';
 import SingleLink from '../../atom/SingleLink';
 import { ListContext } from '../../context/List.context';
 import { SinglesWrapper } from './Singles.style';
+import Link from '../../atom/RouterLink';
 
 const Singles = () => {
   const {
@@ -52,7 +53,9 @@ const Singles = () => {
       ref={linksSortableRef}
     >
       <ColHeader>Single Links</ColHeader>
-      <AddButton><AiOutlinePlus /> Add New Link</AddButton>
+      <Link to="add-new-link">
+        <AddButton><AiOutlinePlus /> Add New Link</AddButton>
+      </Link>
       <ReactSortable
         {...linksSortableOptions}
       >
