@@ -23,7 +23,7 @@ export const Group = styled.div`
       bg-accent
     `}
 
-    button:nth-child(2){
+    button:not(:nth-child(1)){
       ${tw`
         hidden
       `}

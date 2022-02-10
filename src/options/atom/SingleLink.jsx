@@ -2,7 +2,9 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiOutlineEdit } from 'react-icons/ai';
+import { FiExternalLink } from 'react-icons/fi';
 import Link from './RouterLink';
+import { createTestURL } from '../../util';
 
 export const StyledSingleLink = styled.div`
   ${tw`
@@ -43,7 +45,11 @@ export const Actions = styled.div`
   }
 `;
 
-const SingleLink = ({ title, id, deleteLink }) => {
+const SingleLink = ({
+  title, id, deleteLink, link,
+}) => {
+  const url = createTestURL(link);
+
   return (
     <StyledSingleLink>
       <span>
@@ -57,6 +63,15 @@ const SingleLink = ({ title, id, deleteLink }) => {
           <Link to={`/edit-link/${id}`}>
             <AiOutlineEdit />
           </Link>
+        </button>
+        <button>
+          <a
+            target="_blank"
+            href={url}
+            rel="noreferrer"
+          >
+            <FiExternalLink />
+          </a>
         </button>
       </Actions>
     </StyledSingleLink>

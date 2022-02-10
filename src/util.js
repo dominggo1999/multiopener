@@ -30,6 +30,10 @@ export const createURL = (query, baseURL) => {
   return baseURL.replace('iamlazy', query);
 };
 
+export const createTestURL = (baseURL) => {
+  return createURL('test', baseURL);
+};
+
 export const getLinksInGroup = (groupID) => {
   return links.filter((i) => i.group === groupID);
 };
