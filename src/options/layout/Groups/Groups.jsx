@@ -10,7 +10,6 @@ import {
 } from './Groups.style';
 import { ColHeader } from '../../atom/ColHeader';
 import { AddButton } from '../../atom/Button';
-import { Form } from '../../atom/InputField';
 import { ListContext } from '../../context/List.context';
 import SingleLinkInGroup from '../../atom/SingleLinkInGroup';
 import Link from '../../atom/RouterLink';
@@ -99,7 +98,7 @@ const Groups = () => {
                 <Group>
                   <GroupHeader
                     empty={group.children.length === 0}
-                    title={group.title}
+                    title={group.name}
                     deleteGroup={() => deleteGroup(group.id)}
                   />
                   <ReactSortable

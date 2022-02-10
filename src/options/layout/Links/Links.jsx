@@ -7,16 +7,14 @@ import ListProvider from '../../context/List.context';
 
 const Links = () => {
   return (
-    <ListProvider>
-      <LinksContainer>
-        <Col>
-          <Singles />
-        </Col>
-        <Col>
-          <Groups />
-        </Col>
-      </LinksContainer>
-    </ListProvider>
+    <LinksContainer>
+      <Col>
+        <Singles />
+      </Col>
+      <Col>
+        <Groups />
+      </Col>
+    </LinksContainer>
   );
 };
 
