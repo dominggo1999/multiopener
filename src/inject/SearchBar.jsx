@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { SearchBarContainer } from './SearchBar.style';
 
-const SearchBar = ({ query, setQuery, setKeyMode }) => {
+const SearchBar = ({
+  query, setQuery, setKeyMode, rendered,
+}) => {
   const inputRef = useRef();
   const activateKeyMode = () => setKeyMode(true);
   const deactiveKeyMode = () => setKeyMode(false);
@@ -18,6 +20,8 @@ const SearchBar = ({ query, setQuery, setKeyMode }) => {
         searchBarFocus();
       }
     };
+
+    searchBarFocus();
 
     window.addEventListener('focus', searchBarFocus);
     window.addEventListener('keydown', keyBindingFocusOnIframe);

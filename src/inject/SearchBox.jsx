@@ -5,7 +5,6 @@ import {
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
 import Single from './links/Single';
-import { groups, links as singleLinks }from './temp-data';
 
 const browserTabs = chrome.tabs;
 
@@ -20,11 +19,23 @@ const closeSearchBox = async () => {
 const groupKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 const singleKeys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
 
+const getFocusable = () => {
+  const focusable = document.querySelectorAll('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  const firstFocusable = focusable[0];
+  const lastFocusable = focusable[focusable.length - 1];
+
+  return { focusable, firstFocusable, lastFocusable };
+};
+
 const SearchBox = () => {
   const [query, setQuery] = useState('');
   const [keyMode, setKeyMode] = useState(true);
   const groupRef = useRef();
   const singleRef = useRef();
+  const [links, setLinks] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [rendered, setRendered] = useState(false);
+  const force = useRef(false);
 
   useEffect(() => {
     const keyBindings = (e) => {
@@ -34,15 +45,14 @@ const SearchBox = () => {
         if (chrome.runtime?.id) {
           closeSearchBox();
         }else{
-          window.parent.postMessage('Second Page', '*');
+          window.parent.postMessage('close iframe', '*');
         }
       }
     };
-    const focusable = document.querySelectorAll('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    const firstFocusable = focusable[0];
-    const lastFocusable = focusable[focusable.length - 1];
 
     const tabNavigation = (e) => {
+      const { firstFocusable, lastFocusable } = getFocusable();
+
       if (e.key.toLowerCase() === 'tab') {
         const target = e.target;
 
@@ -59,6 +69,8 @@ const SearchBox = () => {
     };
 
     const keyNavigation = (e) => {
+      const { firstFocusable } = getFocusable();
+
       if(document.activeElement !== firstFocusable) {
         const key = e.key;
 
@@ -77,16 +89,29 @@ const SearchBox = () => {
       }
     };
 
-    window.addEventListener('keydown', keyBindings);
-    window.addEventListener('keydown', tabNavigation);
-    window.addEventListener('keydown', keyNavigation);
+    const updateData = () => {
+      const links = JSON.parse(localStorage.getItem('links'));
+      const groups = JSON.parse(localStorage.getItem('groups'));
 
-    return () => {
-      window.removeEventListener('keydown', keyBindings);
-      window.removeEventListener('keydown', tabNavigation);
-      window.removeEventListener('keydown', keyNavigation);
+      setLinks(links);
+      setGroups(groups);
+      force.current = !force.current;
     };
-  }, []);
+
+    if(rendered) {
+      window.addEventListener('keydown', keyBindings);
+      window.addEventListener('keydown', tabNavigation);
+      window.addEventListener('keydown', keyNavigation);
+      window.addEventListener('focus', updateData);
+
+      return () => {
+        window.removeEventListener('keydown', keyBindings);
+        window.removeEventListener('keydown', tabNavigation);
+        window.removeEventListener('keydown', keyNavigation);
+        window.removeEventListener('focus', updateData);
+      };
+    }
+  }, [rendered, force.current]);
 
   const handleOverlayClick = () => {
     if (chrome.runtime?.id) {
@@ -95,6 +120,15 @@ const SearchBox = () => {
       window.parent.postMessage('close iframe', '*');
     }
   };
+
+  useEffect(() => {
+    const links = JSON.parse(localStorage.getItem('links'));
+    const groups = JSON.parse(localStorage.getItem('groups'));
+
+    setGroups(groups);
+    setLinks(links);
+    setRendered(true);
+  }, []);
 
   return (
     <>
@@ -108,29 +142,33 @@ const SearchBox = () => {
             setKeyMode={setKeyMode}
             setQuery={setQuery}
             query={query}
+            rendered={rendered}
           />
+
           <TypeTitle>Groups</TypeTitle>
           <WebsiteList
             ref={groupRef}
           >
             <Groups
-              links={groups}
+              groups={groups}
               query={query}
               groupKeys={groupKeys}
               keyMode={keyMode}
             />
           </WebsiteList>
+
           <TypeTitle>Single</TypeTitle>
           <WebsiteList
             ref={singleRef}
           >
             <Single
-              links={singleLinks}
+              links={links}
               query={query}
               singleKeys={singleKeys}
               keyMode={keyMode}
             />
           </WebsiteList>
+
         </SearchArea>
       </SearchAreaWrapper>
     </>

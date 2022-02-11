@@ -7,15 +7,18 @@ import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
 const Groups = ({
-  query, links, groupKeys, keyMode,
+  query, groups, groupKeys, keyMode,
 }) => {
   const visitMultipleLinks = (id) => {
-    const links = getLinksInGroup(id);
+    const target = groups.filter((group) => group.id === id)[0];
+
+    const links = target.children;
+
     const linksWithQuery = links.map((i) => {
       return createURL(query, i.link);
     });
 
-    chrome.runtime.sendMessage({
+    chrome.runtime?.sendMessage({
       message: 'open group',
       links: linksWithQuery,
     });
@@ -24,7 +27,7 @@ const Groups = ({
   return (
     <>
       {
-        links && links.map((i, id) => {
+        groups && groups.map((i, id) => {
           const key = groupKeys[id];
           return (
             <li
@@ -32,7 +35,7 @@ const Groups = ({
             >
               <GroupLink
                 onClick={() => query && visitMultipleLinks(i.id)}
-                title={i.title}
+                title={i.name}
                 style={{
                   pointerEvents: query ? 'auto' : 'none',
                 }}
