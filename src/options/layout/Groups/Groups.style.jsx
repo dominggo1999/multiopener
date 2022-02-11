@@ -55,7 +55,16 @@ export const GroupHeaderLeft = styled.div`
     flex 
     items-center
     gap-x-3
+    w-1/2
+    md:w-full
   `}
+
+  span:nth-child(2){
+    ${tw`
+      block 
+      truncate
+    `}
+  }
 
   svg{
     ${tw`

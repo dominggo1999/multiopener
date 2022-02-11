@@ -42,12 +42,18 @@ export const Info = styled.div`
     flex
     items-center
     gap-3
+    w-4/5 
+    lg:w-4/5
   `}
 
-   span{
+  span{
     ${tw`
-      select-none
-    `}
+        select-none
+        max-w-[400px]
+        block
+        truncate
+      `}
+    }
   }
 `;
 

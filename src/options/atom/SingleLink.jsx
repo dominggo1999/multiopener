@@ -31,19 +31,25 @@ export const Info = styled.div`
     flex
     items-center
     gap-3
+    w-1/2 
+    lg:w-4/5
   `}
 
    span{
     ${tw`
       select-none
+      max-w-[400px]
+      block
+      truncate
     `}
   }
 `;
 
 export const Actions = styled.div`
   ${tw`
-    flex 
-    gap-x-4 
+    flex
+    gap-x-2 
+    md:gap-x-4 
   `}
 
   svg{

@@ -7,6 +7,7 @@ const IconWrapper = styled.div`
   ${tw`
     h-full 
     select-none
+    min-w-[20px]
   `}
 `;
 
