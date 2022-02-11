@@ -6,6 +6,7 @@ import { BiWorld } from 'react-icons/bi';
 const IconWrapper = styled.div`
   ${tw`
     h-full 
+    select-none
   `}
 `;
 
