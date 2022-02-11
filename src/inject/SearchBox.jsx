@@ -5,6 +5,7 @@ import {
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
 import Single from './links/Single';
+import { storageGet } from '../util';
 
 const browserTabs = chrome.tabs;
 
@@ -36,6 +37,14 @@ const SearchBox = () => {
   const [groups, setGroups] = useState([]);
   const [rendered, setRendered] = useState(false);
   const force = useRef(false);
+
+  const getData = async () => {
+    const links = await storageGet('links');
+    const groups = await storageGet('groups');
+
+    setLinks(links);
+    setGroups(groups);
+  };
 
   useEffect(() => {
     const keyBindings = (e) => {
@@ -90,11 +99,7 @@ const SearchBox = () => {
     };
 
     const updateData = () => {
-      const links = JSON.parse(localStorage.getItem('links'));
-      const groups = JSON.parse(localStorage.getItem('groups'));
-
-      setLinks(links);
-      setGroups(groups);
+      getData();
       force.current = !force.current;
     };
 
@@ -122,11 +127,7 @@ const SearchBox = () => {
   };
 
   useEffect(() => {
-    const links = JSON.parse(localStorage.getItem('links'));
-    const groups = JSON.parse(localStorage.getItem('groups'));
-
-    setGroups(groups);
-    setLinks(links);
+    getData();
     setRendered(true);
   }, []);
 

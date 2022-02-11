@@ -40,6 +40,37 @@ export const getDomainAndSubDomain = (link) => {
   return domainValidator.exec(link)[1];
 };
 
-export const getLinksInGroup = (groupID) => {
-  return links.filter((i) => i.group === groupID);
+export const storageGet = async (key) => {
+  if(chrome?.storage?.local) {
+    const getValueInStore = (key) => {
+      return new Promise((resolve, reject) => {
+        chrome.storage.local.get([key], (result) => {
+          resolve(result);
+        });
+      });
+    };
+
+    const result = await getValueInStore(key);
+
+    return result[key];
+  }
+
+  const result = JSON.parse(localStorage.getItem(key));
+
+  return result;
+};
+
+export const storageSet = async (key, value) => {
+  if(chrome?.storage?.local) {
+    const setValueInStore = async (values, callback = () => {}) => {
+      await chrome.storage.local.set(values);
+      callback();
+    };
+
+    setValueInStore({
+      [key]: value,
+    });
+  }else{
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 };

@@ -13,6 +13,7 @@ import {
 import { AddButton } from '../../atom/Button';
 import { ListContext } from '../../context/List.context';
 import Link from '../../atom/RouterLink';
+import { storageGet } from '../../../util';
 
 const queryText = /iamlazy/ig;
 
@@ -69,17 +70,21 @@ const EditLink = () => {
   useEffect(() => {
     inputRef.current.focus();
 
-    const links = JSON.parse(localStorage.getItem('links'));
+    const getLinkInfo = async () => {
+      const links = await storageGet('links');
 
-    const target = links.filter((i) => i.id === linkId)[0];
+      const target = links.filter((i) => i.id === linkId)[0];
 
-    setDetails((prevDetails) => {
-      return {
-        ...prevDetails,
-        title: target.title,
-        link: target.link,
-      };
-    });
+      setDetails((prevDetails) => {
+        return {
+          ...prevDetails,
+          title: target.title,
+          link: target.link,
+        };
+      });
+    };
+
+    getLinkInfo();
   }, []);
 
   return (

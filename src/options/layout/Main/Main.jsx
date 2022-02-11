@@ -9,6 +9,7 @@ import AddNewLink from '../AddNewLink/AddNewLink';
 import AddNewGroup from '../AddNewGroup/AddNewGroup';
 import EditLink from '../EditLink/EditLink';
 import EditGroup from '../EditGroup/EditGroup';
+import { storageGet } from '../../../util';
 
 const Main = () => {
   return (

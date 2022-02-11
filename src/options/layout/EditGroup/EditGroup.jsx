@@ -13,6 +13,7 @@ import {
 import { AddButton } from '../../atom/Button';
 import { ListContext } from '../../context/List.context';
 import Link from '../../atom/RouterLink';
+import { storageGet } from '../../../util';
 
 const initialValue = {
   name: '',
@@ -42,16 +43,20 @@ const EditGroup = () => {
   useEffect(() => {
     inputRef.current.focus();
 
-    const groups = JSON.parse(localStorage.getItem('groups'));
+    const getGroupInfo = async () => {
+      const groups = await storageGet('groups');
 
-    const target = groups.filter((i) => i.id === groupId)[0];
+      const target = groups.filter((i) => i.id === groupId)[0];
 
-    setDetails((prevDetails) => {
-      return {
-        ...prevDetails,
-        name: target.name,
-      };
-    });
+      setDetails((prevDetails) => {
+        return {
+          ...prevDetails,
+          name: target.name,
+        };
+      });
+    };
+
+    getGroupInfo();
   }, []);
 
   return (

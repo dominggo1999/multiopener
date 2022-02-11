@@ -9,10 +9,12 @@ import Key from '../ui/Key';
 const Single = ({
   query, links, singleKeys, keyMode,
 }) => {
+  console.log(links);
+
   return (
     <>
       {
-        links && links.map((i, id) => {
+        links && links.length > 0 && links.map((i, id) => {
           const url = createURL(query, i.link);
           const domainAndSubdomain = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
           const domain = domainAndSubdomain.exec(i.link)[1];

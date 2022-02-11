@@ -2,7 +2,7 @@
 import React from 'react';
 import 'twin.macro';
 import { GroupLink } from '../ui/Link';
-import { getLinksInGroup, createURL } from '../../util';
+import { createURL } from '../../util';
 import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
@@ -27,7 +27,7 @@ const Groups = ({
   return (
     <>
       {
-        groups && groups.map((i, id) => {
+        groups && groups.length > 0 && groups.map((i, id) => {
           const key = groupKeys[id];
           return (
             <li

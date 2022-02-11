@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import short from 'short-uuid';
+import { storageGet, storageSet } from '../util';
 
 const useLists = () => {
   const [links, setLinks] = useState([]);
@@ -21,10 +22,10 @@ const useLists = () => {
       ];
     });
 
-    localStorage.setItem('links', JSON.stringify([
+    storageSet('links', [
       ...links,
       newLink,
-    ]));
+    ]);
   };
 
   const deleteLink = (id) => {
@@ -34,7 +35,7 @@ const useLists = () => {
       return link.id !== id;
     });
 
-    localStorage.setItem('links', JSON.stringify(newLinks));
+    storageSet('links', newLinks);
     setLinks(newLinks);
 
     // Delete deleted link from groups
@@ -58,7 +59,7 @@ const useLists = () => {
     }
 
     setGroups(tempGroups);
-    localStorage.setItem('groups', JSON.stringify(tempGroups));
+    storageSet('groups', tempGroups);
   };
 
   const updateLink = (id, newValues) => {
@@ -84,7 +85,7 @@ const useLists = () => {
 
     setLinks(tempLinks);
 
-    localStorage.setItem('links', JSON.stringify(tempLinks));
+    storageSet('links', tempLinks);
 
     // update link in group too
 
@@ -107,7 +108,7 @@ const useLists = () => {
     }
 
     setGroups(tempGroups);
-    localStorage.setItem('groups', JSON.stringify(tempGroups));
+    storageSet('groups', tempGroups);
   };
 
   // Delete link only from a certain group
@@ -130,7 +131,7 @@ const useLists = () => {
 
     setGroups(tempGroups);
 
-    localStorage.setItem('groups', JSON.stringify(tempGroups));
+    storageSet('groups', tempGroups);
   };
 
   // Group only modifier
@@ -149,10 +150,10 @@ const useLists = () => {
       ];
     });
 
-    localStorage.setItem('groups', JSON.stringify([
+    storageSet('groups', [
       ...groups,
       newGroup,
-    ]));
+    ]);
   };
 
   const deleteGroup = (id) => {
@@ -163,7 +164,7 @@ const useLists = () => {
       return group.id !== id;
     });
 
-    localStorage.setItem('groups', JSON.stringify(newGroups));
+    storageSet('groups', newGroups);
 
     setGroups(newGroups);
   };
@@ -191,13 +192,13 @@ const useLists = () => {
 
     setGroups(tempGroups);
 
-    localStorage.setItem('groups', JSON.stringify(tempGroups));
+    storageSet('groups', tempGroups);
   };
 
   // React sortable modifying links
   const handleSortableUpdateLinks = (newLinks) => {
     if(rendered) {
-      localStorage.setItem('links', JSON.stringify(newLinks));
+      storageSet('links', newLinks);
       setLinks(newLinks);
     }
   };
@@ -205,7 +206,7 @@ const useLists = () => {
   // React sortable modifying groups
   const handleSortableUpdateGroups = (newGroups) => {
     if(rendered) {
-      localStorage.setItem('groups', JSON.stringify(newGroups));
+      storageSet('groups', newGroups);
       setGroups(newGroups);
     }
   };
@@ -226,7 +227,7 @@ const useLists = () => {
 
       setGroups(tempGroups);
 
-      localStorage.setItem('groups', JSON.stringify(tempGroups));
+      storageSet('groups', tempGroups);
     }
   };
 
@@ -235,12 +236,16 @@ const useLists = () => {
     //   setLinks(results);
     // });
 
-    const links = JSON.parse(localStorage.getItem('links'));
-    const groups = JSON.parse(localStorage.getItem('groups'));
+    const getData = async () => {
+      const links = await storageGet('links');
+      const groups = await storageGet('groups');
 
-    setLinks(links);
-    setGroups(groups);
-    setRendered(true);
+      setLinks(links);
+      setGroups(groups);
+      setRendered(true);
+    };
+
+    getData();
   }, []);
 
   return {
