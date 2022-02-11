@@ -4,7 +4,8 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { FiExternalLink } from 'react-icons/fi';
 import Link from './RouterLink';
-import { createTestURL } from '../../util';
+import { createTestURL, getDomainAndSubDomain } from '../../util';
+import LinkFavicon from './LinkFavicon';
 
 export const StyledSingleLink = styled.div`
   ${tw`
@@ -23,8 +24,16 @@ export const StyledSingleLink = styled.div`
     border
     border-accent
   `}
+`;
 
-  span{
+export const Info = styled.div`
+  ${tw`
+    flex
+    items-center
+    gap-3
+  `}
+
+   span{
     ${tw`
       select-none
     `}
@@ -49,12 +58,16 @@ const SingleLink = ({
   title, id, deleteLink, link,
 }) => {
   const url = createTestURL(link);
+  const domain = getDomainAndSubDomain(link);
 
   return (
     <StyledSingleLink>
-      <span>
-        {title}
-      </span>
+      <Info>
+        <LinkFavicon domain={domain} />
+        <span>
+          {title}
+        </span>
+      </Info>
       <Actions>
         <button onClick={() => deleteLink(id)}>
           <RiDeleteBin6Line />

@@ -34,6 +34,12 @@ export const createTestURL = (baseURL) => {
   return createURL('test', baseURL);
 };
 
+export const getDomainAndSubDomain = (link) => {
+  const domainValidator = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
+
+  return domainValidator.exec(link)[1];
+};
+
 export const getLinksInGroup = (groupID) => {
   return links.filter((i) => i.group === groupID);
 };

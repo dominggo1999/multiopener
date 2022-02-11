@@ -1,6 +1,8 @@
 import tw, { styled } from 'twin.macro';
 import React from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import LinkFavicon from './LinkFavicon';
+import { getDomainAndSubDomain } from '../../util';
 
 const StyledLink = styled.div`
   ${tw`
@@ -35,12 +37,31 @@ const Actions = styled.div`
   }
 `;
 
-const SingleLinkInGroup = ({ title, removeLink }) => {
+export const Info = styled.div`
+  ${tw`
+    flex
+    items-center
+    gap-3
+  `}
+
+   span{
+    ${tw`
+      select-none
+    `}
+  }
+`;
+
+const SingleLinkInGroup = ({ title, link, removeLink }) => {
+  const domain = getDomainAndSubDomain(link);
+
   return (
     <StyledLink>
-      <span>
-        {title}
-      </span>
+      <Info>
+        <LinkFavicon domain={domain} />
+        <span>
+          {title}
+        </span>
+      </Info>
       <Actions>
         <button onClick={removeLink}>
           <RiDeleteBin6Line />
