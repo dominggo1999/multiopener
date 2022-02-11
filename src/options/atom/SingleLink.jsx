@@ -18,7 +18,8 @@ export const StyledSingleLink = styled.div`
     py-3
     px-4 
     shadow 
-    text-lg 
+    text-base
+    md:text-lg 
     font-semibold
     mb-2
     border
@@ -54,7 +55,8 @@ export const Actions = styled.div`
 
   svg{
     ${tw`
-      text-xl
+      text-base
+      md:text-xl
       hover:text-accent
     `}
   }

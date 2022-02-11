@@ -18,6 +18,8 @@ export const AddButton = styled(Btn)`
     gap-2
     items-center
     mb-4
+    px-2
+    md:px-4
   `}
 
   svg{

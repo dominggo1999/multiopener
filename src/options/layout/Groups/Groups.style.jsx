@@ -40,7 +40,8 @@ export const GroupHeader = styled.div`
   ${tw`
     flex
     justify-between
-    text-xl 
+    text-lg
+    md:text-xl 
     mb-3 
     px-2
     font-bold
@@ -57,6 +58,8 @@ export const GroupHeaderLeft = styled.div`
     gap-x-3
     w-1/2
     md:w-full
+    text-lg
+    md:text-xl 
   `}
 
   span:nth-child(2){
@@ -68,7 +71,7 @@ export const GroupHeaderLeft = styled.div`
 
   svg{
     ${tw`
-      mt-1 
+      xl:mt-1 
     `}
     cursor: move; /* fallback if grab cursor is unsupported */
     cursor: grab;
