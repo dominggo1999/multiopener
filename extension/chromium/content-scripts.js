@@ -22,14 +22,13 @@
     const iframe = document.createElement('iframe');
     // Must be declared at web_accessible_resources in manifest.json
     iframe.src = chrome.runtime.getURL('/dist/inject/index.html');
-    iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;z-index:2147483647;';
-    iframe.ALLOWTRANSPARENCY = 'true';
     iframe.frameborder = '0';
 
-    iframe.classList.add('injected');
-
+    iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;z-index:2147483647;';
     iframe.style.display = 'none';
+    iframe.style.colorScheme = 'light';
 
+    iframe.classList.add('injected');
     document.body.appendChild(iframe);
   };
 
