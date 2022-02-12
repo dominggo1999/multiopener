@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { SearchBarContainer } from './SearchBar.style';
+import {
+  SearchBarContainer, EscapeKeyWrapper, EscapeKeyChar,
+} from './SearchBar.style';
 
 const SearchBar = ({
-  query, setQuery, setKeyMode, rendered,
+  query, setQuery, setKeyMode, handleClose,
 }) => {
   const inputRef = useRef();
   const activateKeyMode = () => setKeyMode(true);
@@ -43,6 +45,14 @@ const SearchBar = ({
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search something"
       />
+      <EscapeKeyWrapper tabIndex="-1">
+        <EscapeKeyChar
+          onClick={handleClose}
+          tabIndex="-1"
+        >
+          Esc
+        </EscapeKeyChar>
+      </EscapeKeyWrapper>
     </SearchBarContainer>
   );
 };

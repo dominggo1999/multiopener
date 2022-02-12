@@ -30,7 +30,6 @@ export const SearchArea = styled.div`
       rounded-lg
       py-5 
       px-6
-      md:px-10
   `}
 
 

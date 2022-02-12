@@ -118,7 +118,7 @@ const SearchBox = () => {
     }
   }, [rendered, force.current]);
 
-  const handleOverlayClick = () => {
+  const handleClose = () => {
     if (chrome.runtime?.id) {
       closeSearchBox();
     }else{
@@ -134,7 +134,7 @@ const SearchBox = () => {
   return (
     <>
       <Overlay
-        onClick={handleOverlayClick}
+        onClick={handleClose}
         role="button"
       />
       <SearchAreaWrapper>
@@ -144,6 +144,7 @@ const SearchBox = () => {
             setQuery={setQuery}
             query={query}
             rendered={rendered}
+            handleClose={handleClose}
           />
 
           <TypeTitle>Groups</TypeTitle>
