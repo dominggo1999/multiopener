@@ -7,7 +7,9 @@ const IconWrapper = styled.div`
   ${tw`
     mr-2 
     w-[20px] 
-    h-full 
+    h-[20px]
+    flex
+    items-center
   `}
 `;
 

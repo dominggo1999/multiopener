@@ -21,6 +21,12 @@ const StyledLink = styled.a`
     rounded-xl
   `}
 
+  span{
+    ${tw`
+      truncate
+    `}
+  }
+
   &:hover ${KeyChar} ,
   &:focus ${KeyChar} {
     ${tw`
@@ -38,7 +44,9 @@ const Link = ({ title, children, ...rest }) => {
       {...rest}
     >
       {children}
-      {title}
+      <span>
+        {title}
+      </span>
     </StyledLink>
   );
 };
