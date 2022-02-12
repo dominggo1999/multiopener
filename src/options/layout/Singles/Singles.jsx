@@ -15,7 +15,7 @@ const Singles = () => {
     links,
     deleteLink,
     handleSortableUpdateLinks,
-  } = useContext(ListContext);
+  } = useContext(ListContext) || {};
   const linksSortableRef = useRef();
 
   const linksSortableOptions = {
@@ -59,7 +59,7 @@ const Singles = () => {
       <ReactSortable
         {...linksSortableOptions}
       >
-        {links.length > 0 && links.map((item) => (
+        {links?.length > 0 && links.map((item) => (
           <div key={item.id}>
             <SingleLink
               deleteLink={deleteLink}

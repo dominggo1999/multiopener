@@ -9,8 +9,6 @@ import Key from '../ui/Key';
 const Single = ({
   query, links, singleKeys, keyMode,
 }) => {
-  console.log(links);
-
   return (
     <>
       {

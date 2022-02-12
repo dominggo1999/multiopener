@@ -26,8 +26,9 @@ import { links } from './inject/temp-data';
 //   });
 // };
 
+const queryText = /iamlazy/ig;
 export const createURL = (query, baseURL) => {
-  return baseURL.replace('iamlazy', query);
+  return baseURL.replace(queryText, query);
 };
 
 export const createTestURL = (baseURL) => {
