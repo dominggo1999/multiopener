@@ -29,6 +29,10 @@ const Groups = ({
       {
         groups && groups.length > 0 && groups.map((i, id) => {
           const key = groupKeys[id];
+
+          // Only render groups that have children
+          if(!i.children.length) return null;
+
           return (
             <li
               key={i.id}
