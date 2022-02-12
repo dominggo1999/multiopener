@@ -13,9 +13,9 @@ export const Overlay = styled.div`
 
 export const SearchAreaWrapper = styled.div`
   ${tw`
-    min-w-[90%] 
+    min-w-[90%]
     absolute  
-    md:min-w-[700px]
+    md:min-w-[750px]
     top-0  
     left-0
   `}
