@@ -29,7 +29,8 @@ export const SearchArea = styled.div`
       bg-[#FFFFFF]
       rounded-lg
       py-5 
-      px-10
+      px-6
+      md:px-10
   `}
 
 
