@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import React from 'react';
 import 'twin.macro';
-import { GroupLink } from '../ui/Link';
+import Link from '../ui/Link';
 import { createURL } from '../../util';
 import Icon from '../ui/Icon';
 import Key from '../ui/Key';
@@ -33,7 +33,8 @@ const Groups = ({
             <li
               key={i.id}
             >
-              <GroupLink
+              <Link
+                as="button"
                 onClick={() => query && visitMultipleLinks(i.id)}
                 title={i.name}
                 style={{
@@ -45,7 +46,7 @@ const Groups = ({
                   char={key !== 1 && key}
                 />
                 <Icon />
-              </GroupLink>
+              </Link>
             </li>
           );
         })

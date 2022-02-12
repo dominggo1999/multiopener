@@ -4,12 +4,13 @@ export const SearchBarContainer = styled.form`
   input {
     ${tw` 
       w-full
-      py-2
+      py-3
       px-4
       text-xl 
       font-semibold
       outline-none 
-      bg-[#F8F8F8]
+      bg-main-light
+      rounded-2xl
     `}
     border-radius : 5px;
   }

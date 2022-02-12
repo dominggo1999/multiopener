@@ -14,6 +14,6 @@ export const MainContainer = styled.div`
     w-full
     h-full
     p-4
-    bg-[#F1F5F9]
+    bg-main-light  
   `}
 `;
