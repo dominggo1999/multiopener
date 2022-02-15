@@ -95,7 +95,7 @@ export const LoadingIndicator = styled.div`
     display: inline-block;
     position: relative;
     border: 3px solid;
-    border-color: ${colors.accent} ${colors.accent} transparent;
+    border-color: var(--accent) var(--accent) transparent;
     box-sizing: border-box;
     animation: ${rotation} 1s linear infinite;
   }
@@ -110,7 +110,7 @@ export const LoadingIndicator = styled.div`
     bottom: 0;
     margin: auto;
     border: 3px solid;
-    border-color: transparent ${colors.background} ${colors.background};
+    border-color: transparent var(--primary) var(--primary);
     width: 24px;
     height: 24px;
     border-radius: 50%;

@@ -38,15 +38,6 @@ const CustomStyles = createGlobalStyle`
     --light-text : #ffffff;
   }
 
-  .orange {
-    --primary : #CD712F;
-    --secondary : #ee9037;
-    --main-background : #f9f6f1;
-    --accent : #20455f;
-    --accent-lighter : #225375;
-    --light-text : #ffffff;
-  }
-
   .dev {
     --primary : #1B2028;
     --secondary : #2C3344;
@@ -65,7 +56,7 @@ const CustomStyles = createGlobalStyle`
     --light-text : #e2e2dc;
   }
 
-  .8008 {
+  .purply {
     --primary : #333A45;
     --secondary : #292c31;
     --main-background : #fbffef;

@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect, useState, useRef, useContext,
+} from 'react';
 import {
   WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper, LoadingIndicator,
 } from './SearchBox.style';
@@ -6,6 +8,7 @@ import SearchBar from './SearchBar';
 import Groups from './links/Groups';
 import Single from './links/Single';
 import { storageGet } from '../util';
+import { ThemeContext } from '../theme/ThemeProvider';
 
 const browserTabs = chrome.tabs;
 
@@ -37,6 +40,7 @@ const SearchBox = () => {
   const [groups, setGroups] = useState([]);
   const [rendered, setRendered] = useState(false);
   const force = useRef(false);
+  const { theme } = useContext(ThemeContext);
 
   const getData = async () => {
     const links = await storageGet('links');
@@ -138,7 +142,7 @@ const SearchBox = () => {
         role="button"
       />
 
-      <SearchAreaWrapper>
+      <SearchAreaWrapper className={theme}>
         <SearchArea>
           <SearchBar
             setKeyMode={setKeyMode}
