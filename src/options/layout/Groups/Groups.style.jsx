@@ -84,6 +84,14 @@ export const GroupHeaderRight = styled.div`
     gap-x-3
   `}
 
+  a{
+    ${tw`
+      mb-0
+      flex
+      items-center
+    `}
+  }
+
   svg{
     ${tw`
       hover:text-white

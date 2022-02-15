@@ -32,6 +32,12 @@ export const StyledSingleLink = styled.div`
       items-center
     `}
   }
+
+  a{
+    ${tw`
+      mb-0
+    `}
+  }
 `;
 
 export const Info = styled.div`

@@ -17,7 +17,6 @@ export const AddButton = styled(Btn)`
     flex 
     gap-2
     items-center
-    mb-4
     px-2
     md:px-4
   `}

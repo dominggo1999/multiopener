@@ -25,7 +25,7 @@ const Link = (props) => {
 
   return (
     <RRLink
-      tw="inline-flex"
+      tw="inline-flex mb-4"
       onClick={scrollToTop}
       {...rest}
     >
