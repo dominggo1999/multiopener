@@ -25,6 +25,13 @@ export const StyledSingleLink = styled.div`
     border
     border-accent
   `}
+
+  button {
+    ${tw`
+      flex
+      items-center
+    `}
+  }
 `;
 
 export const Info = styled.div`

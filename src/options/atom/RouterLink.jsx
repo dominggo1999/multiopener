@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link as RRLink, NavLink as RRNavLink } from 'react-router-dom';
+import tw from 'twin.macro';
 
 const scrollToTop = () => {
   window.scrollTo(0, 0);
@@ -10,6 +11,7 @@ export const NavLink = (props) => {
 
   return (
     <RRNavLink
+      tw="inline-flex"
       onClick={scrollToTop}
       {...rest}
     >
@@ -23,6 +25,7 @@ const Link = (props) => {
 
   return (
     <RRLink
+      tw="inline-flex"
       onClick={scrollToTop}
       {...rest}
     >
