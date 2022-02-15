@@ -1,4 +1,6 @@
 import tw, { styled } from 'twin.macro';
+import { keyframes } from 'styled-components';
+import { colors } from '../constants/colors';
 
 export const Overlay = styled.div`
   ${tw`
@@ -57,4 +59,62 @@ export const TypeTitle = styled.h3`
     font-semibold 
     text-[#11494d] 
   `}
+`;
+
+const rotation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const rotationBack = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+`;
+
+export const LoadingIndicator = styled.div`
+  ${tw`
+    flex
+    w-full 
+    items-center
+    justify-center
+    py-24
+  `}
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    border: 3px solid;
+    border-color: ${colors.accent} ${colors.accent} transparent;
+    box-sizing: border-box;
+    animation: ${rotation} 1s linear infinite;
+  }
+
+  .loader::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid;
+    border-color: transparent ${colors.background} ${colors.background};
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    animation: ${rotationBack} 0.5s linear infinite;
+    transform-origin: center center;
+  }
 `;

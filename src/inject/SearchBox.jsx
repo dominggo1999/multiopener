@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {
-  WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper,
+  WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper, LoadingIndicator,
 } from './SearchBox.style';
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
@@ -137,6 +137,7 @@ const SearchBox = () => {
         onClick={handleClose}
         role="button"
       />
+
       <SearchAreaWrapper>
         <SearchArea>
           <SearchBar
@@ -147,29 +148,40 @@ const SearchBox = () => {
             handleClose={handleClose}
           />
 
-          <TypeTitle>Groups</TypeTitle>
-          <WebsiteList
-            ref={groupRef}
-          >
-            <Groups
-              groups={groups}
-              query={query}
-              groupKeys={groupKeys}
-              keyMode={keyMode}
-            />
-          </WebsiteList>
-
-          <TypeTitle>Single</TypeTitle>
-          <WebsiteList
-            ref={singleRef}
-          >
-            <Single
-              links={links}
-              query={query}
-              singleKeys={singleKeys}
-              keyMode={keyMode}
-            />
-          </WebsiteList>
+          {
+            rendered
+              ? (
+                <>
+                  <TypeTitle>Groups</TypeTitle>
+                  <WebsiteList
+                    ref={groupRef}
+                  >
+                    <Groups
+                      groups={groups}
+                      query={query}
+                      groupKeys={groupKeys}
+                      keyMode={keyMode}
+                    />
+                  </WebsiteList>
+                  <TypeTitle>Single</TypeTitle>
+                  <WebsiteList
+                    ref={singleRef}
+                  >
+                    <Single
+                      links={links}
+                      query={query}
+                      singleKeys={singleKeys}
+                      keyMode={keyMode}
+                    />
+                  </WebsiteList>
+                </>
+              )
+              : (
+                <LoadingIndicator>
+                  <span className="loader"></span>
+                </LoadingIndicator>
+              )
+          }
 
         </SearchArea>
       </SearchAreaWrapper>
