@@ -9,11 +9,11 @@ const StyledLink = styled.a`
     px-3
     py-2 
     cursor-pointer 
-    text-background 
+    text-primary 
     hover:text-accent
     focus:text-accent
-    hover:bg-background
-    focus:bg-background
+    hover:bg-primary
+    focus:bg-primary
     font-medium  
     capitalize
     flex 

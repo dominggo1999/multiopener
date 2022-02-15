@@ -1,13 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
 import tw, { styled } from 'twin.macro';
 import { StyledHeader, MenuIcon } from './Header.style';
 import { SidebarContext } from '../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
+import { ThemeContext } from '../../../theme/ThemeProvider';
+
+const themeList = [
+  'default',
+  'reddish',
+  'orange',
+  'dev',
+  'monokai',
+  '8008',
+];
 
 const Header = () => {
   const { open } = useContext(SidebarContext);
+  const { setTheme } = useContext(ThemeContext);
   const { isXLarge } = useSizes();
+  const [themeIndex, setThemeIndex] = useState(0);
+
+  const changeTheme = () => {
+    const next = themeIndex + 1;
+
+    if(next === themeList.length - 1) {
+      setThemeIndex(0);
+      setTheme(themeList[0]);
+    }else{
+      setThemeIndex(next);
+      setTheme(themeList[next]);
+    }
+  };
 
   return (
     <StyledHeader>
@@ -19,6 +43,7 @@ const Header = () => {
         )
       }
       <h1>header</h1>
+      <button onClick={changeTheme}>Change theme</button>
     </StyledHeader>
   );
 };

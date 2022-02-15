@@ -7,7 +7,7 @@ export const SidebarWrapper = styled.aside`
     flex-col
     h-screen 
     overflow-hidden
-    bg-background 
+    bg-primary 
     absolute 
     z-50
     top-0 
@@ -32,7 +32,7 @@ export const SidebarScrollArea = styled.nav`
     w-full 
     overflow-auto 
     p-4 
-    text-white
+    text-light-text
   `}
 `;
 
@@ -47,7 +47,7 @@ export const SidebarHeader = styled.div`
 
   svg{
     ${tw`
-      text-white
+      text-light-text
       text-2xl 
     `}
   }
@@ -72,7 +72,7 @@ export const NavMenu = styled.ul`
 export const NavItem = styled.li`
   ${tw`
     my-2 
-    text-white 
+    text-light-text 
   `}
 
   a {

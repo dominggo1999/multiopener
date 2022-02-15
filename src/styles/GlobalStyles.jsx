@@ -21,19 +21,57 @@ const CustomStyles = createGlobalStyle`
 
 
   .default {
-    --background : #0F172A;
-    --main-light : #F1F5F9;
+    --primary : #0F172A;
     --secondary : #2C3344;
-    --shade : #1E293B;
+    --main-background : #F1F5F9;
     --accent : #2DD4BF;
+    --accent-lighter : #44ebd4;
+    --light-text : #ffffff;
   }
 
   .reddish {
-    --background : #440000;
-    --main-light : #f9f1f1;
-    --secondary : #442c2c;
-    --shade : #3b1e1e;
-    --accent : #d42d2d;
+    --primary : #2a0f16;
+    --secondary : #ffffff;
+    --main-background : #f9f1f4;
+    --accent : #d33d5e;
+    --accent-lighter : #eb4468;
+    --light-text : #ffffff;
+  }
+
+  .orange {
+    --primary : #CD712F;
+    --secondary : #ee9037;
+    --main-background : #f9f6f1;
+    --accent : #20455f;
+    --accent-lighter : #225375;
+    --light-text : #ffffff;
+  }
+
+  .dev {
+    --primary : #1B2028;
+    --secondary : #2C3344;
+    --main-background : #F1F5F9;
+    --accent : #23a9d5;
+    --accent-lighter : #4abde4;
+    --light-text : #ffffff;
+  }
+
+  .monokai {
+    --primary : #272822;
+    --secondary : #4d523f;
+    --main-background : #fbffef;
+    --accent : #A6E22E;
+    --accent-lighter : #bdf057;
+    --light-text : #e2e2dc;
+  }
+
+  .8008 {
+    --primary : #333A45;
+    --secondary : #292c31;
+    --main-background : #fbffef;
+    --accent : #F44C7F;
+    --accent-lighter : #fc86a9;
+    --light-text : #e2e2dc;
   }
 `;
 

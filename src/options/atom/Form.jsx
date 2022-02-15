@@ -45,7 +45,7 @@ export const FieldWrapper = styled.div`
 export const Label = styled.div`
   ${tw`
     text-xl
-    text-background
+    text-primary
     mb-2
     font-semibold
   `}

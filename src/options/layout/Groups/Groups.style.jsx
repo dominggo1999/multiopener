@@ -12,7 +12,7 @@ export const Group = styled.div`
     border
     border-accent 
     shadow 
-    bg-background 
+    bg-primary 
     flex
     flex-col 
     justify-center
@@ -21,6 +21,7 @@ export const Group = styled.div`
   .sortable-ghost.sortable-chosen div{
     ${tw`
       bg-accent
+      text-light-text
     `}
 
     button:not(:nth-child(1)){
@@ -89,7 +90,7 @@ export const GroupHeaderRight = styled.div`
 
   svg{
     ${tw`
-      hover:text-white
+      hover:text-light-text
     `}
   }
 `;

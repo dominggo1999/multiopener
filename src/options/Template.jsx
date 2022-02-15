@@ -54,7 +54,7 @@ export const Box = styled.div`
   .groups-only{
     .header{
       ${tw`
-        text-white
+        text-light-text
         bg-green-500 
         px-2  
         flex

@@ -7,7 +7,7 @@ export const Btn = styled.button`
     px-4
     rounded-lg 
     font-semibold
-    hover:bg-[#44ebd4]
+    hover:bg-accent-lighter
     text-secondary
   `}
 `;

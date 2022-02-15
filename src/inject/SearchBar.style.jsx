@@ -14,7 +14,7 @@ export const SearchBarContainer = styled.div`
       text-xl 
       font-semibold
       outline-none 
-      bg-main-light
+      bg-main-background
       rounded-2xl
     `}
     border-radius : 5px;
