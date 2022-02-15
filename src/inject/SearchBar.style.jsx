@@ -1,6 +1,6 @@
 import tw, { styled } from 'twin.macro';
 
-export const SearchBarContainer = styled.form`
+export const SearchBarContainer = styled.div`
   ${tw`
     relative
   `}

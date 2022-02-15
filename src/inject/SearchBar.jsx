@@ -35,7 +35,7 @@ const SearchBar = ({
   }, []);
 
   return (
-    <SearchBarContainer onSubmit={(e) => e.preventDefault()}>
+    <SearchBarContainer>
       <input
         ref={inputRef}
         type="text"
