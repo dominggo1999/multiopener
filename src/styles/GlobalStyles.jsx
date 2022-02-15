@@ -64,6 +64,24 @@ const CustomStyles = createGlobalStyle`
     --accent-lighter : #fc86a9;
     --light-text : #e2e2dc;
   }
+
+  .bushido{
+    --primary : #242933;
+    --secondary : #3c4049;
+    --main-background : #fff6f6;
+    --accent : #EC4C56;
+    --accent-lighter : #e4666f;
+    --light-text : #ffffff;
+  }
+
+  .wavez{
+    --primary : #1C292F;
+    --secondary : #39454b;
+    --main-background : #f6fff2;
+    --accent : #6BDE3B;
+    --accent-lighter : #7dcc5b;
+    --light-text : #ffffff;
+  }
 `;
 
 const GlobalStyles = () => (

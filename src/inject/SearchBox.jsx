@@ -8,7 +8,6 @@ import SearchBar from './SearchBar';
 import Groups from './links/Groups';
 import Single from './links/Single';
 import { storageGet } from '../util';
-import { ThemeContext } from '../theme/ThemeProvider';
 
 const browserTabs = chrome.tabs;
 
@@ -40,7 +39,7 @@ const SearchBox = () => {
   const [groups, setGroups] = useState([]);
   const [rendered, setRendered] = useState(false);
   const force = useRef(false);
-  const { theme } = useContext(ThemeContext);
+  const [theme, setTheme] = useState();
 
   const getData = async () => {
     const links = await storageGet('links');
@@ -134,6 +133,11 @@ const SearchBox = () => {
     getData();
     setRendered(true);
   }, []);
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    setTheme(storedTheme);
+  }, [force.current]);
 
   return (
     <>

@@ -9,10 +9,11 @@ import { ThemeContext } from '../../../theme/ThemeProvider';
 const themeList = [
   'default',
   'reddish',
-  'orange',
   'dev',
   'monokai',
-  '8008',
+  'purply',
+  'wavez',
+  'bushido',
 ];
 
 const Header = () => {
@@ -24,7 +25,7 @@ const Header = () => {
   const changeTheme = () => {
     const next = themeIndex + 1;
 
-    if(next === themeList.length - 1) {
+    if(next === themeList.length) {
       setThemeIndex(0);
       setTheme(themeList[0]);
     }else{

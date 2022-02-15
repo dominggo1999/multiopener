@@ -36,12 +36,11 @@ export const EscapeKeyChar = styled.button`
   ${tw`
     py-2
     px-3
-    bg-white
+    bg-primary
     rounded-lg
     font-bold
-    text-key-tuts-active
+    text-accent
     select-none
-    text-sm
   `}
 
   box-shadow: rgba(49, 50, 51, 0.39) 0px 1px 2px 0px, rgba(54, 54, 54, 0.15) 0px 2px 6px 2px;

@@ -20,7 +20,7 @@ export const KeyChar = styled.div`
     items-center 
     justify-center 
     rounded-[5px]    
-    font-semibold
+    font-bold
     border
     border-transparent
   `}
