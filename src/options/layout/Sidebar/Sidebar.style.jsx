@@ -89,7 +89,7 @@ export const NavItem = styled.li`
   a:hover, a.active{
     ${tw`
       text-accent 
-      bg-gray
+      bg-secondary
     `}
   }
 

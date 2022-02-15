@@ -8,7 +8,7 @@ export const Btn = styled.button`
     rounded-lg 
     font-semibold
     hover:bg-[#44ebd4]
-    text-gray
+    text-secondary
   `}
 `;
 

@@ -12,7 +12,7 @@ export const Group = styled.div`
     border
     border-accent 
     shadow 
-    bg-gray 
+    bg-background 
     flex
     flex-col 
     justify-center

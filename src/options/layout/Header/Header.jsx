@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
+import tw, { styled } from 'twin.macro';
 import { StyledHeader, MenuIcon } from './Header.style';
 import { SidebarContext } from '../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
@@ -17,7 +18,7 @@ const Header = () => {
           </MenuIcon>
         )
       }
-      header
+      <h1>header</h1>
     </StyledHeader>
   );
 };
