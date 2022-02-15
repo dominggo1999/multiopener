@@ -1,6 +1,6 @@
 import tw, { styled } from 'twin.macro';
 
-export const StyledMain = styled.div`
+export const StyledMain = styled.main`
   ${tw`
     w-full
     min-h-screen
@@ -9,7 +9,7 @@ export const StyledMain = styled.div`
   `}
 `;
 
-export const MainContainer = styled.div`
+export const MainContainer = styled.section`
   ${tw`
     w-full
     h-full

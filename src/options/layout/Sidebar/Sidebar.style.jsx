@@ -1,6 +1,6 @@
 import tw, { styled } from 'twin.macro';
 
-export const SidebarWrapper = styled.div`
+export const SidebarWrapper = styled.aside`
   ${tw`
     w-64 
     flex 
@@ -26,7 +26,7 @@ export const SidebarWrapper = styled.div`
   }}
 `;
 
-export const SidebarScrollArea = styled.div`
+export const SidebarScrollArea = styled.nav`
   ${tw`
     h-full 
     w-full 
