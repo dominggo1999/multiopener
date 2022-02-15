@@ -14,6 +14,7 @@ const Single = ({
       {
         links && links.length > 0 && links.map((i, id) => {
           const url = createURL(query, i.link);
+          const domain = getDomainAndSubDomain(i.link);
           const key = singleKeys[id];
 
           return (
@@ -33,7 +34,7 @@ const Single = ({
                   char={key}
                 />
 
-                <Icon domain={() => getDomainAndSubDomain(i.link)} />
+                <Icon domain={domain} />
               </Link>
             </li>
           );
