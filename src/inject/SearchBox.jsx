@@ -135,8 +135,12 @@ const SearchBox = () => {
   }, []);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme');
-    setTheme(storedTheme);
+    const getTheme = async () => {
+      const storedTheme = await storageGet('theme');
+      setTheme(storedTheme);
+    };
+
+    getTheme();
   }, [force.current]);
 
   return (

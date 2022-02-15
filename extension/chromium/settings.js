@@ -18,8 +18,10 @@ const setValueInStore = async (values, callback = () => {}) => {
 };
 
 const initSettings = () => {
-  extensionStorage.get(['links', 'groups', 'settings'], (results) => {
-    const { links, groups, settings } = results;
+  extensionStorage.get(['links', 'groups', 'settings', 'theme'], (results) => {
+    const {
+      links, groups, settings, theme,
+    } = results;
 
     if(!links) {
       setValueInStore({
@@ -36,6 +38,12 @@ const initSettings = () => {
     if(!settings) {
       setValueInStore({
         settings: {},
+      });
+    }
+
+    if(!theme) {
+      setValueInStore({
+        theme: 'default',
       });
     }
   });
