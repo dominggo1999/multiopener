@@ -66,7 +66,6 @@ const Groups = () => {
     className: 'groups-only',
     scroll: true,
     handle: '.group-handle',
-    forceFallback: true,
   };
 
   useEffect(() => {
@@ -124,7 +123,6 @@ const Groups = () => {
                     list={group.children}
                     setList={(newValue) => handleUpdateChildren(group.id, newValue)}
                     scroll
-                    forceFallback
                   >
                     {
                         group.children?.length > 0 && group.children.map((j) => {

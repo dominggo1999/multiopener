@@ -29,11 +29,6 @@ export const Group = styled.div`
       `}
     }
   }
-
-  .sortable-drag{
-    opacity : 0.5 !important;
-    transform : rotate(-5deg);
-  }
 `;
 
 export const GroupHeader = styled.div`
