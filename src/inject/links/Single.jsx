@@ -32,7 +32,7 @@ const Single = ({
               >
                 <Key
                   keyMode={keyMode}
-                  char={key !== 1 && key}
+                  char={key}
                 />
 
                 <Icon domain={domain} />

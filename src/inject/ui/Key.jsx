@@ -33,13 +33,16 @@ export const KeyChar = styled.div`
 `;
 
 const Key = ({ char, keyMode }) => {
-  if(!char) return null;
-
   return (
     <KeyWrapper>
-      <KeyChar keyMode={keyMode}>
-        {char}
-      </KeyChar>
+      {
+        char
+        && (
+        <KeyChar keyMode={keyMode}>
+          {char}
+        </KeyChar>
+        )
+      }
     </KeyWrapper>
   );
 };

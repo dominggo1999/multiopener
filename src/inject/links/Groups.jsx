@@ -47,7 +47,7 @@ const Groups = ({
               >
                 <Key
                   keyMode={keyMode}
-                  char={key !== 1 && key}
+                  char={key}
                 />
                 <Icon />
               </Link>
