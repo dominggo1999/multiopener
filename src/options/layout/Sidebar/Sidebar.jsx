@@ -19,17 +19,10 @@ const Sidebar = () => {
   const navigationRef = useRef();
   const [render, setRender] = useState(false);
 
-  // Sidebar logic
-  useEffect(() => {
-    // Always close sidebar on xlarge screen size
-    close();
-  }, [isXLarge]);
-
   // Animation logic
   useEffect(() => {
     const links = gsap.utils.selector(navigationRef);
-
-    if(show || !render) {
+    if(isXLarge || show) {
       gsap.fromTo(links('li'),
         {
           x: -150,
@@ -41,9 +34,13 @@ const Sidebar = () => {
           stagger: 0.09,
         });
     }
-
-    setRender(true);
   }, [show]);
+
+  // Sidebar logic
+  useEffect(() => {
+    // Always close sidebar on xlarge screen size
+    close();
+  }, [isXLarge]);
 
   return (
     <>
