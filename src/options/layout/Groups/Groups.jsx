@@ -33,7 +33,7 @@ const GroupHeader = ({
         <button onClick={deleteGroup}>
           <RiDeleteBin6Line />
         </button>
-        <button>
+        <button tabIndex="-1">
           <Link to={`/edit-group/${id}`}>
             <AiOutlineEdit />
           </Link>

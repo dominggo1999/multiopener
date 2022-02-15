@@ -93,12 +93,12 @@ const SingleLink = ({
         <button onClick={() => deleteLink(id)}>
           <RiDeleteBin6Line />
         </button>
-        <button>
+        <button tabIndex="-1">
           <Link to={`/edit-link/${id}`}>
             <AiOutlineEdit />
           </Link>
         </button>
-        <button>
+        <button tabIndex="-1">
           <a
             target="_blank"
             href={url}
