@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from '../ui/Link';
 import 'twin.macro';
-import { createURL } from '../../util';
+import { createURL, getDomainAndSubDomain } from '../../util';
 import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
@@ -14,8 +14,6 @@ const Single = ({
       {
         links && links.length > 0 && links.map((i, id) => {
           const url = createURL(query, i.link);
-          const domainAndSubdomain = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
-          const domain = domainAndSubdomain.exec(i.link)[1];
           const key = singleKeys[id];
 
           return (
@@ -35,7 +33,7 @@ const Single = ({
                   char={key}
                 />
 
-                <Icon domain={domain} />
+                <Icon domain={() => getDomainAndSubDomain(i.link)} />
               </Link>
             </li>
           );
