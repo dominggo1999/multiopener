@@ -13,7 +13,6 @@ const ThemeProvider = ({ children }) => {
   useEffect(() => {
     const applyTheme = async () => {
       const storedTheme = await storageGet('theme');
-      const storedMode = await storageGet('mode');
 
       if (storedTheme) {
         setTheme(storedTheme);
@@ -21,7 +20,14 @@ const ThemeProvider = ({ children }) => {
         storageSet('theme', DEFAULT_THEME);
         setTheme(DEFAULT_THEME);
       }
+    };
 
+    applyTheme();
+  }, []);
+
+  useEffect(() => {
+    const applyMode = async () => {
+      const storedMode = await storageGet('mode');
       if(storedMode) {
         setMode(storedMode);
       }else{
@@ -30,15 +36,20 @@ const ThemeProvider = ({ children }) => {
       }
     };
 
-    applyTheme();
+    applyMode();
   }, []);
 
   useEffect(() => {
-    if(theme || mode) {
+    if(theme) {
       storageSet('theme', theme);
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    if(mode) {
       storageSet('mode', mode);
     }
-  }, [theme, mode]);
+  }, [mode]);
 
   return (
     <ThemeContext.Provider

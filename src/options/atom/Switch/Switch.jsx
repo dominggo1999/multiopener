@@ -1,9 +1,12 @@
-import ReactSwitch from 'react-switch';
 import React, { useContext } from 'react';
 import rgbHex from 'rgb-hex';
+import S from 'react-switch';
 import { SwitchWrapper } from './Switch.style';
 import { ThemeContext } from '../../../theme/ThemeProvider';
 import { themes } from '../../../theme/themes';
+
+// Reason for this line  : https://github.com/vitejs/vite/issues/2139#issuecomment-802981228
+const ReactSwitch = S.default ? S.default : S;
 
 const Switch = ({ checked, handleChange }) => {
   const { theme } = useContext(ThemeContext);
