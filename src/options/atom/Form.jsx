@@ -34,7 +34,7 @@ export const FormWrapper = styled.div`
       outline-none
       focus:border-accent
       font-medium
-      dark:(bg-primary text-light-text border-light-text focus:border-accent)
+      dark:(bg-primary text-light-text border-light-text focus:border-accent caret-accent)
     `}
   }
 `;
