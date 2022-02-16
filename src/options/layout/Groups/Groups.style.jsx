@@ -25,7 +25,7 @@ export const Group = styled.div`
       dark:text-primary
     `}
 
-    button{
+    svg{
       ${tw`
         dark:text-primary
       `}
