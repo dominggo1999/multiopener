@@ -5,7 +5,9 @@ export const StyledMain = styled.main`
     w-full
     min-h-screen
     flex 
-    flex-col
+    flex-col 
+    bg-main-background  
+    dark:bg-primary
   `}
 `;
 
@@ -14,7 +16,5 @@ export const MainContainer = styled.section`
     w-full
     h-full
     p-4
-    bg-main-background  
-    dark:bg-primary
   `}
 `;
