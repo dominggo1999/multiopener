@@ -2,7 +2,7 @@ import React, {
   useEffect, useState, useRef, useContext,
 } from 'react';
 import {
-  WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper, LoadingIndicator,
+  WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper,
 } from './SearchBox.style';
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
@@ -44,9 +44,12 @@ const SearchBox = () => {
   const getData = async () => {
     const links = await storageGet('links');
     const groups = await storageGet('groups');
+    const storedTheme = await storageGet('theme');
 
+    setTheme(storedTheme);
     setLinks(links);
     setGroups(groups);
+    setRendered(true);
   };
 
   useEffect(() => {
@@ -131,17 +134,9 @@ const SearchBox = () => {
 
   useEffect(() => {
     getData();
-    setRendered(true);
   }, []);
 
-  useEffect(() => {
-    const getTheme = async () => {
-      const storedTheme = await storageGet('theme');
-      setTheme(storedTheme);
-    };
-
-    getTheme();
-  }, [force.current]);
+  if(!theme) return null;
 
   return (
     <>
@@ -160,40 +155,28 @@ const SearchBox = () => {
             handleClose={handleClose}
           />
 
-          {
-            rendered
-              ? (
-                <>
-                  <TypeTitle>Groups</TypeTitle>
-                  <WebsiteList
-                    ref={groupRef}
-                  >
-                    <Groups
-                      groups={groups}
-                      query={query}
-                      groupKeys={groupKeys}
-                      keyMode={keyMode}
-                    />
-                  </WebsiteList>
-                  <TypeTitle>Single</TypeTitle>
-                  <WebsiteList
-                    ref={singleRef}
-                  >
-                    <Single
-                      links={links}
-                      query={query}
-                      singleKeys={singleKeys}
-                      keyMode={keyMode}
-                    />
-                  </WebsiteList>
-                </>
-              )
-              : (
-                <LoadingIndicator>
-                  <span className="loader"></span>
-                </LoadingIndicator>
-              )
-          }
+          <TypeTitle>Groups</TypeTitle>
+          <WebsiteList
+            ref={groupRef}
+          >
+            <Groups
+              groups={groups}
+              query={query}
+              groupKeys={groupKeys}
+              keyMode={keyMode}
+            />
+          </WebsiteList>
+          <TypeTitle>Single</TypeTitle>
+          <WebsiteList
+            ref={singleRef}
+          >
+            <Single
+              links={links}
+              query={query}
+              singleKeys={singleKeys}
+              keyMode={keyMode}
+            />
+          </WebsiteList>
 
         </SearchArea>
       </SearchAreaWrapper>
