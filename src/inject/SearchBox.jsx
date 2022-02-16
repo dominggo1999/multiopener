@@ -40,13 +40,16 @@ const SearchBox = () => {
   const [rendered, setRendered] = useState(false);
   const force = useRef(false);
   const [theme, setTheme] = useState();
+  const [mode, setMode] = useState();
 
   const getData = async () => {
     const links = await storageGet('links');
     const groups = await storageGet('groups');
     const storedTheme = await storageGet('theme');
+    const storedMode = await storageGet('mode');
 
     setTheme(storedTheme);
+    setMode(storedMode);
     setLinks(links);
     setGroups(groups);
     setRendered(true);
@@ -136,7 +139,7 @@ const SearchBox = () => {
     getData();
   }, []);
 
-  if(!theme) return null;
+  if(!theme || !mode) return null;
 
   return (
     <>
@@ -145,7 +148,7 @@ const SearchBox = () => {
         role="button"
       />
 
-      <SearchAreaWrapper className={theme}>
+      <SearchAreaWrapper className={`${theme} ${mode}`}>
         <SearchArea>
           <SearchBar
             setKeyMode={setKeyMode}
@@ -164,6 +167,7 @@ const SearchBox = () => {
               query={query}
               groupKeys={groupKeys}
               keyMode={keyMode}
+              mode={mode}
             />
           </WebsiteList>
           <TypeTitle>Single</TypeTitle>
@@ -175,6 +179,7 @@ const SearchBox = () => {
               query={query}
               singleKeys={singleKeys}
               keyMode={keyMode}
+              mode={mode}
             />
           </WebsiteList>
 

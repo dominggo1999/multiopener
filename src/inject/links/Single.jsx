@@ -7,7 +7,7 @@ import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
 const Single = ({
-  query, links, singleKeys, keyMode,
+  query, links, singleKeys, keyMode, mode,
 }) => {
   return (
     <>
@@ -30,6 +30,7 @@ const Single = ({
                 }}
               >
                 <Key
+                  mode={mode}
                   keyMode={keyMode}
                   char={key}
                 />

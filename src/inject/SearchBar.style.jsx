@@ -14,7 +14,10 @@ export const SearchBarContainer = styled.div`
       text-xl 
       font-semibold
       outline-none 
+      border
+      border-transparent
       bg-main-background
+      dark:(bg-transparent caret-accent text-light-text border-accent)
       rounded-2xl
     `}
     border-radius : 5px;
@@ -36,7 +39,10 @@ export const EscapeKeyChar = styled.button`
   ${tw`
     py-2
     px-3
+    border
+    border-transparent
     bg-primary
+    dark:(border-accent shadow-none hover:bg-accent hover:text-primary)
     rounded-lg
     font-bold
     text-accent

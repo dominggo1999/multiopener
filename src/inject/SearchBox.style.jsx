@@ -26,7 +26,8 @@ export const SearchAreaWrapper = styled.div`
 export const SearchArea = styled.div`
   ${tw`
       my-20
-      bg-[#FFFFFF]
+      bg-white
+      dark:(bg-primary)
       rounded-lg
       py-5 
       px-6
@@ -55,6 +56,7 @@ export const TypeTitle = styled.h3`
     mt-3 
     mb-2 
     font-semibold 
-    text-[#11494d] 
+    text-primary
+    dark:(text-light-text)
   `}
 `;

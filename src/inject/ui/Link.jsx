@@ -10,15 +10,19 @@ const StyledLink = styled.a`
     py-2 
     cursor-pointer 
     text-primary 
-    hover:text-accent
-    focus:text-accent
-    hover:bg-primary
-    focus:bg-primary
     font-medium  
     capitalize
     flex 
     items-center
     rounded-xl
+    border
+    border-transparent
+    hover:(text-accent bg-primary)
+    focus:(text-accent bg-primary outline-none)
+  
+    dark:(text-accent)  
+    dark:hover:(bg-transparent text-accent border-accent)
+    dark:focus:(bg-transparent text-accent border-accent)
   `}
 
   span{
@@ -34,6 +38,8 @@ const StyledLink = styled.a`
       border 
       border-accent
       bg-transparent
+
+      dark:(text-accent border-accent shadow-none opacity-100)
     `}
   }
 `;

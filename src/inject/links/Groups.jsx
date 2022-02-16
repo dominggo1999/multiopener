@@ -7,7 +7,7 @@ import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
 const Groups = ({
-  query, groups, groupKeys, keyMode,
+  query, groups, groupKeys, keyMode, mode,
 }) => {
   const visitMultipleLinks = (id) => {
     const target = groups.filter((group) => group.id === id)[0];
@@ -48,6 +48,7 @@ const Groups = ({
                 <Key
                   keyMode={keyMode}
                   char={key}
+                  mode={mode}
                 />
                 <Icon />
               </Link>
