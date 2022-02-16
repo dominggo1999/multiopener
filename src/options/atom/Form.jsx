@@ -27,14 +27,15 @@ export const FormWrapper = styled.div`
       border
       border-2
       border-primary
+      border-opacity-50
       py-2
       px-3
       rounded-lg
       text-lg 
       outline-none
-      focus:border-accent
+      focus:(border-accent border-opacity-100)
       font-medium
-      dark:(bg-primary text-light-text border-light-text focus:border-accent caret-accent)
+      dark:(bg-primary text-light-text border-light-text focus:border-accent caret-accent border-opacity-60)
     `}
   }
 `;
