@@ -37,6 +37,12 @@ export const FormWrapper = styled.div`
       font-medium
       dark:(bg-primary text-light-text border-light-text focus:border-accent caret-accent border-opacity-60)
     `}
+    ::selection {
+      ${tw`
+        bg-accent 
+        text-primary
+      `}
+    }
   }
 `;
 
