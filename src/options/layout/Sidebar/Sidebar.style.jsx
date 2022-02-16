@@ -8,7 +8,7 @@ export const SidebarWrapper = styled.aside`
     h-screen 
     overflow-hidden
     bg-primary 
-    absolute 
+    fixed 
     z-50
     top-0 
     left-0
