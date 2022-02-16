@@ -14,7 +14,7 @@ export const themes = [
     name: 'reddish',
     colors: {
       primary: '42,15,22',
-      secondary: '255,255,255',
+      secondary: '59,40,45',
       mainBackground: '249,241,244',
       accent: '211,61,94',
       accentLighter: '235,68,104',

@@ -82,9 +82,9 @@ const Sidebar = () => {
             </NavItem>
 
             <NavItem>
-              <NavLink to="/appearance">
+              <NavLink to="/theme">
                 <IoIosColorPalette />
-                Appearance
+                theme
               </NavLink>
             </NavItem>
 

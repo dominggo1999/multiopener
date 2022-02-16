@@ -1,18 +1,7 @@
 import tw, { styled } from 'twin.macro';
+import { MenuWrapper } from './MenuWrapper';
 
-export const FormWrapper = styled.div`
-  ${tw`
-    bg-white 
-    dark:(bg-primary shadow-none)
-    flex
-    w-full 
-    mb-4
-    rounded-xl
-    max-w-2xl
-    p-10
-    shadow
-  `}
-
+export const FormWrapper = styled(MenuWrapper)`
   form{
     ${tw`
       w-full

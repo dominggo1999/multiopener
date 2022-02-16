@@ -14,12 +14,17 @@ const ThemeProvider = ({ children }) => {
     const applyTheme = async () => {
       const storedTheme = await storageGet('theme');
       const storedMode = await storageGet('mode');
+
       if (storedTheme) {
         setTheme(storedTheme);
-        setMode(storedMode);
       } else {
         storageSet('theme', DEFAULT_THEME);
         setTheme(DEFAULT_THEME);
+      }
+
+      if(storedMode) {
+        setMode(storedMode);
+      }else{
         storageSet('mode', DEFAULT_MODE);
         setMode(DEFAULT_MODE);
       }
