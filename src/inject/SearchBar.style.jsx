@@ -12,7 +12,7 @@ export const SearchBarContainer = styled.div`
       pl-4
       pr-24
       text-xl 
-      font-semibold
+      font-medium
       outline-none 
       border
       border-transparent
@@ -21,6 +21,13 @@ export const SearchBarContainer = styled.div`
       rounded-2xl
     `}
     border-radius : 5px;
+
+    ::selection {
+      ${tw`
+        bg-accent 
+        text-primary
+      `}
+    }
   }
 `;
 export const EscapeKeyWrapper = styled.span`

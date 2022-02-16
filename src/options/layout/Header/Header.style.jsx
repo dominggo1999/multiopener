@@ -8,6 +8,7 @@ export const StyledHeader = styled.header`
     py-4
     px-4 
     text-2xl 
+    bg-white
     dark:(bg-primary text-white)
   `}
 
