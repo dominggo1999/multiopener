@@ -6,11 +6,11 @@ import SidebarProvider from './context/Sidebar.context';
 import { ThemeContext } from '../theme/ThemeProvider';
 
 const Options = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme, mode } = useContext(ThemeContext);
 
   return (
     <SidebarProvider>
-      <OptionsContainer className={theme}>
+      <OptionsContainer className={`${theme} ${mode}`}>
         <Sidebar />
         <Main />
       </OptionsContainer>

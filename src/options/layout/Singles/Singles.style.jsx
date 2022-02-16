@@ -5,6 +5,13 @@ export const SinglesWrapper = styled.div`
     ${tw`
       bg-accent
       text-light-text
+      dark:text-primary
     `}
+
+  svg{
+    ${tw`
+        dark:text-primary
+      `}
+    }
   }
 `;

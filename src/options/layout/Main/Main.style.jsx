@@ -15,5 +15,6 @@ export const MainContainer = styled.section`
     h-full
     p-4
     bg-main-background  
+    dark:bg-primary
   `}
 `;

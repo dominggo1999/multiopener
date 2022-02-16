@@ -1,6 +1,4 @@
 import tw, { styled } from 'twin.macro';
-import { keyframes } from 'styled-components';
-import { colors } from '../constants/colors';
 
 export const Overlay = styled.div`
   ${tw`
@@ -59,22 +57,4 @@ export const TypeTitle = styled.h3`
     font-semibold 
     text-[#11494d] 
   `}
-`;
-
-const rotation = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-`;
-
-const rotationBack = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
 `;

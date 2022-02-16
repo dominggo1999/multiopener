@@ -18,7 +18,7 @@ const themeList = [
 
 const Header = () => {
   const { open } = useContext(SidebarContext);
-  const { setTheme } = useContext(ThemeContext);
+  const { setTheme, setMode } = useContext(ThemeContext);
   const { isXLarge } = useSizes();
   const [themeIndex, setThemeIndex] = useState(0);
 
@@ -34,6 +34,12 @@ const Header = () => {
     }
   };
 
+  const changeMode = () => {
+    setMode((prevMode) => {
+      return prevMode === 'light' ? 'dark' : 'light';
+    });
+  };
+
   return (
     <StyledHeader>
       {
@@ -45,6 +51,7 @@ const Header = () => {
       }
       <h1>header</h1>
       <button onClick={changeTheme}>Change theme</button>
+      <button onClick={changeMode}>Change mode</button>
     </StyledHeader>
   );
 };

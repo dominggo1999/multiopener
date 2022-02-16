@@ -6,5 +6,6 @@ export const ColHeader = styled.h1`
     font-semibold 
     mb-3
     text-primary
+    dark:text-light-text
   `}
 `;

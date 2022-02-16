@@ -12,6 +12,7 @@ const StyledLink = styled.div`
     w-full 
     rounded-lg 
     bg-white
+    dark:(bg-primary text-light-text border-transparent shadow-none)
     py-3
     px-4 
     shadow 
@@ -32,6 +33,7 @@ const Actions = styled.div`
 
   svg{
     ${tw`
+      dark:(text-accent hover:text-light-text)
       text-base
       md:text-xl
       hover:text-accent

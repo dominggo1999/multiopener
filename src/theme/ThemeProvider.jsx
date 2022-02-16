@@ -3,17 +3,25 @@ import { storageGet, storageSet } from '../util';
 
 export const ThemeContext = createContext();
 
+const DEFAULT_THEME = 'default';
+const DEFAULT_MODE = 'light';
+
 const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState();
+  const [mode, setMode] = useState();
 
   useEffect(() => {
     const applyTheme = async () => {
-      const localStorageTheme = await storageGet('theme');
-      if (localStorageTheme) {
-        setTheme(localStorageTheme);
+      const storedTheme = await storageGet('theme');
+      const storedMode = await storageGet('mode');
+      if (storedTheme) {
+        setTheme(storedTheme);
+        setMode(storedMode);
       } else {
-        storageSet('theme', 'default');
-        setTheme('default');
+        storageSet('theme', DEFAULT_THEME);
+        setTheme(DEFAULT_THEME);
+        storageSet('mode', DEFAULT_MODE);
+        setMode(DEFAULT_MODE);
       }
     };
 
@@ -21,14 +29,19 @@ const ThemeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if(theme) {
+    if(theme || mode) {
       storageSet('theme', theme);
+      storageSet('mode', mode);
     }
-  }, [theme]);
+  }, [theme, mode]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      { theme && children}
+    <ThemeContext.Provider
+      value={{
+        theme, mode, setTheme, setMode,
+      }}
+    >
+      { theme && mode && children}
     </ThemeContext.Provider>
   );
 };

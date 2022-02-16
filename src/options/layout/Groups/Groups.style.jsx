@@ -22,7 +22,14 @@ export const Group = styled.div`
     ${tw`
       bg-accent
       text-light-text
+      dark:text-primary
     `}
+
+    button{
+      ${tw`
+        dark:text-primary
+      `}
+    }
 
     button:not(:nth-child(1)){
       ${tw`
