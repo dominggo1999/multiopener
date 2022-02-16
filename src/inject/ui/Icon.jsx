@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 import { FaFolder } from 'react-icons/fa';
 import { BiWorld } from 'react-icons/bi';
@@ -15,14 +15,15 @@ const IconWrapper = styled.div`
 
 const Icon = ({ domain }) => {
   const[error, setError] = useState(false);
+  const isOnline = navigator.onLine;
 
   return (
     <IconWrapper>
       {
-        !error && domain && (
+        isOnline && !error && domain && (
           <img
             onError={() => setError(true)}
-            src={`https://s2.googleusercontent.com/s2/favicons?domain=${domain}`}
+            src={`https://www.google.com/s2/favicons?sz=64&domain_url=${domain}`}
             alt={`icon_${domain}`}
           />
         )
@@ -31,7 +32,7 @@ const Icon = ({ domain }) => {
         !domain && <FaFolder />
       }
       {
-        error && <BiWorld />
+        domain && (error || !isOnline) && <BiWorld />
       }
     </IconWrapper>
   );
