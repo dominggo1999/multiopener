@@ -50,7 +50,7 @@ const Header = () => {
         )
       }
       <h1>header</h1>
-      <button onClick={changeTheme}>Change theme</button>
+      {/* <button onClick={changeTheme}>Change theme</button> */}
       <button onClick={changeMode}>Change mode</button>
     </StyledHeader>
   );
