@@ -32,6 +32,7 @@ export default defineConfig(() => {
     base: '/dist/',
     root: r('src'),
     build: {
+      chunkSizeWarningLimit: 800,
       outDir: r(outputDir),
       emptyOutDir: false,
       sourcemap: 'inline',
