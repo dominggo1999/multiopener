@@ -5,6 +5,7 @@ export const MenuItem = styled.div`
     w-full
     flex 
     justify-between
+    items-center
   `}
 `;
 

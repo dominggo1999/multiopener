@@ -75,3 +75,14 @@ export const storageSet = async (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
   }
 };
+
+export const createOptions = (options, labelKey, valueKey) => {
+  const reactSelectOptions = options.map((item) => {
+    return {
+      value: item[valueKey],
+      label: item[labelKey],
+    };
+  });
+
+  return reactSelectOptions;
+};

@@ -6,36 +6,121 @@ export const SelectWrapper = styled.div`
     items-center
   `}
 
-  select{
+  .react-select-container{
     ${tw`
-      px-2
-      py-1
-      bg-transparent
-      text-lg
-      border-2
-      border-primary
-      border-opacity-70
-      rounded-md
-      w-60
-      font-semibold
-      capitalize
-      text-primary
-      focus:border-accent
-
-      dark:(
-        text-accent
-        border-accent
-      ) 
+      w-56
     `}
   }
 
-  option {
+  .react-select__control{
+    ${tw`
+      bg-transparent 
+      shadow-none
+      border-2
+      border-primary
+      border-opacity-40
+      hover:(border-primary border-opacity-40)
+      dark:(border-opacity-100 border-accent)
+      dark:hover:(border-accent)
+    `}
+  }
+
+  .react-select__control--is-focused{
+    ${tw`
+      border-accent
+      hover:border-accent
+    `}
+
+    /* arrow */
+    .react-select__indicators svg{
+      ${tw`
+        text-accent
+        opacity-100
+      `}
+    }
+  }
+
+  /* Shown value */
+  .react-select__single-value{
+    ${tw`
+      text-primary 
+      capitalize
+      font-medium
+      dark:text-accent
+    `}
+  }
+
+  /* line between option and arrow */
+  .react-select__indicator-separator{
+    display: none;
+  }
+
+  /* Arrow */
+  .react-select__indicators svg{
+    ${tw`
+      fill-current 
+      text-primary
+      dark:text-accent
+      opacity-40
+    `} 
+  }
+
+  /* Items */
+  .react-select__menu{
+    ${tw`
+      overflow-hidden
+      border-2
+      border-accent
+      dark:(
+        bg-primary
+      )
+    `}
+  }
+
+  .react-select__menu-list{
+    ${tw`
+      p-0
+    `}
+  }
+
+  .react-select__option{
     ${tw`
       dark:(
-        text-accent 
-        bg-primary
-        hover:bg-red-500
+        bg-none
+        text-accent
       )
+      dark:hover:(
+        bg-accent
+        text-primary
+      )
+
+      hover:(bg-accent text-primary)
+      font-medium
+      capitalize
+    `}
+  }
+
+  .react-select__option--is-focused{
+    ${tw`
+      dark:(
+        bg-accent-lighter
+        text-primary
+      )
+
+      bg-accent-lighter
+      text-primary
+    `}
+
+  }
+
+  .react-select__option--is-selected{
+    ${tw`
+      dark:(
+        bg-accent
+        text-primary
+      )
+      bg-accent
+      text-primary
     `}
   }
 `;

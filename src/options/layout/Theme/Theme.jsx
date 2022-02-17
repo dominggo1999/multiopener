@@ -19,7 +19,7 @@ const Theme = () => {
   };
 
   const changeTheme = (e) => {
-    const selectedTheme = e.target.value;
+    const selectedTheme = e.value;
 
     setTheme(selectedTheme);
   };
@@ -37,16 +37,15 @@ const Theme = () => {
       </MenuItem>
       <MenuItem>
         <ItemName>
-          Select theme
+          Select themes
         </ItemName>
         <Select
           value={theme}
-          name="theme-picker"
-          selectId="theme-picker"
           options={themes}
-          title="name"
-          optionKey="name"
+          labelKey="name"
+          valueKey="name"
           handleChange={changeTheme}
+          name="theme-picker"
         />
       </MenuItem>
     </ThemeMenuWrapper>

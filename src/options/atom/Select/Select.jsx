@@ -1,29 +1,26 @@
 import React from 'react';
+import ReactSelect from 'react-select';
 import { SelectWrapper } from './Select.style';
+import { createOptions } from '../../../util';
 
 const Select = ({
-  value, name, selectId, options, optionKey, title, handleChange,
+  value, handleChange, options: opt, labelKey, valueKey, name,
 }) => {
+  const options = createOptions(opt, labelKey, valueKey);
+  const index = options.map((i) => i.value).indexOf(value);
+  const defaultValue = options[index];
+
   return (
     <SelectWrapper>
-      <select
-        value={value}
+      <ReactSelect
+        isSearchable={false}
         name={name}
-        id={selectId}
         onChange={handleChange}
-      >
-        {
-          options?.length > 0 && options.map((i) => {
-            return (
-              <option
-                key={`theme-option${i[title]}`}
-                value={i[optionKey]}
-              >{i[title]}
-              </option>
-            );
-          })
-        }
-      </select>
+        value={defaultValue}
+        className="react-select-container"
+        classNamePrefix="react-select"
+        options={options}
+      />
     </SelectWrapper>
   );
 };
