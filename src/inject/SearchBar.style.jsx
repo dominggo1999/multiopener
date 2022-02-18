@@ -49,6 +49,7 @@ export const EscapeKeyChar = styled.button`
     border
     border-transparent
     bg-primary
+    hover:(bg-accent text-primary)
     dark:(border-accent shadow-none hover:bg-accent hover:text-primary)
     rounded-lg
     font-bold
