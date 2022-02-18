@@ -25,12 +25,12 @@ export const NavLink = (props) => {
 };
 
 const Link = (props) => {
-  const { children, ...rest } = props;
+  const { children, handleClick, ...rest } = props;
 
   return (
     <RRLink
       tw="inline-flex mb-4"
-      onClick={scrollToTop}
+      onClick={() => scrollToTop(handleClick)}
       {...rest}
     >
       {children}
