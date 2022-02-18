@@ -46,6 +46,7 @@ const Theme = () => {
           valueKey="name"
           handleChange={changeTheme}
           name="theme-picker"
+          isSearchable={false}
         />
       </MenuItem>
     </ThemeMenuWrapper>

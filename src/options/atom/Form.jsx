@@ -56,6 +56,12 @@ export const Label = styled.div`
     mb-2
     font-semibold
   `}
+
+  i{
+    ${tw`
+      font-medium
+    `}
+  }
 `;
 
 export const StyledErrorMessage = styled.div`

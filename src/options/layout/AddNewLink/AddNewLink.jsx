@@ -125,7 +125,7 @@ const AddNewLink = () => {
             </FieldWrapper>
 
             <FieldWrapper>
-              <Label>Add to group(s)</Label>
+              <Label>Add to group <i>(optional)</i> </Label>
               <Select
                 value={parentGroups}
                 options={groups}
