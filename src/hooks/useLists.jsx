@@ -7,13 +7,41 @@ const useLists = () => {
   const [groups, setGroups] = useState([]);
   const [rendered, setRendered] = useState(false);
 
+  const groupsContainLink = (id) => {
+    return groups.filter((group) => {
+      const childrenIds = group.children.map((i) => i.id);
+
+      return childrenIds.includes(id);
+    });
+  };
+
+  const addLinkToGroups = (parentGroups, link) => {
+    const tempGroups = [...groups];
+
+    for (let i = 0; i < tempGroups.length; i += 1) {
+      const group = tempGroups[i];
+      if(parentGroups.map((j) => j.value).includes(group.id)) {
+        // only if link doesnt exist in the  target group then add link to target group
+        const childrenIds = group.children.map((i) => i.id);
+
+        if(!childrenIds.includes(link.id)) {
+          group.children.push(link);
+        }
+      }
+    }
+
+    setGroups(tempGroups);
+    storageSet('groups', tempGroups);
+  };
+
   // Links only modifier
-  const addLink = (linkDetails) => {
+  const addLink = (linkDetails, parentGroups) => {
     const id = short.generate();
     const newLink = {
       ...linkDetails,
       id,
     };
+    addLinkToGroups(parentGroups, newLink);
 
     setLinks((prevLinks) => {
       return [
@@ -62,7 +90,7 @@ const useLists = () => {
     storageSet('groups', tempGroups);
   };
 
-  const updateLink = (id, newValues) => {
+  const updateLink = (id, newValues, parentGroups) => {
     const tempLinks = [...links];
 
     const targetLink = tempLinks.filter((link) => {
@@ -93,6 +121,7 @@ const useLists = () => {
 
     for (let i = 0; i < tempGroups.length; i += 1) {
       const group = tempGroups[i];
+      const persist = parentGroups.map((i) => i.value).includes(group.id);
 
       // Find link in group children
       const target = group.children.filter((link) => {
@@ -101,9 +130,17 @@ const useLists = () => {
 
       const targetIndex = group.children.indexOf(target);
 
-      // If link exists in group, delete
+      // If link exists in group
       if(targetIndex > -1) {
-        group.children[targetIndex] = updatedLink;
+        // If need to persist ,  update
+        if(persist) {
+          group.children[targetIndex] = updatedLink;
+        }else{
+          // Else , delete
+          group.children.splice(targetIndex, 1);
+        }
+      }else if (persist) {
+        group.children.push(updatedLink);
       }
     }
 
@@ -232,10 +269,6 @@ const useLists = () => {
   };
 
   useEffect(() => {
-    // chrome.storage.local.get(['links'], (results) => {
-    //   setLinks(results);
-    // });
-
     const getData = async () => {
       const links = await storageGet('links');
       const groups = await storageGet('groups');
@@ -253,6 +286,7 @@ const useLists = () => {
     links,
     groups,
     addLink,
+    groupsContainLink,
     deleteLink,
     updateLink,
     removeLinkFromGroup,

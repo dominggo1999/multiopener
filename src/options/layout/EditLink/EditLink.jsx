@@ -13,7 +13,8 @@ import {
 import { AddButton } from '../../atom/Button';
 import { ListContext } from '../../context/List.context';
 import Link from '../../atom/RouterLink';
-import { storageGet } from '../../../util';
+import { storageGet, createOptions } from '../../../util';
+import Select from '../../atom/Select/Select';
 
 const queryText = /iamlazy/ig;
 
@@ -55,7 +56,10 @@ const validationSchema = Yup.object({
 const EditLink = () => {
   const inputRef = useRef();
   const { linkId } = useParams();
-  const { updateLink } = useContext(ListContext);
+  const {
+    updateLink, groups, groupsContainLink, rendered,
+  } = useContext(ListContext);
+  const [parentGroups, setParentGroups] = useState(null);
   const history = useHistory();
   const [details, setDetails] = useState({
     link: '',
@@ -63,7 +67,7 @@ const EditLink = () => {
   });
 
   const handleSubmit = (val) => {
-    updateLink(linkId, val);
+    updateLink(linkId, val, parentGroups);
     history.push('/');
   };
 
@@ -86,6 +90,21 @@ const EditLink = () => {
 
     getLinkInfo();
   }, []);
+
+  useEffect(() => {
+    if(rendered) {
+      // On first render map choosenGroups top options type (label and key)
+
+      const choosenGroups = groupsContainLink(linkId);
+      const options = createOptions(choosenGroups, 'name', 'id');
+
+      setParentGroups(options);
+    }
+  }, [rendered]);
+
+  const handleParentGroupsChange = (choosenGroups) => {
+    setParentGroups(choosenGroups);
+  };
 
   return (
     <>
@@ -137,6 +156,20 @@ const EditLink = () => {
                     *{msg}
                   </StyledErrorMessage>
                 )}
+              />
+            </FieldWrapper>
+
+            <FieldWrapper>
+              <Label>Add to group(s)</Label>
+              <Select
+                value={parentGroups}
+                options={groups}
+                valueKey="id"
+                labelKey="name"
+                handleChange={handleParentGroupsChange}
+                name="add to groups picker"
+                isMulti
+                isSearchable
               />
             </FieldWrapper>
 

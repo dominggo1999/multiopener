@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -11,6 +13,8 @@ import {
 import { AddButton } from '../../atom/Button';
 import Link from '../../atom/RouterLink';
 import { ListContext } from '../../context/List.context';
+import Select from '../../atom/Select/Select';
+import { createOptions } from '../../../util';
 
 const queryText = /iamlazy/ig;
 
@@ -51,17 +55,22 @@ const validationSchema = Yup.object({
 
 const AddNewLink = () => {
   const inputRef = useRef();
-  const { addLink } = useContext(ListContext);
+  const { addLink, groups } = useContext(ListContext);
+  const [parentGroups, setParentGroups] = useState([]);
   const history = useHistory();
 
   const handleSubmit = (val) => {
-    addLink(val);
+    addLink(val, parentGroups);
     history.push('/');
   };
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  const handleParentGroupsChange = (choosenGroups) => {
+    setParentGroups(choosenGroups);
+  };
 
   return (
     <>
@@ -112,6 +121,20 @@ const AddNewLink = () => {
                     *{msg}
                   </StyledErrorMessage>
                 )}
+              />
+            </FieldWrapper>
+
+            <FieldWrapper>
+              <Label>Add to group(s)</Label>
+              <Select
+                value={parentGroups}
+                options={groups}
+                valueKey="id"
+                labelKey="name"
+                handleChange={handleParentGroupsChange}
+                name="add to groups picker"
+                isMulti
+                isSearchable
               />
             </FieldWrapper>
 
