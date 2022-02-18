@@ -35,6 +35,10 @@ const useLists = () => {
   };
 
   // Links only modifier
+  const getSingleLink = (linkId) => {
+    return links.filter((link) => link.id === linkId)[0];
+  };
+
   const addLink = (linkDetails, parentGroups) => {
     const id = short.generate();
     const newLink = {
@@ -172,11 +176,21 @@ const useLists = () => {
   };
 
   // Group only modifier
-  const addGroup = (groupDetails) => {
+  const getSingleGroup = (groupId) => {
+    return groups.filter((group) => group.id === groupId)[0];
+  };
+
+  const addGroup = (groupDetails, children) => {
+    const childrenIds = children.map((i) => i.value);
+
+    const addedChildren = links.filter((link) => {
+      return childrenIds.includes(link.id);
+    });
+
     const id = short.generate();
     const newGroup = {
       id,
-      children: [],
+      children: addedChildren,
       ...groupDetails,
     };
 
@@ -206,29 +220,54 @@ const useLists = () => {
     setGroups(newGroups);
   };
 
-  const updateGroup = (id, newValues) => {
+  const updateGroup = (id, newValues, children) => {
     const tempGroups = [...groups];
 
-    const targetGroups = tempGroups.filter((group) => {
+    const targetGroup = tempGroups.filter((group) => {
       return group.id === id;
     })[0];
 
-    if(!targetGroups || !id) return;
+    if(!targetGroup || !id) return;
+
+    const addedChildrenIds = children.map((i) => i.value);
+    const existingChildrenIds = targetGroup.children.map((i) => i.id);
+
+    // ADDING
+    // If already exist dont push
+    for (let i = 0; i < addedChildrenIds.length; i += 1) {
+      if(!existingChildrenIds.includes(addedChildrenIds[i])) {
+        const newLink = getSingleLink(addedChildrenIds[i]);
+
+        targetGroup.children.push(newLink);
+      }
+    }
+
+    // DELETING
+    for (let i = 0; i < existingChildrenIds.length; i += 1) {
+      const linkId = existingChildrenIds[i];
+
+      // Check if link presnt or not in the addedChildren
+      if(!addedChildrenIds.includes(linkId)) {
+        const targetLink = targetGroup.children.filter((i) => i.id === linkId)[0];
+        const targetIndex = targetGroup.children.indexOf(targetLink);
+
+        targetGroup.children.splice(targetIndex, 1);
+      }
+    }
 
     // New Values must be the last
-    const updatedLink = {
-      ...targetGroups,
+    const updatedGroups = {
+      ...targetGroup,
       ...newValues,
     };
 
-    const targetIndex = tempGroups.indexOf(targetGroups);
+    const targetIndex = tempGroups.indexOf(targetGroup);
 
     if(targetIndex > -1) {
-      tempGroups[targetIndex] = updatedLink;
+      tempGroups[targetIndex] = updatedGroups;
     }
 
     setGroups(tempGroups);
-
     storageSet('groups', tempGroups);
   };
 
@@ -291,6 +330,7 @@ const useLists = () => {
     updateLink,
     removeLinkFromGroup,
     addGroup,
+    getSingleGroup,
     deleteGroup,
     updateGroup,
     handleSortableUpdateLinks,

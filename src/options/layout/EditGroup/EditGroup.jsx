@@ -13,7 +13,8 @@ import {
 import { AddButton } from '../../atom/Button';
 import { ListContext } from '../../context/List.context';
 import Link from '../../atom/RouterLink';
-import { storageGet } from '../../../util';
+import { storageGet, createOptions } from '../../../util';
+import Select from '../../atom/Select/Select';
 
 const initialValue = {
   name: '',
@@ -28,15 +29,18 @@ const validationSchema = Yup.object({
 
 const EditGroup = () => {
   const { groupId } = useParams();
-  const { updateGroup } = useContext(ListContext);
+  const {
+    updateGroup, getSingleGroup, rendered, links,
+  } = useContext(ListContext);
   const history = useHistory();
   const inputRef = useRef();
   const [details, setDetails] = useState({
     name: '',
   });
+  const [children, setChildren] = useState();
 
   const handleSubmit = (val) => {
-    updateGroup(groupId, val);
+    updateGroup(groupId, val, children);
     history.push('/');
   };
 
@@ -58,6 +62,18 @@ const EditGroup = () => {
 
     getGroupInfo();
   }, []);
+
+  useEffect(() => {
+    if(rendered) {
+      const existedChildren = getSingleGroup(groupId).children;
+      const options = createOptions(existedChildren, 'title', 'id');
+      setChildren(options);
+    }
+  }, [rendered]);
+
+  const handleChildrenChange = (choosenLinks) => {
+    setChildren(choosenLinks);
+  };
 
   return (
     <>
@@ -94,7 +110,21 @@ const EditGroup = () => {
               />
             </FieldWrapper>
 
-            <AddButton type="submit">Add Group</AddButton>
+            <FieldWrapper>
+              <Label>Add to group <i>(optional)</i> </Label>
+              <Select
+                value={children}
+                options={links}
+                valueKey="id"
+                labelKey="title"
+                handleChange={handleChildrenChange}
+                name="add link to group picker"
+                isMulti
+                isSearchable
+              />
+            </FieldWrapper>
+
+            <AddButton type="submit">Update Group</AddButton>
           </Form>
         </Formik>
       </FormWrapper>
