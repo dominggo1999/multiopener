@@ -84,5 +84,10 @@ export const createOptions = (options, labelKey, valueKey) => {
     };
   });
 
-  return reactSelectOptions;
+  // Sort base on label alphabetically
+  const sorted = reactSelectOptions.sort((a, b) => {
+    return a.label.localeCompare(b.label);
+  });
+
+  return sorted;
 };
