@@ -27,13 +27,6 @@ import { links } from './inject/temp-data';
 // };
 
 const queryText = /iamlazy/ig;
-export const createURL = (query, baseURL) => {
-  return baseURL.replace(queryText, query);
-};
-
-export const createTestURL = (baseURL) => {
-  return createURL('test', baseURL);
-};
 
 export const getDomainAndSubDomain = (link) => {
   const domainValidator = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
@@ -48,6 +41,19 @@ export const getDomainAndSubDomain = (link) => {
     domain: a.host,
     homepage,
   };
+};
+
+export const createURL = (query, baseURL) => {
+  if(!query) {
+    const { homepage } = getDomainAndSubDomain(baseURL);
+    return homepage;
+  }
+
+  return baseURL.replace(queryText, query);
+};
+
+export const createTestURL = (baseURL) => {
+  return createURL('test', baseURL);
 };
 
 export const storageGet = async (key) => {

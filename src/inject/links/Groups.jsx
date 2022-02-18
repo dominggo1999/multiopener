@@ -14,13 +14,13 @@ const Groups = ({
 
     const links = target.children;
 
-    const linksWithQuery = links.map((i) => {
+    const targetLinks = links.map((i) => {
       return createURL(query, i.link);
     });
 
     chrome.runtime?.sendMessage({
       message: 'open group',
-      links: linksWithQuery,
+      links: targetLinks,
     });
   };
 
@@ -39,11 +39,8 @@ const Groups = ({
             >
               <Link
                 as="button"
-                onClick={() => query && visitMultipleLinks(i.id)}
+                onClick={() => visitMultipleLinks(i.id)}
                 title={i.name}
-                style={{
-                  pointerEvents: query ? 'auto' : 'none',
-                }}
               >
                 <Key
                   keyMode={keyMode}

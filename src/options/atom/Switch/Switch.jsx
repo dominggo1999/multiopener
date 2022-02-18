@@ -13,8 +13,6 @@ const Switch = ({ checked, handleChange }) => {
 
   const targetId = themes.map((i) => i.name).indexOf(theme);
 
-  console.log(theme, targetId);
-
   const {
     accent,
     accentLighter,
