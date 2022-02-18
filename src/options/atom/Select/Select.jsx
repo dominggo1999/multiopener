@@ -33,7 +33,6 @@ const Select = ({
   return (
     <SelectWrapper isMulti>
       <ReactSelect
-        autoFocus
         isSearchable={isSearchable}
         name={name}
         onChange={handleChange}

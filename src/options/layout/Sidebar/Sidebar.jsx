@@ -1,11 +1,11 @@
 import React, {
   useState, useContext, useEffect, useRef,
 } from 'react';
-import { NavLink } from 'react-router-dom';
 import { IoIosLink, IoIosColorPalette } from 'react-icons/io';
 import { MdClose } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
 import { gsap } from 'gsap';
+import { NavLink } from '../../atom/RouterLink';
 import {
   SidebarWrapper, SidebarScrollArea, SidebarHeader, NavMenu, NavItem, SidebarBrand,
 }from './Sidebar.style';
@@ -42,6 +42,10 @@ const Sidebar = () => {
     close();
   }, [isXLarge]);
 
+  const handleClick = () => {
+    close();
+  };
+
   return (
     <>
       <Backdrop
@@ -66,6 +70,7 @@ const Sidebar = () => {
           <NavMenu ref={navigationRef}>
             <NavItem>
               <NavLink
+                handleClick={handleClick}
                 exact
                 to="/"
               >
@@ -75,14 +80,20 @@ const Sidebar = () => {
             </NavItem>
 
             <NavItem>
-              <NavLink to="/settings">
+              <NavLink
+                handleClick={handleClick}
+                to="/settings"
+              >
                 <FiSettings />
                 Settings
               </NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink to="/theme">
+              <NavLink
+                handleClick={handleClick}
+                to="/theme"
+              >
                 <IoIosColorPalette />
                 theme
               </NavLink>
