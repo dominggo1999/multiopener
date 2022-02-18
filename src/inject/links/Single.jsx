@@ -14,7 +14,7 @@ const Single = ({
       {
         links && links.length > 0 && links.map((i, id) => {
           const url = createURL(query, i.link);
-          const domain = getDomainAndSubDomain(i.link);
+          const { domain, homepage } = getDomainAndSubDomain(i.link);
           const key = singleKeys[id];
 
           return (
@@ -22,12 +22,9 @@ const Single = ({
               key={i.link}
             >
               <Link
-                target={query ? '_blank' : '_self'}
-                href={query ? url : '#'}
+                target="_blank"
+                href={query ? url : homepage}
                 title={i.title}
-                style={{
-                  pointerEvents: query ? 'auto' : 'none',
-                }}
               >
                 <Key
                   mode={mode}

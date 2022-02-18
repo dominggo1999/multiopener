@@ -81,7 +81,7 @@ const SingleLink = ({
   title, id, deleteLink, link,
 }) => {
   const url = createTestURL(link);
-  const domain = getDomainAndSubDomain(link);
+  const { domain } = getDomainAndSubDomain(link);
 
   return (
     <StyledSingleLink>

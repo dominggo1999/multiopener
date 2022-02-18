@@ -12,6 +12,9 @@ const Switch = ({ checked, handleChange }) => {
   const { theme } = useContext(ThemeContext);
 
   const targetId = themes.map((i) => i.name).indexOf(theme);
+
+  console.log(theme, targetId);
+
   const {
     accent,
     accentLighter,

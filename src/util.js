@@ -38,7 +38,16 @@ export const createTestURL = (baseURL) => {
 export const getDomainAndSubDomain = (link) => {
   const domainValidator = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
 
-  return domainValidator.exec(link)[1];
+  const a = document.createElement('a');
+  a.href = link;
+
+  // Fallback to main page in domain if there is no query
+  const homepage = `${a.protocol}//${a.host}`;
+
+  return {
+    domain: a.host,
+    homepage,
+  };
 };
 
 export const storageGet = async (key) => {

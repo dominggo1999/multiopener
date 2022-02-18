@@ -62,7 +62,7 @@ export const Info = styled.div`
 `;
 
 const SingleLinkInGroup = ({ title, link, removeLink }) => {
-  const domain = getDomainAndSubDomain(link);
+  const { domain } = getDomainAndSubDomain(link);
 
   return (
     <StyledLink>
