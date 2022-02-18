@@ -1,6 +1,6 @@
 export const themes = [
   {
-    name: 'default',
+    name: 'blue-origin',
     colors: {
       primary: '15,23,42',
       secondary: '44,51,68',
