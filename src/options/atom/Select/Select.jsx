@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactSelect from 'react-select';
-import { SelectWrapper } from './Select.style';
+import { SingleSelectWrapper, MultiSelectWrapper } from './Select.style';
 import { createOptions } from '../../../util';
 
 const Select = ({
@@ -15,7 +15,6 @@ const Select = ({
   ...rest
 }) => {
   const options = createOptions(opt, labelKey, valueKey);
-
   const getValue = () => {
     if(!value) return null;
 
@@ -29,9 +28,12 @@ const Select = ({
 
   const val = getValue();
 
+  const SelectWrapper = isMulti ? MultiSelectWrapper : SingleSelectWrapper;
+
   return (
-    <SelectWrapper>
+    <SelectWrapper isMulti>
       <ReactSelect
+        autoFocus
         isSearchable={isSearchable}
         name={name}
         onChange={handleChange}

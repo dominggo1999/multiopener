@@ -1,6 +1,6 @@
 import tw, { styled } from 'twin.macro';
 
-export const SelectWrapper = styled.div`
+export const SingleSelectWrapper = styled.div`
   ${tw`
     flex
     items-center
@@ -9,6 +9,15 @@ export const SelectWrapper = styled.div`
   .react-select-container{
     ${tw`
       w-56
+    `}
+  }
+  
+  /* If searchable */
+  .react-select__input-container{
+    ${tw`
+      font-semibold
+      text-primary
+      dark:(text-light-text)
     `}
   }
 
@@ -122,5 +131,79 @@ export const SelectWrapper = styled.div`
       bg-accent
       text-primary
     `}
+  }
+
+  /* No options */
+  .react-select__menu-notice.react-select__menu-notice--no-options{
+    ${tw`
+      text-primary 
+      dark:text-accent
+    `}
+  }
+`;
+
+export const MultiSelectWrapper = styled(SingleSelectWrapper)`
+   ${tw`
+    w-full
+  `}
+
+  .react-select-container{
+    ${tw`
+      w-full
+    `}
+  }
+
+  .react-select__control{
+    ${tw`
+      hover:(border-primary border-opacity-50)
+      dark:(border-light-text border-opacity-60)
+      dark:hover:(border-light-text border-opacity-60)
+      border-primary
+      border-opacity-50
+    `}
+  }
+
+  .react-select__control--is-focused {
+    ${tw`
+      border-accent
+      dark:(border-accent)   
+      hover:(border-accent)
+      dark:hover:(border-accent)
+    `}
+
+    /* arrow */
+    .react-select__indicators svg{
+      ${tw`
+        text-accent
+        opacity-100
+      `}
+    }
+  }
+
+  .react-select__multi-value{
+    ${tw`
+      bg-accent
+      text-primary
+      capitalize
+      font-semibold
+    `}
+  }
+
+  .react-select__multi-value__label{
+    ${tw`
+      text-primary
+    `}
+  }
+
+  .react-select__multi-value__remove{
+    ${tw`
+      hover:(bg-primary text-light-text)
+      dark:hover:(bg-accent-lighter text-primary)
+    `}
+
+    &:hover svg{
+      transform : scale(1.4) rotate(180deg);
+      transition : transform ease-in-out 200ms;
+    }
   }
 `;

@@ -33,6 +33,12 @@ export const FormWrapper = styled(MenuWrapper)`
       `}
     }
   }
+
+  button[type="submit"] {
+    ${tw`
+      mt-10
+    `}
+  }
 `;
 
 export const FieldWrapper = styled.div`

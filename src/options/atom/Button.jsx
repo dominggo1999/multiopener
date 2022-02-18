@@ -8,7 +8,7 @@ export const Btn = styled.button`
     rounded-lg 
     font-semibold
     hover:bg-accent-lighter
-    text-secondary
+    text-primary
   `}
 `;
 
