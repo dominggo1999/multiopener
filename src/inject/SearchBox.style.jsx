@@ -41,7 +41,7 @@ export const SearchArea = styled.div`
 
 
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
-
+  transition: background-color 300ms ease-in-out;
   ${({ embedded }) => embedded && tw`
     my-0
   `}

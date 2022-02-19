@@ -35,9 +35,9 @@ const SearchBox = ({ embedded, injected }) => {
   const [links, setLinks] = useState([]);
   const [groups, setGroups] = useState([]);
   const [rendered, setRendered] = useState(false);
-  const force = useRef(false);
   const [theme, setTheme] = useState();
   const [mode, setMode] = useState();
+  const inboxRef = useRef(false);
 
   const getData = async () => {
     const links = await storageGet('links');
@@ -113,10 +113,12 @@ const SearchBox = ({ embedded, injected }) => {
       }
     };
 
-    // Always update data when focus on window
     const updateData = () => {
-      getData();
-      force.current = !force.current;
+      // Reduce rerender, only rerender if there is update in storage
+      if(inboxRef.current) {
+        getData();
+        inboxRef.current = false;
+      }
     };
 
     if(rendered) {
@@ -135,7 +137,7 @@ const SearchBox = ({ embedded, injected }) => {
         window.removeEventListener('focus', updateData);
       };
     }
-  }, [rendered, force.current]);
+  }, [rendered]);
 
   const handleClose = () => {
     if (chrome.runtime?.id) {
@@ -144,6 +146,20 @@ const SearchBox = ({ embedded, injected }) => {
       window.parent.postMessage('close iframe', '*');
     }
   };
+
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if(e.message === 'please rerender') {
+        inboxRef.current = true;
+      }
+    };
+
+    injected && chrome?.runtime?.onMessage.addListener(handleMessage);
+
+    return () => {
+      injected && chrome?.runtime?.onMessage.removeListener(handleMessage);
+    };
+  }, []);
 
   useEffect(() => {
     getData();

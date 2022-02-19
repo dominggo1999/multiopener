@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
-import tw, { styled } from 'twin.macro';
 import { StyledHeader, MenuIcon } from './Header.style';
 import { SidebarContext } from '../../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
 import { ThemeContext } from '../../../theme/ThemeProvider';
+import { rerenderPassiveTabUI } from '../../../util';
 
 const themeList = [
   'default',
@@ -21,6 +21,14 @@ const Header = () => {
   const { setTheme, setMode } = useContext(ThemeContext);
   const { isXLarge } = useSizes();
   const [themeIndex, setThemeIndex] = useState(0);
+
+  const messageToContentScript = async (message) => {
+    await chrome?.tabs?.query({}, (tabs) => {
+      tabs?.forEach((tab) => {
+        chrome?.tabs?.sendMessage(tab.id, message);
+      });
+    });
+  };
 
   const changeTheme = () => {
     const next = themeIndex + 1;

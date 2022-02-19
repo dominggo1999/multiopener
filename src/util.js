@@ -1,5 +1,3 @@
-import { links } from './inject/temp-data';
-
 // const runtime = chrome ? chrome.runtime : browser.runtime;
 // const browserTabs = chrome ? chrome.tabs : browser.tabs;
 // const extensionStorage = chrome ? chrome.storage.local : browser.storage.local;
@@ -18,19 +16,23 @@ import { links } from './inject/temp-data';
 //   await runtime?.sendMessage(message);
 // };
 
-// export const messageToContentScript = async (message) => {
-//   await browserTabs?.query({}, (tabs) => {
-//     tabs?.forEach((tab) => {
-//       browserTabs.sendMessage(tab.id, message);
-//     });
-//   });
-// };
-
 const queryText = /iamlazy/ig;
 
-export const getDomainAndSubDomain = (link) => {
-  const domainValidator = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
+export const messageToContentScript = async (message) => {
+  await chrome?.tabs?.query({}, (tabs) => {
+    tabs?.forEach((tab) => {
+      chrome?.tabs?.sendMessage(tab.id, message);
+    });
+  });
+};
 
+export const rerenderPassiveTabUI = () => {
+  messageToContentScript({
+    message: 'please rerender',
+  });
+};
+
+export const getDomainAndSubDomain = (link) => {
   const a = document.createElement('a');
   a.href = link;
 
@@ -89,6 +91,9 @@ export const storageSet = async (key, value) => {
   }else{
     localStorage.setItem(key, JSON.stringify(value));
   }
+
+  // If storage changed then rerender ui on passive tab
+  rerenderPassiveTabUI();
 };
 
 export const createOptions = (options, labelKey, valueKey) => {

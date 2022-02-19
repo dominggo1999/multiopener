@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import short from 'short-uuid';
 import { storageGet, storageSet } from '../util';
 
@@ -67,8 +67,8 @@ const useLists = () => {
       return link.id !== id;
     });
 
-    storageSet('links', newLinks);
     setLinks(newLinks);
+    storageSet('links', newLinks);
 
     // Delete deleted link from groups
 
@@ -116,7 +116,6 @@ const useLists = () => {
     }
 
     setLinks(tempLinks);
-
     storageSet('links', tempLinks);
 
     // update link in group too
@@ -171,7 +170,6 @@ const useLists = () => {
     tempGroups[targetGroupIndex].children = newLinksInGroup;
 
     setGroups(tempGroups);
-
     storageSet('groups', tempGroups);
   };
 
@@ -216,7 +214,6 @@ const useLists = () => {
     });
 
     storageSet('groups', newGroups);
-
     setGroups(newGroups);
   };
 
@@ -274,16 +271,16 @@ const useLists = () => {
   // React sortable modifying links
   const handleSortableUpdateLinks = (newLinks) => {
     if(rendered) {
-      storageSet('links', newLinks);
       setLinks(newLinks);
+      storageSet('links', newLinks);
     }
   };
 
   // React sortable modifying groups
   const handleSortableUpdateGroups = (newGroups) => {
     if(rendered) {
-      storageSet('groups', newGroups);
       setGroups(newGroups);
+      storageSet('groups', newGroups);
     }
   };
 
@@ -302,21 +299,34 @@ const useLists = () => {
       tempGroups[targetIndex].children = newValue;
 
       setGroups(tempGroups);
-
       storageSet('groups', tempGroups);
     }
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      const links = await storageGet('links');
-      const groups = await storageGet('groups');
+  const getData = async () => {
+    const links = await storageGet('links');
+    const groups = await storageGet('groups');
 
-      setLinks(links);
-      setGroups(groups);
-      setRendered(true);
+    setLinks(links);
+    setGroups(groups);
+    setRendered(true);
+  };
+
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if(e.message === 'please rerender') {
+        getData();
+      }
     };
 
+    chrome?.runtime?.onMessage.addListener(handleMessage);
+
+    return () => {
+      chrome?.runtime?.onMessage.removeListener(handleMessage);
+    };
+  }, []);
+
+  useEffect(() => {
     getData();
   }, []);
 
