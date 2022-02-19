@@ -22,6 +22,12 @@ const Groups = ({
       message: 'open group',
       links: targetLinks,
     });
+
+    if(!chrome.runtime) {
+      for (let i = 0; i < targetLinks.length; i += 1) {
+        window.open(targetLinks[i]);
+      }
+    }
   };
 
   return (
