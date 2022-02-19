@@ -52,10 +52,8 @@ export const WebsiteList = styled.ul`
 
 export const TypeTitle = styled.h3`
   ${tw`
-    text-2xl
-    mt-3 
+    text-xl
     mb-2 
-    font-semibold 
     text-primary
     dark:(text-light-text)
   `}

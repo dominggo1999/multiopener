@@ -63,8 +63,8 @@
 
   const messageHandler = (e) => {
     if(!chrome.runtime?.id && e.data === 'close iframe') {
-      const iframe = document.querySelector('iframe.injected');
-      iframe.style.display = 'none';
+      const app = document.querySelector('iframe.injected');
+      app.style.display = 'none';
     }
 
     // Toggle Frame
@@ -78,6 +78,7 @@
       }
     }
 
+    // Close frame
     if(e.data === 'escape') {
       const app = document.querySelector('iframe.injected');
 

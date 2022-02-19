@@ -8,6 +8,7 @@ import SearchBar from './SearchBar';
 import Groups from './links/Groups';
 import Single from './links/Single';
 import { storageGet } from '../util';
+import HelperNavigation from './HelperNavigation';
 
 const browserTabs = chrome.tabs;
 
@@ -107,6 +108,7 @@ const SearchBox = () => {
       }
     };
 
+    // Always update data when focus on window
     const updateData = () => {
       getData();
       force.current = !force.current;
@@ -157,7 +159,7 @@ const SearchBox = () => {
             rendered={rendered}
             handleClose={handleClose}
           />
-
+          <HelperNavigation />
           <TypeTitle>Groups</TypeTitle>
           <WebsiteList
             ref={groupRef}

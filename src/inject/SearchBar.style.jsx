@@ -15,9 +15,11 @@ export const SearchBarContainer = styled.div`
       font-medium
       outline-none 
       border
-      border-transparent
       bg-main-background
-      dark:(bg-transparent caret-accent text-light-text border-accent)
+      border-accent
+      border-opacity-10
+      focus:border-opacity-100
+      dark:(bg-transparent caret-accent text-light-text border-opacity-100)
       rounded-2xl
     `}
     border-radius : 5px;
