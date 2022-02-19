@@ -43,14 +43,14 @@ export const FormWrapper = styled(MenuWrapper)`
 
 export const FieldWrapper = styled.div`
   ${tw`
-    mb-4 
+    mb-8 
     relative
   `}
 `;
 
 export const Label = styled.div`
   ${tw`
-    text-xl
+    text-lg
     text-primary
     dark:(text-light-text)
     mb-2
