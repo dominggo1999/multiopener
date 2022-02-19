@@ -11,6 +11,7 @@ import AddNewGroup from '../AddNewGroup/AddNewGroup';
 import EditLink from '../EditLink/EditLink';
 import EditGroup from '../EditGroup/EditGroup';
 import Theme from '../Theme/Theme';
+import Search from '../Search/Search';
 
 const Main = () => {
   return (
@@ -27,6 +28,9 @@ const Main = () => {
           <Route exact path="/theme">
             <Theme />
           </Route>
+          <Route exact path="/search">
+            <Search />
+          </Route>
           <Route exact path="/add-new-link">
             <AddNewLink />
           </Route>
@@ -40,7 +44,6 @@ const Main = () => {
             <EditGroup />
           </Route>
         </Switch>
-        {/* <Options /> */}
       </MainContainer>
     </StyledMain>
   );

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import GlobalStyles from '../styles/GlobalStyles';
 import Options from './Options';
-import ListProvider from './context/List.context';
+import ListProvider from '../context/List.context';
 import ThemeProvider from '../theme/ThemeProvider';
 
 ReactDOM.render(

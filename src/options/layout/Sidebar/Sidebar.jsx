@@ -4,12 +4,13 @@ import React, {
 import { IoIosLink, IoIosColorPalette } from 'react-icons/io';
 import { MdClose } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
+import { BsSearch } from 'react-icons/bs';
 import { gsap } from 'gsap';
 import { NavLink } from '../../atom/RouterLink';
 import {
   SidebarWrapper, SidebarScrollArea, SidebarHeader, NavMenu, NavItem, SidebarBrand,
 }from './Sidebar.style';
-import { SidebarContext } from '../../context/Sidebar.context';
+import { SidebarContext } from '../../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
 import Backdrop from '../../atom/Backdrop';
 
@@ -76,6 +77,17 @@ const Sidebar = () => {
               >
                 <IoIosLink />
                 Links
+              </NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink
+                handleClick={handleClick}
+                exact
+                to="/search"
+              >
+                <BsSearch />
+                Search
               </NavLink>
             </NavItem>
 

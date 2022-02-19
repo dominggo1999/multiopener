@@ -10,7 +10,7 @@ import {
 } from './Groups.style';
 import { ColHeader } from '../../atom/ColHeader';
 import { AddButton } from '../../atom/Button';
-import { ListContext } from '../../context/List.context';
+import { ListContext } from '../../../context/List.context';
 import SingleLinkInGroup from '../../atom/SingleLinkInGroup';
 import Link from '../../atom/RouterLink';
 

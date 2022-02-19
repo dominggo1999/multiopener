@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, useRef, useContext,
+  useEffect, useState, useRef,
 } from 'react';
 import {
   WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper,
@@ -23,17 +23,13 @@ const closeSearchBox = async () => {
 const groupKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 const singleKeys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
 
-const getFocusable = () => {
-  const focusable = document.querySelectorAll('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  const firstFocusable = focusable[0];
-  const lastFocusable = focusable[focusable.length - 1];
+// Embedded : options page
+// Injected : injected iframe via content script
 
-  return { focusable, firstFocusable, lastFocusable };
-};
-
-const SearchBox = () => {
+const SearchBox = ({ embedded, injected }) => {
   const [query, setQuery] = useState('');
   const [keyMode, setKeyMode] = useState(true);
+  const searchBoxRef = useRef();
   const groupRef = useRef();
   const singleRef = useRef();
   const [links, setLinks] = useState([]);
@@ -54,6 +50,15 @@ const SearchBox = () => {
     setLinks(links);
     setGroups(groups);
     setRendered(true);
+  };
+
+  const getFocusable = () => {
+    const parent = embedded ? searchBoxRef.current : document;
+    const focusable = parent.querySelectorAll('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const firstFocusable = focusable[0];
+    const lastFocusable = focusable[focusable.length - 1];
+
+    return { focusable, firstFocusable, lastFocusable };
   };
 
   useEffect(() => {
@@ -115,13 +120,16 @@ const SearchBox = () => {
     };
 
     if(rendered) {
-      window.addEventListener('keydown', keyBindings);
+      // Only need keybindings on injected
+      injected && window.addEventListener('keydown', keyBindings);
+
       window.addEventListener('keydown', tabNavigation);
       window.addEventListener('keydown', keyNavigation);
       window.addEventListener('focus', updateData);
 
       return () => {
-        window.removeEventListener('keydown', keyBindings);
+        injected && window.removeEventListener('keydown', keyBindings);
+
         window.removeEventListener('keydown', tabNavigation);
         window.removeEventListener('keydown', keyNavigation);
         window.removeEventListener('focus', updateData);
@@ -145,13 +153,21 @@ const SearchBox = () => {
 
   return (
     <>
-      <Overlay
-        onClick={handleClose}
-        role="button"
-      />
+      {
+        injected && (
+        <Overlay
+          onClick={handleClose}
+          role="button"
+        />
+        )
+      }
 
-      <SearchAreaWrapper className={`${theme} ${mode}`}>
-        <SearchArea>
+      <SearchAreaWrapper
+        ref={searchBoxRef}
+        embedded={embedded}
+        className={injected ? `${theme} ${mode}` : null}
+      >
+        <SearchArea embedded={embedded}>
           <SearchBar
             setKeyMode={setKeyMode}
             setQuery={setQuery}

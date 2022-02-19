@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
 import tw, { styled } from 'twin.macro';
 import { StyledHeader, MenuIcon } from './Header.style';
-import { SidebarContext } from '../../context/Sidebar.context';
+import { SidebarContext } from '../../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
 import { ThemeContext } from '../../../theme/ThemeProvider';
 

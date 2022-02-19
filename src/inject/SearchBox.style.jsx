@@ -17,10 +17,16 @@ export const SearchAreaWrapper = styled.div`
     absolute  
     md:min-w-[750px]
     top-0  
-    left-0
+    left-1/2
+    -translate-x-1/2
   `}
-  left : 50%;
-  transform : translateX(-50%);  
+
+  ${({ embedded }) => embedded && tw`
+    static
+    translate-x-0
+    max-w-[750px]
+    mx-auto
+  `}
 `;
 
 export const SearchArea = styled.div`
@@ -35,6 +41,10 @@ export const SearchArea = styled.div`
 
 
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+
+  ${({ embedded }) => embedded && tw`
+    my-0
+  `}
 `;
 
 export const WebsiteList = styled.ul`

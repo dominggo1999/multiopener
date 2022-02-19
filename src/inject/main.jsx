@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import GlobalStyles from '../styles/GlobalStyles';
 import SearchBox from './SearchBox';
 import ThemeProvider from '../theme/ThemeProvider';
+import ListProvider from '../context/List.context';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider>
-      <GlobalStyles />
-      <SearchBox />
+      <ListProvider>
+        <GlobalStyles />
+        <SearchBox injected />
+      </ListProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root-inject'),
