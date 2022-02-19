@@ -16,10 +16,7 @@ export const SidebarWrapper = styled.aside`
     xl:translate-x-0
     xl:sticky
   `}
-
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
-  transition-duration: .2s;
-  transition-property: transform;
+  transition : transform 200ms cubic-bezier(.4,0,.2,1), background-color 400ms cubic-bezier(0.61, 1, 0.88, 1);;
 
   ${({ open }) => {
     return open ? tw`translate-x-0` : tw`-translate-x-64`;
@@ -90,6 +87,10 @@ export const NavItem = styled.li`
     ${tw`
       text-accent 
       bg-secondary
+      transition 
+      transition-bg
+      ease-out-sine
+      duration-400
     `}
   }
 

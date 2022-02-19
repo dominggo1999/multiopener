@@ -25,7 +25,12 @@ export const FormWrapper = styled(MenuWrapper)`
       focus:(border-accent border-opacity-100)
       font-medium
       dark:(bg-primary text-light-text border-light-text focus:border-accent caret-accent border-opacity-60)
+      transition 
+      transition-bg
+      ease-out-sine
+      duration-400
     `}
+    
     ::selection {
       ${tw`
         bg-accent 

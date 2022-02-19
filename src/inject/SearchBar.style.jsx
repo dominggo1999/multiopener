@@ -21,6 +21,10 @@ export const SearchBarContainer = styled.div`
       focus:border-opacity-100
       dark:(bg-transparent caret-accent text-light-text border-opacity-100)
       rounded-2xl
+      transition 
+      transition-bg
+      ease-out-sine
+      duration-300
     `}
     border-radius : 5px;
 

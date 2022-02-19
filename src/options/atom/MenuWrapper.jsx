@@ -13,5 +13,9 @@ export const MenuWrapper = styled.div`
     md:px-10
     px-5
     shadow
+    transition 
+    transition-bg
+    ease-out-sine
+    duration-400
   `}
 `;

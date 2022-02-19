@@ -8,6 +8,10 @@ export const StyledMain = styled.main`
     flex-col 
     bg-main-background  
     dark:bg-primary
+    transition 
+    transition-bg
+    ease-out-sine
+    duration-400
   `}
 `;
 
