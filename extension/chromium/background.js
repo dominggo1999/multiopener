@@ -35,6 +35,8 @@ const startExtension = async () => {
   for (let i = 0; i < contentScripts.length; i += 1) {
     const contScript = contentScripts[i];
     chrome.tabs.query({ url: contScript.matches }, (foundTabs) => {
+      console.log(foundTabs);
+
       for (let j = 0; j < foundTabs.length; j += 1) {
         const javaScripts = contScript.js;
 

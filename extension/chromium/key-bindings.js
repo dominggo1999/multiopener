@@ -1,4 +1,6 @@
 (() => {
+  if(document.xmlVersion) return;
+
   const keyBindings = (e) => {
     const key = e.key;
 

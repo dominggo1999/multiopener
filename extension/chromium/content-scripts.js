@@ -3,6 +3,8 @@
 /* eslint-disable array-callback-return */
 
 (() => {
+  if(document.xmlVersion) return;
+
   const getValueInStore = (key) => {
     const extensionStorage = chrome ? chrome.storage.local : browser.storage.local;
 
@@ -23,15 +25,11 @@
     // Must be declared at web_accessible_resources in manifest.json
     iframe.src = chrome.runtime.getURL('/dist/inject/index.html');
     iframe.frameborder = '0';
-
-    if(iframe.style) {
-      iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;z-index:2147483647;';
-      iframe.style.display = 'none';
-      iframe.style.colorScheme = 'light';
-
-      iframe.classList.add('injected');
-      document.body.appendChild(iframe);
-    }
+    iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;z-index:2147483647;';
+    iframe.style.display = 'none';
+    iframe.style.colorScheme = 'light';
+    iframe.classList.add('injected');
+    document.body.appendChild(iframe);
   };
 
   const initContentScript = () => {
