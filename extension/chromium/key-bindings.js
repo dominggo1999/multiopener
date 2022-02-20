@@ -18,9 +18,16 @@
       window.addEventListener('keydown', keyBindings);
     };
 
-    // When page First Loaded
-    window.addEventListener('load', () => {
-      addKeyBindings();
+    document.addEventListener('DOMContentLoaded', (event) => {
+      if (document.readyState === 'interactive') {
+        // Avoid recursive frame insertion...
+        const extensionOrigin = `chrome-extension://${chrome.runtime.id}`;
+
+        // eslint-disable-next-line no-restricted-globals
+        if (!location.ancestorOrigins.contains(extensionOrigin)) {
+          addKeyBindings();
+        }
+      }
     });
 
     // If page already loaded but extension is reloaded or updated

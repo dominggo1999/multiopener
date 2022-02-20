@@ -34,6 +34,10 @@ const SearchBar = ({
     };
   }, []);
 
+  const handleChange = () => {
+
+  };
+
   return (
     <SearchBarContainer>
       <input

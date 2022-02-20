@@ -24,29 +24,30 @@
     iframe.src = chrome.runtime.getURL('/dist/inject/index.html');
     iframe.frameborder = '0';
 
-    iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;z-index:2147483647;';
-    iframe.style.display = 'none';
-    iframe.style.colorScheme = 'light';
+    if(iframe.style) {
+      iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;z-index:2147483647;';
+      iframe.style.display = 'none';
+      iframe.style.colorScheme = 'light';
 
-    iframe.classList.add('injected');
-    document.body.appendChild(iframe);
+      iframe.classList.add('injected');
+      document.body.appendChild(iframe);
+    }
   };
 
   const initContentScript = () => {
-    document.onreadystatechange = () => {
+    document.addEventListener('DOMContentLoaded', (event) => {
       if (document.readyState === 'interactive') {
         // Avoid recursive frame insertion...
         const extensionOrigin = `chrome-extension://${chrome.runtime.id}`;
+
         // eslint-disable-next-line no-restricted-globals
         if (!location.ancestorOrigins.contains(extensionOrigin)) {
-          deleteFrame();
           createFrame();
         }
       }
-    };
+    });
 
     if(document.readyState === 'complete') {
-      deleteFrame();
       createFrame();
     }
   };
