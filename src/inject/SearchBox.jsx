@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, useRef,
+  useEffect, useState, useRef, useContext,
 } from 'react';
 import {
   WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper,
@@ -9,6 +9,8 @@ import Groups from './links/Groups';
 import Single from './links/Single';
 import { storageGet } from '../util';
 import HelperNavigation from './HelperNavigation';
+import { ThemeContext } from '../theme/ThemeProvider';
+import { ListContext } from '../context/List.context';
 
 const browserTabs = chrome.tabs;
 
@@ -25,19 +27,30 @@ const singleKeys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 
 
 // Embedded : options page
 // Injected : injected iframe via content script
-
 const SearchBox = ({ embedded, injected }) => {
   const [query, setQuery] = useState('');
   const [keyMode, setKeyMode] = useState(true);
   const searchBoxRef = useRef();
   const groupRef = useRef();
   const singleRef = useRef();
-  const [links, setLinks] = useState([]);
-  const [groups, setGroups] = useState([]);
-  const [rendered, setRendered] = useState(false);
-  const [theme, setTheme] = useState();
-  const [mode, setMode] = useState();
   const inboxRef = useRef(false);
+  const [rendered, setRendered] = useState(false);
+
+  // When embedded search box cannot listened to message, so need state from parent
+  const {
+    mode: parentMode,
+    theme: parentTheme,
+  } = embedded ? useContext(ThemeContext) : {};
+
+  const {
+    links: parentLinks,
+    groups: parentGroups,
+  } = embedded ? useContext(ListContext) : {};
+
+  const [mode, setMode] = embedded ? [parentMode, () => {}] : useState();
+  const [theme, setTheme] = embedded ? [parentTheme, () => {}] : useState();
+  const [groups, setGroups] = embedded ? [parentGroups, () => {}] : useState([]);
+  const [links, setLinks] = embedded ? [parentLinks, () => {}] : useState([]);
 
   const getData = async () => {
     const links = await storageGet('links');
@@ -45,10 +58,13 @@ const SearchBox = ({ embedded, injected }) => {
     const storedTheme = await storageGet('theme');
     const storedMode = await storageGet('mode');
 
-    setTheme(storedTheme);
-    setMode(storedMode);
-    setLinks(links);
-    setGroups(groups);
+    if(injected) {
+      setTheme(storedTheme);
+      setLinks(links);
+      setGroups(groups);
+      setMode(storedMode);
+    }
+
     setRendered(true);
   };
 
@@ -150,6 +166,7 @@ const SearchBox = ({ embedded, injected }) => {
   useEffect(() => {
     const handleMessage = (e) => {
       if(e.message === 'please rerender') {
+        console.log('Qwrwqrqw');
         inboxRef.current = true;
       }
     };
@@ -190,8 +207,12 @@ const SearchBox = ({ embedded, injected }) => {
             query={query}
             rendered={rendered}
             handleClose={handleClose}
+            injected={injected}
           />
-          <HelperNavigation />
+          {
+            injected ? <HelperNavigation /> : <br />
+          }
+
           <TypeTitle>Groups</TypeTitle>
           <WebsiteList
             ref={groupRef}

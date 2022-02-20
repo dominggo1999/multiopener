@@ -4,7 +4,7 @@ import {
 } from './SearchBar.style';
 
 const SearchBar = ({
-  query, setQuery, setKeyMode, handleClose,
+  query, setQuery, setKeyMode, handleClose, injected,
 }) => {
   const inputRef = useRef();
   const activateKeyMode = () => setKeyMode(true);
@@ -45,14 +45,19 @@ const SearchBar = ({
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search something"
       />
-      <EscapeKeyWrapper tabIndex="-1">
-        <EscapeKeyChar
-          onClick={handleClose}
-          tabIndex="-1"
-        >
-          Esc
-        </EscapeKeyChar>
-      </EscapeKeyWrapper>
+
+      {
+        injected && (
+          <EscapeKeyWrapper tabIndex="-1">
+            <EscapeKeyChar
+              onClick={handleClose}
+              tabIndex="-1"
+            >
+              Esc
+            </EscapeKeyChar>
+          </EscapeKeyWrapper>
+        )
+      }
     </SearchBarContainer>
   );
 };
