@@ -143,43 +143,43 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
   }
 });
 
-// // prevent client from visiting options page via omnibox search
-// chrome.tabs.onUpdated.addListener((openedTabId, changeInfo, tab) => {
-//   if (changeInfo.status === 'complete') {
-//     const openedTabURL = tab.url;
-//     const baseURL = `chrome-extension://${chrome.runtime.id}`;
+// prevent client from visiting options page via omnibox search
+chrome.tabs.onUpdated.addListener((openedTabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete') {
+    const openedTabURL = tab.url;
+    const baseURL = `chrome-extension://${chrome.runtime.id}`;
 
-//     // Check if new tab is extension url
-//     const regexpTest = new RegExp(baseURL);
+    // Check if new tab is extension url
+    const regexpTest = new RegExp(baseURL);
 
-//     if(openedTabURL.match(regexpTest)) {
-//     // if true check if chrome extension url already  opened
-//       chrome.tabs.query({}, (tabs) => {
-//         tabs.forEach((tab) => {
-//           const existingTabURL = tab.url;
-//           if(existingTabURL.match(regexpTest) && tab.id !== openedTabId) {
-//             console.log(tab);
+    if(openedTabURL.match(regexpTest)) {
+    // if true check if chrome extension url already  opened
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach((tab) => {
+          const existingTabURL = tab.url;
+          if(existingTabURL.match(regexpTest) && tab.id !== openedTabId) {
+            console.log(tab);
 
-//             chrome.tabs.update(tab.id, {
-//               active: true,
-//             });
+            chrome.tabs.update(tab.id, {
+              active: true,
+            });
 
-//             setTimeout(() => {
-//               if(openedTabURL !== existingTabURL) {
-//                 chrome.tabs.update(tab.id, {
-//                   url: openedTabURL,
-//                 });
-//               }
-//             }, 300);
+            setTimeout(() => {
+              if(openedTabURL !== existingTabURL) {
+                chrome.tabs.update(tab.id, {
+                  url: openedTabURL,
+                });
+              }
+            }, 300);
 
-//             chrome.tabs.remove(
-//               openedTabId,
-//             );
-//           }
-//         });
-//       });
-//     }
-//   }
-// });
+            chrome.tabs.remove(
+              openedTabId,
+            );
+          }
+        });
+      });
+    }
+  }
+});
 
 try { initSettings(); } catch (e) { console.error(e); }

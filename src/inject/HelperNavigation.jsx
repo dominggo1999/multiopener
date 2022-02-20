@@ -50,6 +50,7 @@ const HelperNavigation = () => {
         helperLinks?.length > 0 && helperLinks.map((i) => {
           return (
             <Link
+              tabIndex="-1"
               onClick={() => openOptionsURL(i.url)}
               key={`helper-link${i.id}`}
             >
