@@ -11,7 +11,7 @@ export const HelperNavigationWrapper = styled.div`
   `}
 `;
 
-export const Link = styled.a`
+export const Link = styled.button`
   ${tw`
     dark:(text-accent)
     dark:hover:text-light-text

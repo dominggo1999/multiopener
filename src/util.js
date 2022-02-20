@@ -12,9 +12,9 @@
 //   });
 // };
 
-// export const messageToBackground = async (message) => {
-//   await runtime?.sendMessage(message);
-// };
+export const messageToBackground = async (message) => {
+  await chrome.runtime?.sendMessage(message);
+};
 
 const queryText = /iamlazy/ig;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { HelperNavigationWrapper, Link } from './HelperNavigation.style';
+import { messageToBackground } from '../util';
 
 const paths = [
   {
@@ -35,6 +36,13 @@ const createURL = (paths) => {
 
 const helperLinks = createURL(paths);
 
+const openOptionsURL = (url) => {
+  messageToBackground({
+    message: 'open options page',
+    url,
+  });
+};
+
 const HelperNavigation = () => {
   return (
     <HelperNavigationWrapper>
@@ -42,9 +50,7 @@ const HelperNavigation = () => {
         helperLinks?.length > 0 && helperLinks.map((i) => {
           return (
             <Link
-              target="_blank"
-              tabIndex="-1"
-              href={i.url}
+              onClick={() => openOptionsURL(i.url)}
               key={`helper-link${i.id}`}
             >
               {i.name}
