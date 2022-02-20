@@ -1,52 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
 import { StyledHeader, MenuIcon } from './Header.style';
 import { SidebarContext } from '../../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
-import { ThemeContext } from '../../../theme/ThemeProvider';
-import { rerenderPassiveTabUI } from '../../../util';
-
-const themeList = [
-  'default',
-  'reddish',
-  'dev',
-  'monokai',
-  'purply',
-  'wavez',
-  'bushido',
-];
+import useHeader from '../../../hooks/useHeader';
 
 const Header = () => {
   const { open } = useContext(SidebarContext);
-  const { setTheme, setMode } = useContext(ThemeContext);
   const { isXLarge } = useSizes();
-  const [themeIndex, setThemeIndex] = useState(0);
 
-  const messageToContentScript = async (message) => {
-    await chrome?.tabs?.query({}, (tabs) => {
-      tabs?.forEach((tab) => {
-        chrome?.tabs?.sendMessage(tab.id, message);
-      });
-    });
-  };
-
-  const changeTheme = () => {
-    const next = themeIndex + 1;
-
-    if(next === themeList.length) {
-      setThemeIndex(0);
-      setTheme(themeList[0]);
-    }else{
-      setThemeIndex(next);
-      setTheme(themeList[next]);
-    }
-  };
-
-  const changeMode = () => {
-    setMode((prevMode) => {
-      return prevMode === 'light' ? 'dark' : 'light';
-    });
-  };
+  useHeader();
 
   return (
     <StyledHeader>
@@ -58,8 +21,7 @@ const Header = () => {
         )
       }
       <h1>header</h1>
-      {/* <button onClick={changeTheme}>Change theme</button> */}
-      <button onClick={changeMode}>Change mode</button>
+
     </StyledHeader>
   );
 };

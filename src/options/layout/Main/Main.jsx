@@ -12,6 +12,7 @@ import EditLink from '../EditLink/EditLink';
 import EditGroup from '../EditGroup/EditGroup';
 import Theme from '../Theme/Theme';
 import Search from '../Search/Search';
+import NotFoundPage from '../../atom/NotFoundPage';
 
 const Main = () => {
   return (
@@ -42,6 +43,9 @@ const Main = () => {
           </Route>
           <Route exact path="/edit-group/:groupId">
             <EditGroup />
+          </Route>
+          <Route path="*">
+            <NotFoundPage />
           </Route>
         </Switch>
       </MainContainer>

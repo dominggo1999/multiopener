@@ -38,6 +38,7 @@ const EditGroup = () => {
     name: '',
   });
   const [children, setChildren] = useState();
+  const [itemIsValid, setItemIsValid] = useState(false);
 
   const handleSubmit = (val) => {
     updateGroup(groupId, val, children);
@@ -45,23 +46,26 @@ const EditGroup = () => {
   };
 
   useEffect(() => {
-    inputRef.current.focus();
-
     const getGroupInfo = async () => {
       const groups = await storageGet('groups');
 
       const target = groups.filter((i) => i.id === groupId)[0];
 
-      setDetails((prevDetails) => {
-        return {
-          ...prevDetails,
-          name: target.name,
-        };
-      });
+      if(!target) {
+        history.push('/404');
+      }else{
+        inputRef.current.focus();
+        setDetails((prevDetails) => {
+          return {
+            ...prevDetails,
+            name: target.name,
+          };
+        });
+      }
     };
 
     getGroupInfo();
-  }, []);
+  }, [groupId]);
 
   useEffect(() => {
     if(rendered) {
