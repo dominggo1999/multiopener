@@ -9,7 +9,7 @@ export const StyledHeader = styled.header`
     px-4 
     text-2xl 
     bg-white
-    dark:(bg-primary text-white shadow-none)
+    dark:(bg-primary shadow-none)
     transition 
     transition-bg
     ease-out-sine
@@ -22,5 +22,14 @@ export const StyledHeader = styled.header`
 export const MenuIcon = styled.button`
   ${tw`
     text-3xl
+  `}
+`;
+
+export const PageTitle = styled.h1`
+  ${tw`
+    dark:text-light-text
+    text-primary
+    capitalize
+    font-semibold
   `}
 `;

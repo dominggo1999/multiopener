@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
-import { StyledHeader, MenuIcon } from './Header.style';
+import { StyledHeader, MenuIcon, PageTitle } from './Header.style';
 import { SidebarContext } from '../../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
 import useHeader from '../../../hooks/useHeader';
@@ -8,8 +8,7 @@ import useHeader from '../../../hooks/useHeader';
 const Header = () => {
   const { open } = useContext(SidebarContext);
   const { isXLarge } = useSizes();
-
-  useHeader();
+  const { title } = useHeader();
 
   return (
     <StyledHeader>
@@ -20,7 +19,7 @@ const Header = () => {
           </MenuIcon>
         )
       }
-      <h1>header</h1>
+      <PageTitle>{title}</PageTitle>
 
     </StyledHeader>
   );
