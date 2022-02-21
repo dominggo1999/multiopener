@@ -74,8 +74,6 @@ export const storageGet = async (key, injected) => {
     return result[key];
   }
 
-  console.log(isIframe);
-
   const result = !isIframe ? JSON.parse(localStorage.getItem(key)) : null;
 
   return result;

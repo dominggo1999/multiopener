@@ -1,3 +1,33 @@
+// https://stackoverflow.com/questions/1589721/get-selected-text-position-and-place-an-element-next-to-it/1589912#1589912
+(() => {
+  if(document.xmlVersion) return;
+
+  const initTooltip = () => {
+    const injectToolTip = () => {
+      console.log(document.head);
+    };
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+      if (document.readyState === 'interactive') {
+        // Avoid recursive frame insertion...
+        const extensionOrigin = `chrome-extension://${chrome.runtime.id}`;
+
+        // eslint-disable-next-line no-restricted-globals
+        if (!location.ancestorOrigins.contains(extensionOrigin)) {
+          injectToolTip();
+        }
+      }
+    });
+
+    // If page already loaded but extension is reloaded or updated
+    if(document.readyState === 'complete') {
+      injectToolTip();
+    }
+  };
+
+  initTooltip();
+})();
+
 // // https://stackoverflow.com/questions/1589721/get-selected-text-position-and-place-an-element-next-to-it/1589912#1589912
 // (() => {
 //   if(document.xmlVersion) return;

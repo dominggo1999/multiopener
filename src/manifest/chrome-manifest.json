@@ -12,7 +12,8 @@
     {
       "matches" :  ["*://*/*"],
       "js": [
-        "content-scripts.js"
+        "content-scripts.js",
+        "/dist/assets/tooltip.js"
       ],
       "all_frames": false,
       "run_at": "document_start"
@@ -20,8 +21,7 @@
     {
       "matches" :  ["*://*/*"],
       "js": [
-        "key-bindings.js",
-        "tooltip.js"
+        "key-bindings.js"
       ],
       "all_frames": true,
       "run_at": "document_start"
@@ -53,6 +53,7 @@
         "/dist/assets/inject.js",
         "/dist/inject/index.html",
         "/dist/assets/vendor.js",
+        "/dist/assets/tooltip.js",
         "/dist/assets/GlobalStyles.js",
         "settings.js"
       ],

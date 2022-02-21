@@ -171,10 +171,17 @@ const SearchBox = ({ embedded, injected }) => {
       }
     };
 
-    injected && chrome?.runtime?.onMessage.addListener(handleMessage);
+    const queryFromSelection = (e) => {
+      if(e.data.message === 'unmount react') {
+        setQuery(e.data.query);
+      }
+    };
 
+    injected && chrome?.runtime?.onMessage.addListener(handleMessage);
+    injected && window.addEventListener('message', queryFromSelection);
     return () => {
       injected && chrome?.runtime?.onMessage.removeListener(handleMessage);
+      injected && window.removeEventListener('message', queryFromSelection);
     };
   }, []);
 
