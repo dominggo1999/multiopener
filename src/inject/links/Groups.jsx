@@ -7,7 +7,7 @@ import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
 const Groups = ({
-  query, groups, groupKeys, keyMode, mode,
+  query, groups, groupKeys, keyMode, mode, embedded,
 }) => {
   const visitMultipleLinks = (id) => {
     const target = groups.filter((group) => group.id === id)[0];
@@ -18,12 +18,15 @@ const Groups = ({
       return createURL(query, i.link);
     });
 
-    chrome.runtime?.sendMessage({
-      message: 'open group',
-      links: targetLinks,
-    });
+    if(chrome.runtime?.id) {
+      chrome.runtime.sendMessage({
+        message: 'open group',
+        links: targetLinks,
+      });
+    }
 
-    if(!chrome.runtime) {
+    if(embedded && !chrome.runtime.id) {
+      console.log('failed');
       for (let i = 0; i < targetLinks.length; i += 1) {
         window.open(targetLinks[i]);
       }

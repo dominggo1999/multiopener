@@ -20,7 +20,8 @@
     {
       "matches" :  ["*://*/*"],
       "js": [
-        "key-bindings.js"
+        "key-bindings.js",
+        "tooltip.js"
       ],
       "all_frames": true,
       "run_at": "document_start"

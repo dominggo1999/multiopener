@@ -37,10 +37,12 @@ const createURL = (paths) => {
 const helperLinks = createURL(paths);
 
 const openOptionsURL = (url) => {
-  messageToBackground({
-    message: 'open options page',
-    url,
-  });
+  if(chrome.runtime.id) {
+    messageToBackground({
+      message: 'open options page',
+      url,
+    });
+  }
 };
 
 const HelperNavigation = () => {

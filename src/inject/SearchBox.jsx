@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, {
   useEffect, useState, useRef, useContext,
 } from 'react';
@@ -53,10 +54,10 @@ const SearchBox = ({ embedded, injected }) => {
   const [links, setLinks] = embedded ? [parentLinks, () => {}] : useState([]);
 
   const getData = async () => {
-    const links = await storageGet('links');
-    const groups = await storageGet('groups');
-    const storedTheme = await storageGet('theme');
-    const storedMode = await storageGet('mode');
+    const links = await storageGet('links', injected);
+    const groups = await storageGet('groups', injected);
+    const storedTheme = await storageGet('theme', injected);
+    const storedMode = await storageGet('mode', injected);
 
     if(injected) {
       setTheme(storedTheme);
@@ -166,7 +167,6 @@ const SearchBox = ({ embedded, injected }) => {
   useEffect(() => {
     const handleMessage = (e) => {
       if(e.message === 'please rerender') {
-        console.log('Qwrwqrqw');
         inboxRef.current = true;
       }
     };
@@ -223,6 +223,7 @@ const SearchBox = ({ embedded, injected }) => {
               groupKeys={groupKeys}
               keyMode={keyMode}
               mode={mode}
+              embedded={embedded}
             />
           </WebsiteList>
           <TypeTitle>Single</TypeTitle>

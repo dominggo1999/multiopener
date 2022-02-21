@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { messageToBackground } from '../util';
 import {
   SearchBarContainer, EscapeKeyWrapper, EscapeKeyChar,
 } from './SearchBar.style';
@@ -34,8 +35,8 @@ const SearchBar = ({
     };
   }, []);
 
-  const handleChange = () => {
-
+  const handleChange = (e) => {
+    setQuery(e.target.value);
   };
 
   return (
@@ -46,7 +47,7 @@ const SearchBar = ({
         value={query}
         onFocus={deactiveKeyMode}
         onBlur={activateKeyMode}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleChange}
         placeholder="Search something"
       />
 

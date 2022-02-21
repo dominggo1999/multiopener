@@ -35,11 +35,8 @@ const startExtension = async () => {
   for (let i = 0; i < contentScripts.length; i += 1) {
     const contScript = contentScripts[i];
     chrome.tabs.query({ url: contScript.matches }, (foundTabs) => {
-      console.log(foundTabs);
-
       for (let j = 0; j < foundTabs.length; j += 1) {
         const javaScripts = contScript.js;
-
         const allFrames = javaScripts[0] === 'key-bindings.js';
 
         chrome.scripting.executeScript(
@@ -103,6 +100,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
 
   if(message === 'open group') {
     openURLS(links);
+    return true;
   }
 
   if(message === 'open options page') {
@@ -132,6 +130,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
               });
             }
           }, 300);
+          return true;
         }
       });
 
@@ -140,6 +139,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
           active: true,
           url: openedTabURL,
         });
+        return true;
       }
     });
   }

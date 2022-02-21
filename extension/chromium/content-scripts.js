@@ -5,6 +5,14 @@
 (() => {
   if(document.xmlVersion) return;
 
+  const messageToBackground = async (message) => {
+    await chrome.runtime?.sendMessage(message, (response) => {
+      if(response) {
+        console.log(response);
+      }
+    });
+  };
+
   const getValueInStore = (key) => {
     const extensionStorage = chrome ? chrome.storage.local : browser.storage.local;
 
@@ -80,13 +88,32 @@
     // Close frame
     if(e.data === 'escape') {
       const app = document.querySelector('iframe.injected');
-
       app.style.display = 'none';
+    }
+  };
+  const handleDeleteFrame = (e) => {
+    if(e.data === 'removetheiframe') {
+      deleteFrame();
+      window.removeEventListener('message', handleDeleteFrame);
+    }
+  };
+
+  const validateExtension = () => {
+    if(!chrome.runtime.id) {
+      const iframes = document.querySelectorAll('iframe.injected');
+      for (let i = 0; i < iframes.length; i += 1) {
+        iframes[i].contentWindow.postMessage('unmount react', '*');
+
+        setTimeout(() => {
+          deleteFrame();
+        }, 1000);
+      }
     }
   };
 
   // ON Disable
   window.addEventListener('message', messageHandler);
+  window.addEventListener('focus', validateExtension);
 
   // Clean up content script
   const contentScriptDestructionEvent = `destructContentScripts_${chrome.runtime.id}`;
@@ -95,8 +122,21 @@
     // Destruction is needed only once
     document.removeEventListener(contentScriptDestructionEvent, destructor);
     // Tear down content script: Unbind events, clear timers, restore DOM, etc.
-    deleteFrame();
+
+    const frameList = document.querySelectorAll('iframe');
+
+    for (let i = 0; i < frameList.length; i += 1) {
+      // do something with each subframe as frames[i]
+      if(frameList[i].getAttribute('class') === 'injected') {
+        frameList[i].contentWindow.postMessage('unmount react', '*');
+
+        window.addEventListener('message', handleDeleteFrame);
+      }
+    }
+
+    // deleteFrame();
     window.removeEventListener('message', messageHandler);
+    window.removeEventListener('focus', validateExtension);
   }
 
   // Unload previous content script if needed

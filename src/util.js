@@ -17,6 +17,7 @@ export const messageToBackground = async (message) => {
 };
 
 const queryText = /iamlazy/ig;
+const isIframe = window.self !== window.top;
 
 export const messageToContentScript = async (message) => {
   await chrome?.tabs?.query({}, (tabs) => {
@@ -58,8 +59,8 @@ export const createTestURL = (baseURL) => {
   return createURL('test', baseURL);
 };
 
-export const storageGet = async (key) => {
-  if(chrome?.storage?.local) {
+export const storageGet = async (key, injected) => {
+  if(chrome.runtime?.id) {
     const getValueInStore = (key) => {
       return new Promise((resolve, reject) => {
         chrome.storage.local.get([key], (result) => {
@@ -73,13 +74,15 @@ export const storageGet = async (key) => {
     return result[key];
   }
 
-  const result = JSON.parse(localStorage.getItem(key));
+  console.log(isIframe);
+
+  const result = !isIframe ? JSON.parse(localStorage.getItem(key)) : null;
 
   return result;
 };
 
 export const storageSet = async (key, value) => {
-  if(chrome?.storage?.local) {
+  if(chrome.runtime?.id) {
     const setValueInStore = async (values, callback = () => {}) => {
       await chrome.storage.local.set(values);
       callback();
@@ -89,7 +92,7 @@ export const storageSet = async (key, value) => {
       [key]: value,
     });
   }else{
-    localStorage.setItem(key, JSON.stringify(value));
+    !isIframe && localStorage.setItem(key, JSON.stringify(value));
   }
 
   // If storage changed then rerender ui on passive tab
