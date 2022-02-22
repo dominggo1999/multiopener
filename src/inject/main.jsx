@@ -8,7 +8,6 @@ import ListProvider from '../context/List.context';
 const unmountReact = (e) => {
   if(e.data === 'unmount react') {
     const a = ReactDOM.unmountComponentAtNode(document.getElementById('root-inject'));
-    console.log(a);
     window.removeEventListener('message', unmountReact);
     // eslint-disable-next-line no-restricted-globals
     parent.window.postMessage('removetheiframe', '*');

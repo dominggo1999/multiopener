@@ -57,10 +57,17 @@ const Tooltip = () => {
       } = rect.current;
       const scrollTop = window.pageYOffset || document.body.scrollTop;
       const scrollLeft = window.pageXOffset || document.body.scrollLeft;
+      let tooltipTop = scrollTop + top - 50;
+      const tooltipLeft = scrollLeft + left + (width / 2) - (50 / 2);
+
+      // Move to the bottom if there is no avalaible space on the top
+      if(tooltipTop < scrollTop) {
+        tooltipTop = scrollTop + top + height;
+      }
 
       setStyle({
-        top: `${scrollTop + top - 50}px`,
-        left: `${scrollLeft + left + (width / 2) - (50 / 2)}px`,
+        top: `${tooltipTop}px`,
+        left: `${tooltipLeft}px`,
       });
       setQuery(text.current);
     } else{

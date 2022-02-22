@@ -103,6 +103,7 @@
       const iframes = document.querySelectorAll('iframe.injected');
       for (let i = 0; i < iframes.length; i += 1) {
         iframes[i].contentWindow.postMessage('unmount react', '*');
+        window.parent.postMessage('remove tooltip', '*');
 
         setTimeout(() => {
           deleteFrame();
