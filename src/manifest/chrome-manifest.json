@@ -12,8 +12,7 @@
     {
       "matches" :  ["*://*/*"],
       "js": [
-        "content-scripts.js",
-        "/dist/assets/tooltip.js"
+        "content-scripts.js"
       ],
       "all_frames": false,
       "run_at": "document_start"
@@ -21,7 +20,8 @@
     {
       "matches" :  ["*://*/*"],
       "js": [
-        "key-bindings.js"
+        "key-bindings.js",
+        "/dist/assets/tooltip.js"
       ],
       "all_frames": true,
       "run_at": "document_start"

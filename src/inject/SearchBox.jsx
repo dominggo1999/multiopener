@@ -172,7 +172,7 @@ const SearchBox = ({ embedded, injected }) => {
     };
 
     const queryFromSelection = (e) => {
-      if(e.data.message === 'unmount react') {
+      if(e.data.message === 'update query') {
         setQuery(e.data.query);
       }
     };

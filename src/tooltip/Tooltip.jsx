@@ -1,5 +1,7 @@
+/* eslint-disable no-restricted-globals */
 import React, { useEffect, useState, useRef } from 'react';
 import tw, { styled } from 'twin.macro';
+import { isIframe } from '../util';
 
 export const Mask = styled.div`
   ${tw`
@@ -88,11 +90,21 @@ const Tooltip = () => {
   const handleClick = (e) => {
     if(query) {
       const app = document.querySelector('iframe.injected');
-      if(app) {
+      if(isIframe) {
+        parent.window.postMessage(
+          {
+            message: 'pass query',
+            query,
+          },
+          '*',
+        );
+      }
+
+      if(app && !isIframe) {
         window.parent.postMessage('update frame', '*');
         app.contentWindow.postMessage(
           {
-            message: 'unmount react',
+            message: 'update query',
             query,
           },
           '*',

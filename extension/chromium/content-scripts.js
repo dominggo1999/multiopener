@@ -68,6 +68,16 @@
     }
   });
 
+  const toggleFrame = () => {
+    const app = document.querySelector('iframe.injected');
+    if(app.style.display === 'block') {
+      app.style.display = 'none';
+    }else if (app.style.display === 'none') {
+      app.style.display = 'block';
+      app.focus();
+    }
+  };
+
   const messageHandler = (e) => {
     if(!chrome.runtime?.id && e.data === 'close iframe') {
       const app = document.querySelector('iframe.injected');
@@ -76,12 +86,20 @@
 
     // Toggle Frame
     if(e.data === 'update frame') {
+      toggleFrame();
+    }
+
+    if(e.data.message === 'pass query') {
+      toggleFrame();
       const app = document.querySelector('iframe.injected');
-      if(app.style.display === 'block') {
-        app.style.display = 'none';
-      }else if (app.style.display === 'none') {
-        app.style.display = 'block';
-        app.focus();
+      if(app) {
+        app.contentWindow.postMessage(
+          {
+            message: 'update query',
+            query: e.data.query,
+          },
+          '*',
+        );
       }
     }
 

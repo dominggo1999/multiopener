@@ -16,8 +16,8 @@ export const messageToBackground = async (message) => {
   await chrome.runtime?.sendMessage(message);
 };
 
-const queryText = /iamlazy/ig;
-const isIframe = window.self !== window.top;
+export const queryText = /iamlazy/ig;
+export const isIframe = window.self !== window.top;
 
 export const messageToContentScript = async (message) => {
   await chrome?.tabs?.query({}, (tabs) => {
