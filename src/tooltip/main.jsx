@@ -33,7 +33,7 @@ import Tooltip from './Tooltip';
     const a = ReactDOM.unmountComponentAtNode(app);
 
     if(a) {
-      app.remove();
+      app?.remove();
     }
   };
 

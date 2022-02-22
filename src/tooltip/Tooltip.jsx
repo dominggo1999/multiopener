@@ -1,7 +1,8 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState, useRef } from 'react';
 import tw, { styled } from 'twin.macro';
-import { isIframe } from '../util';
+
+export const isIframe = window.self !== window.top;
 
 export const Mask = styled.div`
   ${tw`
@@ -29,26 +30,37 @@ const inititalStyle = {
 
 const Tooltip = () => {
   const text = useRef('');
+  const isInput = useRef(false);
   const [query, setQuery] = useState('');
   const rect = useRef({});
   const [style, setStyle] = useState(inititalStyle);
 
-  const handleTextSelection = () => {
+  const handleTextSelection = (e) => {
     const selection = document.getSelection && window.getSelection();
-    if(selection && selection.rangeCount > 0) {
+
+    if(selection && selection.type === 'Range' && selection.rangeCount > 0) {
       const selectedText = selection.toString().trim();
 
       if(selectedText) {
         text.current = selectedText;
         setQuery(selectedText);
-
         const range = selection.getRangeAt(0);
+        const {
+          collapsed, startOffset, endOffset, endContainer,
+        } = range;
 
-        // get the text range
-        rect.current = range.getBoundingClientRect();
+        if (collapsed) {
+          rect.current = endContainer.getBoundingClientRect();
+          isInput.current = true;
+        }else{
+          rect.current = range.getBoundingClientRect();
+          isInput.current = false;
+        }
       }else{
         text.current = '';
       }
+    }else{
+      text.current = '';
     }
   };
 
@@ -60,7 +72,11 @@ const Tooltip = () => {
       const scrollTop = window.pageYOffset || document.body.scrollTop;
       const scrollLeft = window.pageXOffset || document.body.scrollLeft;
       let tooltipTop = scrollTop + top - 50;
-      const tooltipLeft = scrollLeft + left + (width / 2) - (50 / 2);
+      let tooltipLeft = scrollLeft + left;
+
+      if(!isInput.current) {
+        tooltipLeft = tooltipLeft + (width / 2) - (50 / 2);
+      }
 
       // Move to the bottom if there is no avalaible space on the top
       if(tooltipTop < scrollTop) {
