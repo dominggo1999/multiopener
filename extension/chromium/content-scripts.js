@@ -118,10 +118,18 @@
 
   const validateExtension = () => {
     if(!chrome.runtime.id) {
+      const allIframes = document.querySelectorAll('iframe');
+      window.parent.postMessage('remove tooltip', '*');
+      allIframes.forEach((iframe) => {
+        iframe.contentWindow.postMessage('remove tooltip', '*');
+      });
+
+      // Unmount react on tooltip on the main window and all iframes
+
+      // Unmount react on injected page and delete iframe
       const iframes = document.querySelectorAll('iframe.injected');
       for (let i = 0; i < iframes.length; i += 1) {
         iframes[i].contentWindow.postMessage('unmount react', '*');
-        window.parent.postMessage('remove tooltip', '*');
 
         setTimeout(() => {
           deleteFrame();
