@@ -1,23 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState, useRef } from 'react';
-import tw, { styled } from 'twin.macro';
-
-export const Mask = styled.div`
-  ${tw`
-    absolute
-    z-[999]
-  `}
-`;
-
-export const CoolTooltip = styled.div`
-  ${tw`
-    absolute
-    z-[999]
-  `}
-  width : 50px;
-  height : 50px;
-  background : #007ACC;
-`;
+import { Mask, CoolTooltip } from './Tooltip.style';
 
 const inititalStyle = {
   width: 0,
@@ -153,7 +136,10 @@ const Tooltip = () => {
       <CoolTooltip
         ref={tooltipRef}
         onClick={handleTooltipClick}
-        style={style}
+        style={{
+          ...style,
+          background: 'red',
+        }}
       />
     </>
   );
