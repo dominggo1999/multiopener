@@ -2,8 +2,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import tw, { styled } from 'twin.macro';
 
-export const isIframe = window.self !== window.top;
-
 export const Mask = styled.div`
   ${tw`
     absolute
@@ -30,10 +28,12 @@ const inititalStyle = {
 
 const Tooltip = () => {
   const text = useRef('');
+  const tooltipRef = useRef();
   const isInput = useRef(false);
   const [query, setQuery] = useState('');
   const rect = useRef({});
   const [style, setStyle] = useState(inititalStyle);
+  const isIframe = window.self !== window.top;
 
   const handleTextSelection = (e) => {
     const selection = document.getSelection && window.getSelection();
@@ -88,7 +88,23 @@ const Tooltip = () => {
         left: `${tooltipLeft}px`,
       });
       setQuery(text.current);
+
+      // Remove tooltip in other iframes
+      const allFrames = document.querySelectorAll('iframe');
+      allFrames.forEach((iframe) => {
+        iframe.contentWindow.postMessage('close tooltip', '*');
+      });
+
+      if(isIframe) {
+        parent.window.postMessage('close tooltip', '*');
+      }
     } else{
+      setStyle(inititalStyle);
+    }
+  };
+
+  const handleCloseTooltip = (e) => {
+    if(e.data === 'close tooltip') {
       setStyle(inititalStyle);
     }
   };
@@ -96,14 +112,16 @@ const Tooltip = () => {
   useEffect(() => {
     document.addEventListener('selectionchange', handleTextSelection);
     document.addEventListener('mouseup', handleFinishSelecting);
+    window.addEventListener('message', handleCloseTooltip);
 
     return () => {
       document.removeEventListener('selectionchange', handleTextSelection);
       document.removeEventListener('mouseup', handleFinishSelecting);
+      window.removeEventListener('message', handleCloseTooltip);
     };
   }, []);
 
-  const handleClick = (e) => {
+  const handleTooltipClick = (e) => {
     if(query) {
       const app = document.querySelector('iframe.injected');
       if(isIframe) {
@@ -132,7 +150,8 @@ const Tooltip = () => {
   return (
     <>
       <CoolTooltip
-        onClick={handleClick}
+        ref={tooltipRef}
+        onClick={handleTooltipClick}
         style={style}
       />
     </>

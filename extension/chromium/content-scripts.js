@@ -117,14 +117,14 @@
   };
 
   const validateExtension = () => {
+    // If extensions is disabled or service worker is inactive
     if(!chrome.runtime.id) {
+      // Unmount react on tooltip on the main window and all iframes
       const allIframes = document.querySelectorAll('iframe');
       window.parent.postMessage('remove tooltip', '*');
       allIframes.forEach((iframe) => {
         iframe.contentWindow.postMessage('remove tooltip', '*');
       });
-
-      // Unmount react on tooltip on the main window and all iframes
 
       // Unmount react on injected page and delete iframe
       const iframes = document.querySelectorAll('iframe.injected');
