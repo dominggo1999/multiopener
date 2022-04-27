@@ -35,7 +35,7 @@ export default defineConfig(() => {
       chunkSizeWarningLimit: 800,
       outDir: r(outputDir),
       emptyOutDir: false,
-      sourcemap: 'inline',
+      // sourcemap: 'inline',
       // https://developer.chrome.com/docs/webstore/program_policies/#:~:text=Code%20Readability%20Requirements
       terserOptions: {
         mangle: false,

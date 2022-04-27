@@ -3,6 +3,7 @@
 const extensionStorage = chrome.storage.local || browser.storage.local;
 const runtime = chrome ? chrome.runtime : browser.runtime;
 const DEFAULT_THEME = 'blue-origin';
+const DEFAULT_MODE = 'light';
 
 const getValueInStore = (key) => {
   return new Promise((resolve, reject) => {
@@ -50,7 +51,7 @@ const initSettings = () => {
 
     if(!mode) {
       setValueInStore({
-        mode: 'light',
+        mode: DEFAULT_MODE,
       });
     }
   });

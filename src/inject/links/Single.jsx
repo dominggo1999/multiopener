@@ -7,7 +7,7 @@ import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
 const Single = ({
-  query, links, singleKeys, keyMode, mode,
+  query, links, singleKeys, keyMode, mode, handleClose,
 }) => {
   return (
     <>
@@ -25,6 +25,7 @@ const Single = ({
                 target="_blank"
                 href={query ? url : homepage}
                 title={i.title}
+                onClick={handleClose}
               >
                 <Key
                   mode={mode}

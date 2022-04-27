@@ -36,12 +36,17 @@ const createURL = (paths) => {
 
 const helperLinks = createURL(paths);
 
-const openOptionsURL = (url) => {
-  if(chrome.runtime.id) {
-    messageToBackground({
-      message: 'open options page',
-      url,
-    });
+const openOptionsURL = async (url) => {
+  if(chrome?.runtime?.id) {
+    try {
+      const res = await messageToBackground({
+        message: 'open options page',
+        url,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 

@@ -1,12 +1,16 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useState, useRef } from 'react';
-import { Mask, CoolTooltip } from './Tooltip.style';
+import React, {
+  useEffect, useState, useRef, useLayoutEffect,
+} from 'react';
+import { BiSearch } from 'react-icons/bi';
+import { CoolTooltip } from './Tooltip.style';
+import { storageGet } from '../util';
 
 const inititalStyle = {
   width: 0,
   height: 0,
-  top: 0,
-  left: 0,
+  top: -50,
+  left: -50,
 };
 
 const Tooltip = () => {
@@ -131,6 +135,17 @@ const Tooltip = () => {
     }
   };
 
+  useLayoutEffect(() => {
+    const getTheme = async () => {
+      const storedTheme = await storageGet('theme');
+      if(storedTheme) {
+        tooltipRef.current?.classList.add(storedTheme);
+      }
+    };
+
+    getTheme();
+  }, []);
+
   return (
     <>
       <CoolTooltip
@@ -138,9 +153,10 @@ const Tooltip = () => {
         onClick={handleTooltipClick}
         style={{
           ...style,
-          background: 'red',
         }}
-      />
+      >
+        <BiSearch />
+      </CoolTooltip>
     </>
   );
 };

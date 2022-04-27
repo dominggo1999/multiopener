@@ -20,7 +20,11 @@ const closeSearchBox = async () => {
 
   const [tab] = await browserTabs.query(queryOptions);
 
-  browserTabs.sendMessage(tab.id, { message: 'close frame' });
+  browserTabs.sendMessage(tab.id, { message: 'close frame' }).then((res) => {
+    console.log(res);
+  }).catch((err) => {
+    console.log(err);
+  });
 };
 
 const groupKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
@@ -231,6 +235,7 @@ const SearchBox = ({ embedded, injected }) => {
               keyMode={keyMode}
               mode={mode}
               embedded={embedded}
+              handleClose={handleClose}
             />
           </WebsiteList>
           <TypeTitle>Single</TypeTitle>
@@ -243,6 +248,7 @@ const SearchBox = ({ embedded, injected }) => {
               singleKeys={singleKeys}
               keyMode={keyMode}
               mode={mode}
+              handleClose={handleClose}
             />
           </WebsiteList>
 

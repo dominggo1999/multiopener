@@ -7,9 +7,9 @@ import Icon from '../ui/Icon';
 import Key from '../ui/Key';
 
 const Groups = ({
-  query, groups, groupKeys, keyMode, mode, embedded,
+  query, groups, groupKeys, keyMode, mode, embedded, handleClose,
 }) => {
-  const visitMultipleLinks = (id) => {
+  const visitMultipleLinks = async (id) => {
     const target = groups.filter((group) => group.id === id)[0];
 
     const links = target.children;
@@ -19,10 +19,15 @@ const Groups = ({
     });
 
     if(chrome.runtime?.id) {
-      chrome.runtime.sendMessage({
-        message: 'open group',
-        links: targetLinks,
-      });
+      try {
+        const res = await chrome.runtime.sendMessage({
+          message: 'open group',
+          links: targetLinks,
+        });
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     if(embedded && !chrome.runtime.id) {
@@ -31,6 +36,8 @@ const Groups = ({
         window.open(targetLinks[i]);
       }
     }
+
+    handleClose();
   };
 
   return (

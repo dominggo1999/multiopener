@@ -39,10 +39,13 @@ const ThemeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const handleMessage = (e) => {
+    const handleMessage = (e, _, sendResponse) => {
       if(e.message === 'please rerender') {
         applyTheme();
         applyMode();
+
+        sendResponse(JSON.stringify({ ok: 'ok' }));
+        return true;
       }
     };
 

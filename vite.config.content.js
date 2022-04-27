@@ -42,7 +42,7 @@ export default defineConfig(() => {
       },
       lib: {
         entry: r('src/tooltip/main.jsx'),
-        formats: ['es'],
+        formats: ['cjs'],
       },
       rollupOptions: {
         output: {

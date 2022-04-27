@@ -20,11 +20,19 @@ export const queryText = /iamlazy/ig;
 export const isIframe = window.self !== window.top;
 
 export const messageToContentScript = async (message) => {
-  await chrome?.tabs?.query({}, (tabs) => {
-    tabs?.forEach((tab) => {
-      chrome?.tabs?.sendMessage(tab.id, message);
+  try {
+    await chrome?.tabs?.query({}, (tabs) => {
+      tabs?.forEach((tab) => {
+        chrome?.tabs?.sendMessage(tab.id, message).then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        });
+      });
     });
-  });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const rerenderPassiveTabUI = () => {

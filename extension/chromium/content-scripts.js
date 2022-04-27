@@ -58,13 +58,14 @@
     }
   };
 
-  chrome.runtime.onMessage.addListener((request) => {
+  chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
     const { message } = request;
 
     if(message === 'close frame') {
       const iframe = document.querySelector('iframe.injected');
       iframe.style.display = 'none';
       iframe.blur();
+      sendResponse(JSON.stringify({ ok: 'ok' }));
     }
   });
 

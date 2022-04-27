@@ -100,7 +100,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
 
   if(message === 'open group') {
     openURLS(links);
-    return true;
+    sendRes(JSON.stringify({ ok: 'ok' }));
   }
 
   if(message === 'open options page') {
@@ -130,7 +130,6 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
               });
             }
           }, 300);
-          return true;
         }
       });
 
@@ -139,7 +138,6 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
           active: true,
           url: openedTabURL,
         });
-        return true;
       }
     });
   }
