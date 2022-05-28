@@ -1,6 +1,6 @@
 import React from 'react';
 import { HelperNavigationWrapper, Link } from './HelperNavigation.style';
-import { messageToBackground } from '../util';
+import { messageToBackground, openOptionsURL } from '../util';
 
 const paths = [
   {
@@ -35,20 +35,6 @@ const createURL = (paths) => {
 };
 
 const helperLinks = createURL(paths);
-
-const openOptionsURL = async (url) => {
-  if(chrome?.runtime?.id) {
-    try {
-      const res = await messageToBackground({
-        message: 'open options page',
-        url,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-};
 
 const HelperNavigation = () => {
   return (

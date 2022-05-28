@@ -120,3 +120,17 @@ export const createOptions = (options, labelKey, valueKey) => {
 
   return sorted;
 };
+
+export const openOptionsURL = async (url) => {
+  if (chrome?.runtime?.id) {
+    try {
+      const res = await messageToBackground({
+        message: 'open options page',
+        url,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};

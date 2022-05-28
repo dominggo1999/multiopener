@@ -5,7 +5,6 @@ import React, {
 import { BiSearch } from 'react-icons/bi';
 import { CoolTooltip } from './Tooltip.style';
 import { storageGet } from '../util';
-import useClickOutside from '../hooks/useClickOutside';
 
 const initialStyle = {
   width: 0,
