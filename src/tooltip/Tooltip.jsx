@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, {
-  useEffect, useState, useRef, useLayoutEffect,
+  useEffect, useState, useRef, useLayoutEffect, useMemo,
 } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { CoolTooltip } from './Tooltip.style';
@@ -21,6 +21,14 @@ const Tooltip = () => {
   const rect = useRef({});
   const [style, setStyle] = useState(initialStyle);
   const isIframe = window.self !== window.top;
+  const [theme, setTheme] = useState();
+
+  const getTheme = async () => {
+    const storedTheme = await storageGet('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }
+  };
 
   const handleTextSelection = async () => {
     const showTooltip = await storageGet('showTooltip');
@@ -92,6 +100,9 @@ const Tooltip = () => {
       });
       setQuery(text.current);
 
+      // Apply theme
+      getTheme();
+
       // Remove tooltip in other iframes
       const allFrames = document.querySelectorAll('iframe');
       allFrames.forEach((iframe) => {
@@ -151,29 +162,28 @@ const Tooltip = () => {
   };
 
   useLayoutEffect(() => {
-    const getTheme = async () => {
-      const storedTheme = await storageGet('theme');
-      if (storedTheme) {
-        tooltipRef.current?.classList.add(storedTheme);
-      }
-    };
-
     getTheme();
   }, []);
 
-  return (
-    <>
-      <CoolTooltip
-        ref={tooltipRef}
-        onClick={handleTooltipClick}
-        style={{
-          ...style,
-        }}
-      >
-        <BiSearch />
-      </CoolTooltip>
-    </>
-  );
+  return useMemo(() => {
+    return (
+      <>
+        <CoolTooltip
+          className={theme}
+          ref={tooltipRef}
+          onClick={handleTooltipClick}
+          style={{
+            ...style,
+          }}
+        >
+          <img
+            src={theme && `chrome-extension://${chrome?.runtime?.id}/tooltip-icons/${theme}.png`}
+            alt="Icons"
+          />
+        </CoolTooltip>
+      </>
+    );
+  }, [theme, JSON.stringify(style)]);
 };
 
 export default Tooltip;

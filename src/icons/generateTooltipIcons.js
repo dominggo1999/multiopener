@@ -44,7 +44,7 @@ const generateTooltipIcons = async (accent, primary, outputDir, fileName) => {
 
 const formatColor = (c) => `rgb(${c})`;
 
-const outputDir = path.join(process.cwd(), 'public/icons');
+const outputDir = path.join(process.cwd(), 'extension/chromium/tooltip-icons');
 const themeList = '../theme/themes.mjs';
 
 import(themeList).then((result) => {

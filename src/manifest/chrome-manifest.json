@@ -10,7 +10,9 @@
   },
   "content_scripts": [
     {
-      "matches" :  ["*://*/*"],
+      "matches": [
+        "*://*/*"
+      ],
       "js": [
         "content-scripts.js"
       ],
@@ -18,7 +20,9 @@
       "run_at": "document_start"
     },
     {
-      "matches" :  ["*://*/*"],
+      "matches": [
+        "*://*/*"
+      ],
       "js": [
         "key-bindings.js",
         "/dist/assets/tooltip.js"
@@ -55,7 +59,8 @@
         "/dist/assets/vendor.js",
         "/dist/assets/tooltip.js",
         "/dist/assets/GlobalStyles.js",
-        "settings.js"
+        "settings.js",
+        "/tooltip-icons/*.png"
       ],
       "matches": [
         "<all_urls>"

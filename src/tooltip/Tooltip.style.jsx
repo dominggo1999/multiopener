@@ -14,9 +14,11 @@ export const CoolTooltip = styled.button`
     justify-center
     absolute
     z-[2147483644]
-    rounded-full
-    bg-[#2DD4BF]
     mt-1 
+    bg-transparent
+    border-none 
+    rounded-full
+    cursor-pointer
   `}
 
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -24,12 +26,4 @@ export const CoolTooltip = styled.button`
   left:-50px;
   width : 50px;
   height : 50px;
-
-  svg{
-    ${tw`
-      text-[#0F172A] 
-      text-3xl     
-      pointer-events-none
-    `}
-  }
 `;
