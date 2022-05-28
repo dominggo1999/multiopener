@@ -30,23 +30,6 @@ const Singles = () => {
     setList: handleSortableUpdateLinks,
   };
 
-  useEffect(() => {
-    if(rendered && links.length) {
-      const links = gsap.utils.selector(linksSortableRef.current);
-
-      gsap.fromTo(links('.links-only > div'),
-        {
-          y: 150,
-          opacity: 0.3,
-        }, {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.04,
-        });
-    }
-  }, [rendered]);
-
   return (
     <SinglesWrapper
       ref={linksSortableRef}

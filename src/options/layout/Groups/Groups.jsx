@@ -68,23 +68,6 @@ const Groups = () => {
     handle: '.group-handle',
   };
 
-  useEffect(() => {
-    if(rendered && groups.length) {
-      const links = gsap.utils.selector(groupSortableRef.current);
-
-      gsap.fromTo(links('.groups-only > div'),
-        {
-          y: 150,
-          opacity: 0.3,
-        }, {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.04,
-        });
-    }
-  }, [rendered]);
-
   return (
     <GroupsWrapper
       ref={groupSortableRef}
@@ -125,18 +108,18 @@ const Groups = () => {
                     scroll
                   >
                     {
-                        group.children?.length > 0 && group.children.map((j) => {
-                          return (
-                            <div key={j.id}>
-                              <SingleLinkInGroup
-                                removeLink={() => removeLinkFromGroup(group.id, j.id)}
-                                title={j.title}
-                                link={j.link}
-                              />
-                            </div>
-                          );
-                        })
-                      }
+                      group.children?.length > 0 && group.children.map((j) => {
+                        return (
+                          <div key={j.id}>
+                            <SingleLinkInGroup
+                              removeLink={() => removeLinkFromGroup(group.id, j.id)}
+                              title={j.title}
+                              link={j.link}
+                            />
+                          </div>
+                        );
+                      })
+                    }
                   </ReactSortable>
                 </Group>
               </div>
