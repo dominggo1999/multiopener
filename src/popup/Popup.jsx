@@ -20,7 +20,7 @@ const Popup = () => {
   const toggleTooltip = async () => {
     const showTooltip = await storageGet('showTooltip');
     replaceButtonText(!showTooltip);
-    storageSet('showTooltip', !showTooltip);
+    await storageSet('showTooltip', !showTooltip);
   };
 
   useLayoutEffect(() => {
