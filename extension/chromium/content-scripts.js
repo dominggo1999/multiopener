@@ -3,11 +3,11 @@
 /* eslint-disable array-callback-return */
 
 (() => {
-  if(document.xmlVersion) return;
+  if (document.xmlVersion) return;
 
   const messageToBackground = async (message) => {
     await chrome.runtime?.sendMessage(message, (response) => {
-      if(response) {
+      if (response) {
         console.log(response);
       }
     });
@@ -53,7 +53,7 @@
       }
     });
 
-    if(document.readyState === 'complete') {
+    if (document.readyState === 'complete') {
       createFrame();
     }
   };
@@ -61,7 +61,7 @@
   chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
     const { message } = request;
 
-    if(message === 'close frame') {
+    if (message === 'close frame') {
       const iframe = document.querySelector('iframe.injected');
       iframe.style.display = 'none';
       iframe.blur();
@@ -71,29 +71,29 @@
 
   const toggleFrame = () => {
     const app = document.querySelector('iframe.injected');
-    if(app.style.display === 'block') {
+    if (app.style.display === 'block') {
       app.style.display = 'none';
-    }else if (app.style.display === 'none') {
+    } else if (app.style.display === 'none') {
       app.style.display = 'block';
       app.focus();
     }
   };
 
   const messageHandler = (e) => {
-    if(!chrome.runtime?.id && e.data === 'close iframe') {
+    if (!chrome.runtime?.id && e.data === 'close iframe') {
       const app = document.querySelector('iframe.injected');
       app.style.display = 'none';
     }
 
     // Toggle Frame
-    if(e.data === 'update frame') {
+    if (e.data === 'update frame') {
       toggleFrame();
     }
 
-    if(e.data.message === 'pass query') {
+    if (e.data.message === 'pass query') {
       toggleFrame();
       const app = document.querySelector('iframe.injected');
-      if(app) {
+      if (app) {
         app.contentWindow.postMessage(
           {
             message: 'update query',
@@ -105,21 +105,21 @@
     }
 
     // Close frame
-    if(e.data === 'escape') {
+    if (e.data === 'escape') {
       const app = document.querySelector('iframe.injected');
       app.style.display = 'none';
     }
   };
   const handleDeleteFrame = (e) => {
-    if(e.data === 'removetheiframe') {
+    if (e.data === 'removetheiframe') {
       deleteFrame();
       window.removeEventListener('message', handleDeleteFrame);
     }
   };
 
-  const validateExtension = () => {
+  const validateExtension = async () => {
     // If extensions is disabled or service worker is inactive
-    if(!chrome.runtime.id) {
+    if (!chrome?.runtime?.id) {
       // Unmount react on tooltip on the main window and all iframes
       const allIframes = document.querySelectorAll('iframe');
       window.parent.postMessage('remove tooltip', '*');
@@ -155,7 +155,7 @@
 
     for (let i = 0; i < frameList.length; i += 1) {
       // do something with each subframe as frames[i]
-      if(frameList[i].getAttribute('class') === 'injected') {
+      if (frameList[i].getAttribute('class') === 'injected') {
         frameList[i].contentWindow.postMessage('unmount react', '*');
 
         window.addEventListener('message', handleDeleteFrame);

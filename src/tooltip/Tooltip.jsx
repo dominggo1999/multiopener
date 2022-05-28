@@ -6,7 +6,7 @@ import { BiSearch } from 'react-icons/bi';
 import { CoolTooltip } from './Tooltip.style';
 import { storageGet } from '../util';
 
-const inititalStyle = {
+const initialStyle = {
   width: 0,
   height: 0,
   top: -50,
@@ -19,16 +19,19 @@ const Tooltip = () => {
   const isInput = useRef(false);
   const [query, setQuery] = useState('');
   const rect = useRef({});
-  const [style, setStyle] = useState(inititalStyle);
+  const [style, setStyle] = useState(initialStyle);
   const isIframe = window.self !== window.top;
 
-  const handleTextSelection = (e) => {
+  const handleTextSelection = async () => {
+    const showTooltip = await storageGet('showTooltip');
+    if (!showTooltip) return null;
+
     const selection = document.getSelection && window.getSelection();
 
-    if(selection && selection.type === 'Range' && selection.rangeCount > 0) {
+    if (selection && selection.type === 'Range' && selection.rangeCount > 0) {
       const selectedText = selection.toString().trim();
 
-      if(selectedText) {
+      if (selectedText) {
         text.current = selectedText;
         setQuery(selectedText);
         const range = selection.getRangeAt(0);
@@ -39,20 +42,26 @@ const Tooltip = () => {
         if (collapsed) {
           rect.current = endContainer.getBoundingClientRect();
           isInput.current = true;
-        }else{
+        } else {
           rect.current = range.getBoundingClientRect();
           isInput.current = false;
         }
-      }else{
+      } else {
         text.current = '';
       }
-    }else{
+    } else {
       text.current = '';
     }
   };
 
-  const handleFinishSelecting = () => {
-    if(text.current) {
+  const handleFinishSelecting = async () => {
+    const showTooltip = await storageGet('showTooltip');
+    if (!showTooltip) {
+      setStyle(initialStyle);
+      return null;
+    }
+
+    if (text.current) {
       const {
         width, height, left, top,
       } = rect.current;
@@ -62,12 +71,12 @@ const Tooltip = () => {
       let tooltipLeft = scrollLeft + left;
       const viewportHeight = window.innerHeight;
 
-      if(!isInput.current) {
+      if (!isInput.current) {
         tooltipLeft = tooltipLeft + (width / 2) - (50 / 2);
       }
 
       // Move to the bottom if there is no avalaible space on the top
-      if(tooltipTop + 50 > scrollTop + viewportHeight) {
+      if (tooltipTop + 50 > scrollTop + viewportHeight) {
         tooltipTop = scrollTop + top - 50;
       }
 
@@ -83,17 +92,17 @@ const Tooltip = () => {
         iframe.contentWindow.postMessage('close tooltip', '*');
       });
 
-      if(isIframe) {
+      if (isIframe) {
         parent.window.postMessage('close tooltip', '*');
       }
-    } else{
-      setStyle(inititalStyle);
+    } else {
+      setStyle(initialStyle);
     }
   };
 
   const handleCloseTooltip = (e) => {
-    if(e.data === 'close tooltip') {
-      setStyle(inititalStyle);
+    if (e.data === 'close tooltip') {
+      setStyle(initialStyle);
     }
   };
 
@@ -110,9 +119,9 @@ const Tooltip = () => {
   }, []);
 
   const handleTooltipClick = (e) => {
-    if(query) {
+    if (query) {
       const app = document.querySelector('iframe.injected');
-      if(isIframe) {
+      if (isIframe) {
         parent.window.postMessage(
           {
             message: 'pass query',
@@ -122,7 +131,7 @@ const Tooltip = () => {
         );
       }
 
-      if(app && !isIframe) {
+      if (app && !isIframe) {
         window.parent.postMessage('update frame', '*');
         app.contentWindow.postMessage(
           {
@@ -138,7 +147,7 @@ const Tooltip = () => {
   useLayoutEffect(() => {
     const getTheme = async () => {
       const storedTheme = await storageGet('theme');
-      if(storedTheme) {
+      if (storedTheme) {
         tooltipRef.current?.classList.add(storedTheme);
       }
     };

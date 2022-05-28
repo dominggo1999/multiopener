@@ -1,10 +1,17 @@
 import React from 'react';
 import { Box } from './Popup.style';
+import { storageSet, storageGet } from '../util';
 
 const Popup = () => {
+  const toggleTooltip = async () => {
+    const showTooltip = await storageGet('showTooltip');
+
+    storageSet('showTooltip', !showTooltip);
+  };
+
   return (
     <Box>
-      PopUp xxxxxxxxxx
+      <button onClick={toggleTooltip}>Toggle Tooltip</button>
     </Box>
   );
 };

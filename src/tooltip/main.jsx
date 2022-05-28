@@ -1,21 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Tooltip from './Tooltip';
+import { storageGet } from '../util';
 
 (() => {
   const app = document.createElement('div');
   app.id = 'root-tooltip';
 
-  const injectTooltip = () => {
-    document.body.appendChild(app);
-    ReactDOM.render(<Tooltip />, app);
+  const injectTooltip = async () => {
+    const showTooltip = await storageGet('showTooltip');
+
+    if (showTooltip) {
+      document.body.appendChild(app);
+      ReactDOM.render(<Tooltip />, app);
+    }
   };
 
   const initTooltip = () => {
     document.addEventListener('DOMContentLoaded', (event) => {
       if (document.readyState === 'interactive') {
         // Avoid recursive frame insertion...
-        const extensionOrigin = `chrome-extension://${chrome.runtime.id}`;
+        const extensionOrigin = `chrome-extension://${chrome?.runtime?.id}`;
 
         // eslint-disable-next-line no-restricted-globals
         if (!location.ancestorOrigins.contains(extensionOrigin)) {
@@ -24,7 +29,7 @@ import Tooltip from './Tooltip';
       }
     });
 
-    if(document.readyState === 'complete') {
+    if (document.readyState === 'complete') {
       injectTooltip();
     }
   };
@@ -32,13 +37,13 @@ import Tooltip from './Tooltip';
   const unmountReact = (e) => {
     const a = ReactDOM.unmountComponentAtNode(app);
 
-    if(a) {
+    if (a) {
       app?.remove();
     }
   };
 
   const removeTooltip = (e) => {
-    if(e.data === 'remove tooltip') {
+    if (e.data === 'remove tooltip') {
       unmountReact();
       window.removeEventListener('message', removeTooltip);
     }
