@@ -22,6 +22,7 @@ export const StyledHeader = styled.header`
 export const MenuIcon = styled.button`
   ${tw`
     text-3xl
+    dark:text-white
   `}
 `;
 
