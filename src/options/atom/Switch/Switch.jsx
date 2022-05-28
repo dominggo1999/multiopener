@@ -3,7 +3,7 @@ import rgbHex from 'rgb-hex';
 import S from 'react-switch';
 import { SwitchWrapper } from './Switch.style';
 import { ThemeContext } from '../../../theme/ThemeProvider';
-import { themes } from '../../../theme/themes';
+import { themes } from '../../../theme/themes.mjs';
 
 // Reason for this line  : https://github.com/vitejs/vite/issues/2139#issuecomment-802981228
 const ReactSwitch = S.default ? S.default : S;

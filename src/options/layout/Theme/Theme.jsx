@@ -3,7 +3,7 @@ import { MenuItem, ItemName } from '../../atom/MenuItem';
 import Switch from '../../atom/Switch/Switch';
 import Select from '../../atom/Select/Select';
 import { ThemeContext } from '../../../theme/ThemeProvider';
-import { themes } from '../../../theme/themes';
+import { themes } from '../../../theme/themes.mjs';
 import { ThemeMenuWrapper } from './Theme.style';
 
 const Theme = () => {
