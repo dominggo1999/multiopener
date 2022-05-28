@@ -19,7 +19,7 @@ const SearchBar = ({
     const keyBindingFocusOnIframe = (e) => {
       const key = e.key;
 
-      if(key === '.' && e.ctrlKey) {
+      if (key === '.' && e.ctrlKey) {
         searchBarFocus();
       }
     };
@@ -49,6 +49,8 @@ const SearchBar = ({
         onBlur={activateKeyMode}
         onChange={handleChange}
         placeholder="Search something"
+        spellCheck={false}
+        autoComplete={false}
       />
 
       {
