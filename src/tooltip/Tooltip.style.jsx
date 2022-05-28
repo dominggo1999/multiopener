@@ -28,7 +28,8 @@ export const CoolTooltip = styled.button`
   svg{
     ${tw`
       text-[#0F172A] 
-      text-3xl    
+      text-3xl     
+      pointer-events-none
     `}
   }
 `;

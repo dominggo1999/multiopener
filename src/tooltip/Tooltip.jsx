@@ -5,6 +5,7 @@ import React, {
 import { BiSearch } from 'react-icons/bi';
 import { CoolTooltip } from './Tooltip.style';
 import { storageGet } from '../util';
+import useClickOutside from '../hooks/useClickOutside';
 
 const initialStyle = {
   width: 0,
@@ -28,7 +29,7 @@ const Tooltip = () => {
 
     const selection = document.getSelection && window.getSelection();
 
-    if (selection && selection.type === 'Range' && selection.rangeCount > 0) {
+    if (selection && selection.type === 'Range' && selection.rangeCount > 0 && selection.focusNode) {
       const selectedText = selection.toString().trim();
 
       if (selectedText) {
@@ -51,12 +52,18 @@ const Tooltip = () => {
       }
     } else {
       text.current = '';
+      setStyle(initialStyle);
     }
   };
 
-  const handleFinishSelecting = async () => {
+  const handleFinishedSelecting = async (e) => {
     const showTooltip = await storageGet('showTooltip');
     if (!showTooltip) {
+      setStyle(initialStyle);
+      return null;
+    }
+
+    if (e.target === tooltipRef.current) {
       setStyle(initialStyle);
       return null;
     }
@@ -108,17 +115,17 @@ const Tooltip = () => {
 
   useEffect(() => {
     document.addEventListener('selectionchange', handleTextSelection);
-    document.addEventListener('mouseup', handleFinishSelecting);
+    document.addEventListener('mouseup', handleFinishedSelecting);
     window.addEventListener('message', handleCloseTooltip);
 
     return () => {
       document.removeEventListener('selectionchange', handleTextSelection);
-      document.removeEventListener('mouseup', handleFinishSelecting);
+      document.removeEventListener('mouseup', handleFinishedSelecting);
       window.removeEventListener('message', handleCloseTooltip);
     };
   }, []);
 
-  const handleTooltipClick = (e) => {
+  const handleTooltipClick = () => {
     if (query) {
       const app = document.querySelector('iframe.injected');
       if (isIframe) {
