@@ -79,7 +79,8 @@ export const NavItem = styled.li`
       items-center 
       text-lg 
       p-3
-      rounded-lg
+      rounded-lg 
+      capitalize
     `}
   }
 

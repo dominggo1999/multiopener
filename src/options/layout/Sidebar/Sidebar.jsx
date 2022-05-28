@@ -5,7 +5,6 @@ import { IoIosLink, IoIosColorPalette } from 'react-icons/io';
 import { MdClose } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
 import { BsSearch } from 'react-icons/bs';
-import { gsap } from 'gsap';
 import { NavLink } from '../../atom/RouterLink';
 import {
   SidebarWrapper, SidebarScrollArea, SidebarHeader, NavMenu, NavItem, SidebarBrand,
@@ -14,21 +13,39 @@ import { SidebarContext } from '../../../context/Sidebar.context';
 import useSizes from '../../../hooks/useSizes';
 import Backdrop from '../../atom/Backdrop';
 
+const links = [
+  {
+    path: '/',
+    name: 'links',
+    Icon: IoIosLink,
+  },
+  {
+    path: '/search',
+    name: 'search',
+    Icon: BsSearch,
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    Icon: FiSettings,
+  },
+  {
+    path: '/theme',
+    name: 'theme',
+    Icon: IoIosColorPalette,
+  },
+];
+
 const Sidebar = () => {
   const { show, close } = useContext(SidebarContext);
   const { isXLarge } = useSizes();
   const navigationRef = useRef();
-  const [render, setRender] = useState(false);
 
   // Sidebar logic
   useEffect(() => {
     // Always close sidebar on xlarge screen size
     close();
   }, [isXLarge]);
-
-  const handleClick = () => {
-    close();
-  };
 
   return (
     <>
@@ -52,7 +69,24 @@ const Sidebar = () => {
         </SidebarHeader>
         <SidebarScrollArea>
           <NavMenu ref={navigationRef}>
-            <NavItem>
+            {
+              links?.length > 0 && links.map((i) => {
+                return (
+                  <NavItem key={`sidebar_link_${i.name}`}>
+                    <NavLink
+                      handleClick={close}
+                      exact
+                      to={i.path}
+                    >
+                      <i.Icon />
+                      {i.name}
+                    </NavLink>
+                  </NavItem>
+                );
+              })
+            }
+
+            {/* <NavItem>
               <NavLink
                 handleClick={handleClick}
                 exact
@@ -92,7 +126,7 @@ const Sidebar = () => {
                 <IoIosColorPalette />
                 theme
               </NavLink>
-            </NavItem>
+            </NavItem> */}
 
           </NavMenu>
         </SidebarScrollArea>
