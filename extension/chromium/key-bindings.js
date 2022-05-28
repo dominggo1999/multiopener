@@ -1,15 +1,15 @@
 (() => {
-  if(document.xmlVersion) return;
+  if (document.xmlVersion) return;
 
   const keyBindings = (e) => {
     const key = e.key;
 
     // Toggle Frame
-    if(key === ',' && e.ctrlKey && chrome.runtime?.id) {
+    if (key === ',' && e.ctrlKey && chrome?.runtime?.id) {
       window.parent.postMessage('update frame', '*');
     }
 
-    if(key === 'Escape') {
+    if (key === 'Escape') {
       window.parent.postMessage('escape', '*');
     }
   };
@@ -33,14 +33,14 @@
     });
 
     // If page already loaded but extension is reloaded or updated
-    if(document.readyState === 'complete') {
+    if (document.readyState === 'complete') {
       addKeyBindings();
     }
   };
 
   // On disable then remove event listener
   const messageHandler = (e) => {
-    if(!chrome.runtime.id) {
+    if (!chrome?.runtime?.id) {
       window.removeEventListener('keydown', keyBindings);
     }
   };

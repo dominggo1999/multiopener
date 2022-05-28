@@ -18,7 +18,7 @@ const Groups = ({
       return createURL(query, i.link);
     });
 
-    if(chrome.runtime?.id) {
+    if (chrome?.runtime?.id) {
       try {
         const res = await chrome.runtime.sendMessage({
           message: 'open group',
@@ -30,7 +30,7 @@ const Groups = ({
       }
     }
 
-    if(embedded && !chrome.runtime.id) {
+    if (embedded && !chrome.runtime.id) {
       console.log('failed');
       for (let i = 0; i < targetLinks.length; i += 1) {
         window.open(targetLinks[i]);
@@ -47,7 +47,7 @@ const Groups = ({
           const key = groupKeys[id];
 
           // Only render groups that have children
-          if(!i.children.length) return null;
+          if (!i.children.length) return null;
 
           return (
             <li

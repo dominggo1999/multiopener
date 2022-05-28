@@ -21,9 +21,8 @@ const closeSearchBox = async () => {
   const [tab] = await browserTabs.query(queryOptions);
 
   browserTabs.sendMessage(tab.id, { message: 'close frame' }).then((res) => {
-    console.log(res);
   }).catch((err) => {
-    console.log(err);
+    return null;
   });
 };
 
@@ -52,10 +51,10 @@ const SearchBox = ({ embedded, injected }) => {
     groups: parentGroups,
   } = embedded ? useContext(ListContext) : {};
 
-  const [mode, setMode] = embedded ? [parentMode, () => {}] : useState();
-  const [theme, setTheme] = embedded ? [parentTheme, () => {}] : useState();
-  const [groups, setGroups] = embedded ? [parentGroups, () => {}] : useState([]);
-  const [links, setLinks] = embedded ? [parentLinks, () => {}] : useState([]);
+  const [mode, setMode] = embedded ? [parentMode, () => { }] : useState();
+  const [theme, setTheme] = embedded ? [parentTheme, () => { }] : useState();
+  const [groups, setGroups] = embedded ? [parentGroups, () => { }] : useState([]);
+  const [links, setLinks] = embedded ? [parentLinks, () => { }] : useState([]);
 
   const getData = async () => {
     const links = await storageGet('links', injected);
@@ -63,7 +62,7 @@ const SearchBox = ({ embedded, injected }) => {
     const storedTheme = await storageGet('theme', injected);
     const storedMode = await storageGet('mode', injected);
 
-    if(injected) {
+    if (injected) {
       setTheme(storedTheme);
       setLinks(links);
       setGroups(groups);
@@ -86,10 +85,10 @@ const SearchBox = ({ embedded, injected }) => {
     const keyBindings = (e) => {
       const key = e.key;
 
-      if((key === ',' && e.ctrlKey) || key === 'Escape') {
-        if (chrome.runtime?.id) {
+      if ((key === ',' && e.ctrlKey) || key === 'Escape') {
+        if (chrome?.runtime?.id) {
           closeSearchBox();
-        }else{
+        } else {
           window.parent.postMessage('close iframe', '*');
         }
       }
@@ -101,12 +100,12 @@ const SearchBox = ({ embedded, injected }) => {
       if (e.key.toLowerCase() === 'tab') {
         const target = e.target;
 
-        if(e.shiftKey) {
-          if(target === firstFocusable) {
+        if (e.shiftKey) {
+          if (target === firstFocusable) {
             e.preventDefault();
             lastFocusable.focus();
           }
-        }else if(target === lastFocusable) {
+        } else if (target === lastFocusable) {
           e.preventDefault();
           firstFocusable.focus();
         }
@@ -116,17 +115,17 @@ const SearchBox = ({ embedded, injected }) => {
     const keyNavigation = (e) => {
       const { firstFocusable } = getFocusable();
 
-      if(document.activeElement !== firstFocusable) {
+      if (document.activeElement !== firstFocusable) {
         const key = e.key;
 
-        if(groupKeys.includes(key)) {
+        if (groupKeys.includes(key)) {
           const index = groupKeys.indexOf(key);
           const target = groupRef.current.querySelectorAll('button')[index];
 
           target?.focus();
         }
 
-        if(singleKeys.includes(key)) {
+        if (singleKeys.includes(key)) {
           const index = singleKeys.indexOf(key);
           const target = singleRef.current.querySelectorAll('a')[index];
           target?.focus();
@@ -136,13 +135,13 @@ const SearchBox = ({ embedded, injected }) => {
 
     const updateData = () => {
       // Reduce rerender, only rerender if there is update in storage
-      if(inboxRef.current) {
+      if (inboxRef.current) {
         getData();
         inboxRef.current = false;
       }
     };
 
-    if(rendered) {
+    if (rendered) {
       // Only need keybindings on injected
       injected && window.addEventListener('keydown', keyBindings);
 
@@ -161,22 +160,22 @@ const SearchBox = ({ embedded, injected }) => {
   }, [rendered]);
 
   const handleClose = () => {
-    if (chrome.runtime?.id) {
+    if (chrome?.runtime?.id) {
       closeSearchBox();
-    }else{
+    } else {
       window.parent.postMessage('close iframe', '*');
     }
   };
 
   useEffect(() => {
     const handleMessage = (e) => {
-      if(e.message === 'please rerender') {
+      if (e.message === 'please rerender') {
         inboxRef.current = true;
       }
     };
 
     const queryFromSelection = (e) => {
-      if(e.data.message === 'update query') {
+      if (e.data.message === 'update query') {
         setQuery(e.data.query);
       }
     };
@@ -193,16 +192,16 @@ const SearchBox = ({ embedded, injected }) => {
     getData();
   }, []);
 
-  if(!theme || !mode) return null;
+  if (!theme || !mode) return null;
 
   return (
     <>
       {
         injected && (
-        <Overlay
-          onClick={handleClose}
-          role="button"
-        />
+          <Overlay
+            onClick={handleClose}
+            role="button"
+          />
         )
       }
 

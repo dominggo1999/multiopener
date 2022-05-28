@@ -52,7 +52,7 @@ import { storageGet } from '../util';
   window.addEventListener('message', removeTooltip);
 
   // Clean up content script
-  const destructionEvent = `desctuctTooltip_${chrome.runtime.id}`;
+  const destructionEvent = `desctuctTooltip_${chrome?.runtime?.id}`;
 
   function destructor() {
     // Destruction is needed only once

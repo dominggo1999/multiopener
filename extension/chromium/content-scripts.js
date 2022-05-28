@@ -6,7 +6,7 @@
   if (document.xmlVersion) return;
 
   const messageToBackground = async (message) => {
-    await chrome.runtime?.sendMessage(message, (response) => {
+    await chrome?.runtime?.sendMessage(message, (response) => {
       if (response) {
         console.log(response);
       }
@@ -14,7 +14,7 @@
   };
 
   const getValueInStore = (key) => {
-    const extensionStorage = chrome ? chrome.storage.local : browser.storage.local;
+    const extensionStorage = chrome ? chrome?.storage.local : browser.storage.local;
 
     return new Promise((resolve, reject) => {
       extensionStorage.get([key], (result) => {
@@ -31,7 +31,7 @@
   const createFrame = () => {
     const iframe = document.createElement('iframe');
     // Must be declared at web_accessible_resources in manifest.json
-    iframe.src = chrome.runtime.getURL('/dist/inject/index.html');
+    iframe.src = chrome?.runtime?.getURL('/dist/inject/index.html');
     iframe.frameborder = '0';
     iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;width:100%;min-height:100%;z-index:9999;border:0;z-index:2147483647;';
     iframe.style.display = 'none';
@@ -44,7 +44,7 @@
     document.addEventListener('DOMContentLoaded', (event) => {
       if (document.readyState === 'interactive') {
         // Avoid recursive frame insertion...
-        const extensionOrigin = `chrome-extension://${chrome.runtime.id}`;
+        const extensionOrigin = `chrome-extension://${chrome?.runtime?.id}`;
 
         // eslint-disable-next-line no-restricted-globals
         if (!location.ancestorOrigins.contains(extensionOrigin)) {

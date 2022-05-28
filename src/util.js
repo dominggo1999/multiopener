@@ -13,7 +13,7 @@
 // };
 
 export const messageToBackground = async (message) => {
-  await chrome.runtime?.sendMessage(message);
+  await chrome?.runtime?.sendMessage(message);
 };
 
 export const queryText = /iamlazy/ig;
@@ -24,14 +24,14 @@ export const messageToContentScript = async (message) => {
     await chrome?.tabs?.query({}, (tabs) => {
       tabs?.forEach((tab) => {
         chrome?.tabs?.sendMessage(tab.id, message).then((res) => {
-          console.log(res);
+
         }).catch((err) => {
-          console.log(err);
+          return null;
         });
       });
     });
   } catch (error) {
-    console.log(error);
+    return null;
   }
 };
 
@@ -55,7 +55,7 @@ export const getDomainAndSubDomain = (link) => {
 };
 
 export const createURL = (query, baseURL) => {
-  if(!query) {
+  if (!query) {
     const { homepage } = getDomainAndSubDomain(baseURL);
     return homepage;
   }
@@ -68,7 +68,7 @@ export const createTestURL = (baseURL) => {
 };
 
 export const storageGet = async (key, injected) => {
-  if(chrome.runtime?.id) {
+  if (chrome?.runtime?.id) {
     const getValueInStore = (key) => {
       return new Promise((resolve, reject) => {
         chrome.storage.local.get([key], (result) => {
@@ -88,8 +88,8 @@ export const storageGet = async (key, injected) => {
 };
 
 export const storageSet = async (key, value) => {
-  if(chrome.runtime?.id) {
-    const setValueInStore = async (values, callback = () => {}) => {
+  if (chrome?.runtime?.id) {
+    const setValueInStore = async (values, callback = () => { }) => {
       await chrome.storage.local.set(values);
       callback();
     };
@@ -97,7 +97,7 @@ export const storageSet = async (key, value) => {
     setValueInStore({
       [key]: value,
     });
-  }else{
+  } else {
     !isIframe && localStorage.setItem(key, JSON.stringify(value));
   }
 
