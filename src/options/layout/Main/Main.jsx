@@ -13,6 +13,7 @@ import EditGroup from '../EditGroup/EditGroup';
 import Theme from '../Theme/Theme';
 import Search from '../Search/Search';
 import NotFoundPage from '../../atom/NotFoundPage';
+import Settings from '../Settings/Settings';
 
 const Main = () => {
   return (
@@ -24,7 +25,7 @@ const Main = () => {
             <Links />
           </Route>
           <Route exact path="/settings">
-            Ini settings
+            <Settings />
           </Route>
           <Route exact path="/theme">
             <Theme />
