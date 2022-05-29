@@ -26,4 +26,10 @@ export const CoolTooltip = styled.button`
   left:-50px;
   width : 50px;
   height : 50px;
+
+  img{
+    ${tw`
+      pointer-events-none
+    `}
+  }
 `;
