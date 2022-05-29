@@ -68,6 +68,7 @@ const AddNewGroup = () => {
                 required
                 autoComplete="off"
                 innerRef={inputRef}
+                spellCheck={false}
               />
               <ErrorMessage
                 name="name"

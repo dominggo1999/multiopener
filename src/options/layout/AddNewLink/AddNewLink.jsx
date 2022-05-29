@@ -32,12 +32,12 @@ const validationSchema = Yup.object({
     .url('Not A Valid URL')
     .test('validateURL', 'URL must includes "iamlazy" to show where the query will be put ', ((url) => {
       // If no value go to "required validation"
-      if(!url) return true;
+      if (!url) return true;
 
       const domainValidator = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
       const match = domainValidator.exec(url);
 
-      if(match) {
+      if (match) {
         // Get domain/subdmain from url
         const domain = match[0];
 
@@ -95,6 +95,7 @@ const AddNewLink = () => {
                 type="text"
                 required
                 autoComplete="off"
+                spellCheck={false}
               />
               <ErrorMessage
                 name="title"
@@ -113,6 +114,7 @@ const AddNewLink = () => {
                 type="text"
                 required
                 autoComplete="off"
+                spellCheck={false}
               />
               <ErrorMessage
                 name="link"

@@ -51,9 +51,9 @@ const EditGroup = () => {
 
       const target = groups.filter((i) => i.id === groupId)[0];
 
-      if(!target) {
+      if (!target) {
         history.push('/404');
-      }else{
+      } else {
         inputRef.current.focus();
         setDetails((prevDetails) => {
           return {
@@ -68,7 +68,7 @@ const EditGroup = () => {
   }, [groupId]);
 
   useEffect(() => {
-    if(rendered) {
+    if (rendered) {
       const existedChildren = getSingleGroup(groupId).children;
       const options = createOptions(existedChildren, 'title', 'id');
       setChildren(options);
@@ -103,6 +103,7 @@ const EditGroup = () => {
                 required
                 autoComplete="off"
                 innerRef={inputRef}
+                spellCheck={false}
               />
               <ErrorMessage
                 name="name"

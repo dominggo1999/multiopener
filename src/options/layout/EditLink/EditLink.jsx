@@ -32,12 +32,12 @@ const validationSchema = Yup.object({
     .url('Not A Valid URL')
     .test('validateURL', 'URL must includes "iamlazy" to show where the query will be put ', ((url) => {
       // If no value go to "required validation"
-      if(!url) return true;
+      if (!url) return true;
 
       const domainValidator = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
       const match = domainValidator.exec(url);
 
-      if(match) {
+      if (match) {
         // Get domain/subdmain from url
         const domain = match[0];
 
@@ -76,9 +76,9 @@ const EditLink = () => {
       const links = await storageGet('links');
       const target = links.filter((i) => i.id === linkId)[0];
 
-      if(!target) {
+      if (!target) {
         history.push('/404');
-      } else{
+      } else {
         inputRef.current.focus();
         setDetails((prevDetails) => {
           return {
@@ -94,7 +94,7 @@ const EditLink = () => {
   }, [linkId]);
 
   useEffect(() => {
-    if(rendered) {
+    if (rendered) {
       // On first render map choosenGroups top options type (label and key)
 
       const choosenGroups = groupsContainLink(linkId);
@@ -132,6 +132,7 @@ const EditLink = () => {
                 type="text"
                 required
                 autoComplete="off"
+                spellCheck={false}
               />
               <ErrorMessage
                 name="title"
@@ -150,6 +151,7 @@ const EditLink = () => {
                 type="text"
                 required
                 autoComplete="off"
+                spellCheck={false}
               />
               <ErrorMessage
                 name="link"
