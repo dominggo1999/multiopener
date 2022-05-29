@@ -15,7 +15,6 @@ export const CoolTooltip = styled.button`
     absolute
     z-[2147483644]
     mt-1 
-    bg-transparent
     border-none 
     rounded-full
     cursor-pointer
@@ -26,6 +25,14 @@ export const CoolTooltip = styled.button`
   left:-50px;
   width : 50px;
   height : 50px;
+  min-width: 0 !important;
+  transition: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+
+  &:hover{
+    background-color: transparent !important;
+  }
 
   img{
     ${tw`
