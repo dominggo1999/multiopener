@@ -14,12 +14,8 @@ import Theme from '../Theme/Theme';
 import Search from '../Search/Search';
 import NotFoundPage from '../../atom/NotFoundPage';
 import Settings from '../Settings/Settings';
-import useWebStorage from '../../../hooks/useWebStorage';
 
 const Main = () => {
-  // If in standalone website use localStorage
-  useWebStorage();
-
   return (
     <StyledMain>
       <Header />
