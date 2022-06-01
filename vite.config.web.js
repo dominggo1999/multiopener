@@ -16,6 +16,7 @@ export default defineConfig(() => {
     root: r('src/options'),
     build: {
       chunkSizeWarningLimit: 800,
+      sourcemap: true,
       outDir: r('web'),
       emptyOutDir: true,
       // sourcemap: 'inline',
