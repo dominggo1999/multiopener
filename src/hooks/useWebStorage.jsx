@@ -31,7 +31,7 @@ const useWebStorage = () => {
   useEffect(() => {
     settings.forEach(async (i) => {
       const val = await storageGet(i.key);
-      if (val === undefined) {
+      if (val === null) {
         storageSet(i.key, i.default);
       }
     });
