@@ -25,9 +25,9 @@ const ThemeProvider = ({ children }) => {
 
   const applyMode = async () => {
     const storedMode = await storageGet('mode');
-    if(storedMode) {
+    if (storedMode) {
       setMode(storedMode);
-    }else{
+    } else {
       storageSet('mode', DEFAULT_MODE);
       setMode(DEFAULT_MODE);
     }
@@ -40,7 +40,7 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const handleMessage = (e, _, sendResponse) => {
-      if(e.message === 'please rerender') {
+      if (e.message === 'please rerender') {
         applyTheme();
         applyMode();
 
@@ -49,21 +49,21 @@ const ThemeProvider = ({ children }) => {
       }
     };
 
-    chrome?.runtime?.onMessage.addListener(handleMessage);
+    chrome?.runtime?.onMessage?.addListener(handleMessage);
 
     return () => {
-      chrome?.runtime?.onMessage.removeListener(handleMessage);
+      chrome?.runtime?.onMessage?.removeListener(handleMessage);
     };
   }, []);
 
   useEffect(() => {
-    if(theme) {
+    if (theme) {
       storageSet('theme', theme);
     }
   }, [theme]);
 
   useEffect(() => {
-    if(mode) {
+    if (mode) {
       storageSet('mode', mode);
     }
   }, [mode]);
@@ -74,7 +74,7 @@ const ThemeProvider = ({ children }) => {
         theme, mode, setTheme, setMode,
       }}
     >
-      { theme && mode && children}
+      {theme && mode && children}
     </ThemeContext.Provider>
   );
 };
