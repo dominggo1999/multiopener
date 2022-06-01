@@ -20,11 +20,11 @@ const useLists = () => {
 
     for (let i = 0; i < tempGroups.length; i += 1) {
       const group = tempGroups[i];
-      if(parentGroups.map((j) => j.value).includes(group.id)) {
+      if (parentGroups.map((j) => j.value).includes(group.id)) {
         // only if link doesnt exist in the  target group then add link to target group
         const childrenIds = group.children.map((i) => i.id);
 
-        if(!childrenIds.includes(link.id)) {
+        if (!childrenIds.includes(link.id)) {
           group.children.push(link);
         }
       }
@@ -85,7 +85,7 @@ const useLists = () => {
       const targetIndex = group.children.indexOf(target);
 
       // If link exists in group, delete
-      if(targetIndex > -1) {
+      if (targetIndex > -1) {
         group.children.splice(targetIndex, 1);
       }
     }
@@ -101,7 +101,7 @@ const useLists = () => {
       return link.id === id;
     })[0];
 
-    if(!targetLink || !id) return;
+    if (!targetLink || !id) return;
 
     // New Values must be the last
     const updatedLink = {
@@ -111,7 +111,7 @@ const useLists = () => {
 
     const targetIndex = tempLinks.indexOf(targetLink);
 
-    if(targetIndex > -1) {
+    if (targetIndex > -1) {
       tempLinks[targetIndex] = updatedLink;
     }
 
@@ -134,15 +134,15 @@ const useLists = () => {
       const targetIndex = group.children.indexOf(target);
 
       // If link exists in group
-      if(targetIndex > -1) {
+      if (targetIndex > -1) {
         // If need to persist ,  update
-        if(persist) {
+        if (persist) {
           group.children[targetIndex] = updatedLink;
-        }else{
+        } else {
           // Else , delete
           group.children.splice(targetIndex, 1);
         }
-      }else if (persist) {
+      } else if (persist) {
         group.children.push(updatedLink);
       }
     }
@@ -224,7 +224,7 @@ const useLists = () => {
       return group.id === id;
     })[0];
 
-    if(!targetGroup || !id) return;
+    if (!targetGroup || !id) return;
 
     const addedChildrenIds = children.map((i) => i.value);
     const existingChildrenIds = targetGroup.children.map((i) => i.id);
@@ -232,7 +232,7 @@ const useLists = () => {
     // ADDING
     // If already exist dont push
     for (let i = 0; i < addedChildrenIds.length; i += 1) {
-      if(!existingChildrenIds.includes(addedChildrenIds[i])) {
+      if (!existingChildrenIds.includes(addedChildrenIds[i])) {
         const newLink = getSingleLink(addedChildrenIds[i]);
 
         targetGroup.children.push(newLink);
@@ -244,7 +244,7 @@ const useLists = () => {
       const linkId = existingChildrenIds[i];
 
       // Check if link presnt or not in the addedChildren
-      if(!addedChildrenIds.includes(linkId)) {
+      if (!addedChildrenIds.includes(linkId)) {
         const targetLink = targetGroup.children.filter((i) => i.id === linkId)[0];
         const targetIndex = targetGroup.children.indexOf(targetLink);
 
@@ -260,7 +260,7 @@ const useLists = () => {
 
     const targetIndex = tempGroups.indexOf(targetGroup);
 
-    if(targetIndex > -1) {
+    if (targetIndex > -1) {
       tempGroups[targetIndex] = updatedGroups;
     }
 
@@ -270,7 +270,7 @@ const useLists = () => {
 
   // React sortable modifying links
   const handleSortableUpdateLinks = (newLinks) => {
-    if(rendered) {
+    if (rendered) {
       setLinks(newLinks);
       storageSet('links', newLinks);
     }
@@ -278,7 +278,7 @@ const useLists = () => {
 
   // React sortable modifying groups
   const handleSortableUpdateGroups = (newGroups) => {
-    if(rendered) {
+    if (rendered) {
       setGroups(newGroups);
       storageSet('groups', newGroups);
     }
@@ -286,7 +286,7 @@ const useLists = () => {
 
   // Children of groups
   const handleUpdateChildren = (parentId, newValue) => {
-    if(rendered) {
+    if (rendered) {
       // Find Parents
       const target = groups.filter((group) => {
         return group.id === parentId;
@@ -314,15 +314,15 @@ const useLists = () => {
 
   useEffect(() => {
     const handleMessage = (e) => {
-      if(e.message === 'please rerender') {
+      if (e.message === 'please rerender') {
         getData();
       }
     };
 
-    chrome?.runtime?.onMessage.addListener(handleMessage);
+    chrome?.runtime?.onMessage?.addListener(handleMessage);
 
     return () => {
-      chrome?.runtime?.onMessage.removeListener(handleMessage);
+      chrome?.runtime?.onMessage?.removeListener(handleMessage);
     };
   }, []);
 
