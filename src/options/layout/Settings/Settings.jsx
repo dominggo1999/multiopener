@@ -14,6 +14,12 @@ const Settings = () => {
     };
 
     getStore();
+
+    window.addEventListener('focus', getStore);
+
+    return () => {
+      window.removeEventListener('focus', getStore);
+    };
   }, []);
 
   const changeShowTooltip = async () => {
