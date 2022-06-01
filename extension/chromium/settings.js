@@ -2,9 +2,6 @@
 
 const extensionStorage = chrome.storage.local || browser.storage.local;
 const runtime = chrome ? chrome.runtime : browser.runtime;
-const DEFAULT_THEME = 'blue-origin';
-const DEFAULT_MODE = 'light';
-const DEFAULT_SHOW_TOOLTIP = true;
 
 const getValueInStore = (key) => {
   return new Promise((resolve, reject) => {
@@ -20,47 +17,42 @@ const setValueInStore = async (values, callback = () => { }) => {
   callback();
 };
 
+const settings = [
+  {
+    key: 'links',
+    default: [],
+  },
+  {
+    key: 'groups',
+    default: [],
+  },
+  {
+    key: 'theme',
+    default: 'blue-origin',
+  },
+  {
+    key: 'mode',
+    default: 'light',
+  },
+  {
+    key: 'showTooltip',
+    default: true,
+  },
+];
+
 const initSettings = () => {
-  extensionStorage.get(['links', 'groups', 'settings', 'theme', 'mode', 'showTooltip'], (results) => {
-    const {
-      links, groups, settings, theme, mode, showTooltip,
-    } = results;
+  const keys = settings.map((i) => i.key);
 
-    if (!links) {
-      setValueInStore({
-        links: [],
-      });
-    }
+  extensionStorage.get(keys, (results) => {
+    const isEmpty = (val) => val === undefined;
 
-    if (!groups) {
-      setValueInStore({
-        groups: [],
-      });
-    }
-
-    if (!settings) {
-      setValueInStore({
-        settings: {},
-      });
-    }
-
-    if (!theme) {
-      setValueInStore({
-        theme: DEFAULT_THEME,
-      });
-    }
-
-    if (!mode) {
-      setValueInStore({
-        mode: DEFAULT_MODE,
-      });
-    }
-
-    if (!showTooltip) {
-      setValueInStore({
-        showTooltip: DEFAULT_SHOW_TOOLTIP,
-      });
-    }
+    settings.forEach((i) => {
+      if (isEmpty(results[i.key])) {
+        setValueInStore({
+          [i.key]: i.default,
+        });
+      }
+    });
   });
 };
 

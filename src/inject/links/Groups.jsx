@@ -30,8 +30,7 @@ const Groups = ({
       }
     }
 
-    if (embedded && !chrome.runtime.id) {
-      console.log('failed');
+    if (embedded && !chrome?.runtime?.id) {
       for (let i = 0; i < targetLinks.length; i += 1) {
         window.open(targetLinks[i]);
       }

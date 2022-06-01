@@ -2,7 +2,6 @@
 import React, {
   useEffect, useState, useRef, useLayoutEffect, useMemo,
 } from 'react';
-import { BiSearch } from 'react-icons/bi';
 import { CoolTooltip } from './Tooltip.style';
 import { storageGet } from '../util';
 

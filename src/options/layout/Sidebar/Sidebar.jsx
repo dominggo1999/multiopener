@@ -5,6 +5,7 @@ import { IoIosLink, IoIosColorPalette } from 'react-icons/io';
 import { MdClose } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
 import { BsSearch } from 'react-icons/bs';
+import { FaChrome } from 'react-icons/fa';
 import { NavLink } from '../../atom/RouterLink';
 import {
   SidebarWrapper, SidebarScrollArea, SidebarHeader, NavMenu, NavItem, SidebarBrand,
@@ -28,6 +29,7 @@ const links = [
     path: '/settings',
     name: 'settings',
     Icon: FiSettings,
+    onlyExtension: true,
   },
   {
     path: '/theme',
@@ -71,6 +73,7 @@ const Sidebar = () => {
           <NavMenu ref={navigationRef}>
             {
               links?.length > 0 && links.map((i) => {
+                if (i.onlyExtension && !chrome.runtime) return null;
                 return (
                   <NavItem key={`sidebar_link_${i.name}`}>
                     <NavLink
@@ -85,49 +88,6 @@ const Sidebar = () => {
                 );
               })
             }
-
-            {/* <NavItem>
-              <NavLink
-                handleClick={handleClick}
-                exact
-                to="/"
-              >
-                <IoIosLink />
-                Links
-              </NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink
-                handleClick={handleClick}
-                exact
-                to="/search"
-              >
-                <BsSearch />
-                Search
-              </NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink
-                handleClick={handleClick}
-                to="/settings"
-              >
-                <FiSettings />
-                Settings
-              </NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink
-                handleClick={handleClick}
-                to="/theme"
-              >
-                <IoIosColorPalette />
-                theme
-              </NavLink>
-            </NavItem> */}
-
           </NavMenu>
         </SidebarScrollArea>
       </SidebarWrapper>

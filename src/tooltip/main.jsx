@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Tooltip from './Tooltip';
-import { storageGet } from '../util';
 
 (() => {
   const app = document.createElement('div');
-  app.id = 'root-tooltip';
+  app.id = chrome.runtime.id;
 
   const injectTooltip = async () => {
-    const showTooltip = await storageGet('showTooltip');
-
-    if (showTooltip) {
-      document.body.appendChild(app);
-      ReactDOM.render(<Tooltip />, app);
-    }
+    document.body.appendChild(app);
+    ReactDOM.render(<Tooltip />, app);
   };
 
   const initTooltip = () => {

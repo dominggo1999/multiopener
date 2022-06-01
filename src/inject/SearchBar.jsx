@@ -50,7 +50,7 @@ const SearchBar = ({
         onChange={handleChange}
         placeholder="Search something"
         spellCheck={false}
-        autoComplete={false}
+        autoComplete="off"
       />
 
       {

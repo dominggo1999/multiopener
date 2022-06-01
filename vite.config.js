@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 // vite.config.json
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import macrosPlugin from 'vite-plugin-babel-macros';
 
@@ -11,11 +11,11 @@ export const isDev = process.env.NODE_ENV !== 'production';
 const r = (path) => resolve(__dirname, path);
 
 const generateOutputDir = (vendor) => {
-  if(vendor === 'chromium') {
+  if (vendor === 'chromium') {
     return 'extension/chromium/dist';
   }
 
-  if(vendor === 'mozilla') {
+  if (vendor === 'mozilla') {
     return 'extension/mozilla/dist';
   }
 

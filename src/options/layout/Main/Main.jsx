@@ -1,7 +1,7 @@
 // readable routes linter
 /* eslint react/jsx-max-props-per-line: 0 */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { MainContainer, StyledMain } from './Main.style';
 import Header from '../Header/Header';
@@ -14,8 +14,12 @@ import Theme from '../Theme/Theme';
 import Search from '../Search/Search';
 import NotFoundPage from '../../atom/NotFoundPage';
 import Settings from '../Settings/Settings';
+import useWebStorage from '../../../hooks/useWebStorage';
 
 const Main = () => {
+  // If in standalone website use localStorage
+  useWebStorage();
+
   return (
     <StyledMain>
       <Header />
@@ -24,9 +28,13 @@ const Main = () => {
           <Route exact path="/">
             <Links />
           </Route>
-          <Route exact path="/settings">
-            <Settings />
-          </Route>
+          {
+            chrome.runtime && (
+              <Route exact path="/settings">
+                <Settings />
+              </Route>
+            )
+          }
           <Route exact path="/theme">
             <Theme />
           </Route>
