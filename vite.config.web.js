@@ -25,7 +25,7 @@ export default defineConfig(() => {
       },
       rollupOptions: {
         input: {
-          super: r('src/options/index.html'),
+          options: r('src/options/index.html'),
         },
       },
     },
