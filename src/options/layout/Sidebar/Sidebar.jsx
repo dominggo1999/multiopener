@@ -73,7 +73,7 @@ const Sidebar = () => {
           <NavMenu ref={navigationRef}>
             {
               links?.length > 0 && links.map((i) => {
-                if (i.onlyExtension && !chrome.runtime) return null;
+                if (i.onlyExtension && !chrome.storage) return null;
                 return (
                   <NavItem key={`sidebar_link_${i.name}`}>
                     <NavLink
