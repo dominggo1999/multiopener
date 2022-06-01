@@ -25,7 +25,7 @@ const Main = () => {
             <Links />
           </Route>
           {
-            chrome.runtime && (
+            chrome.storage && (
               <Route exact path="/settings">
                 <Settings />
               </Route>
