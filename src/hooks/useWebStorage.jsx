@@ -26,7 +26,7 @@ const settings = [
 
 const useWebStorage = () => {
   // Only use localStorage on standalone website
-  if (chrome?.runtime) return null;
+  if (chrome?.storage) return null;
 
   useEffect(() => {
     settings.forEach(async (i) => {
