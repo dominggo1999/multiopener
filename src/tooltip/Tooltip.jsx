@@ -10,6 +10,7 @@ const initialStyle = {
   height: 0,
   top: -50,
   left: -50,
+  display: 'none',
 };
 
 const Tooltip = () => {
@@ -96,6 +97,7 @@ const Tooltip = () => {
       setStyle({
         top: `${tooltipTop}px`,
         left: `${tooltipLeft}px`,
+        display: 'block',
       });
       setQuery(text.current);
 
