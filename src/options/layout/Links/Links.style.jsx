@@ -7,6 +7,6 @@ export const LinksContainer = styled.div`
     grid 
     grid-cols-2 
     gap-3
-    overflow-y-hidden
+    overflow-hidden
   `}
 `;

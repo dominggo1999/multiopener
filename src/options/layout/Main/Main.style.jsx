@@ -19,6 +19,6 @@ export const MainContainer = styled.section`
   ${tw`
     w-full
     h-full
-    p-4
+    p-4 
   `}
 `;

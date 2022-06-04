@@ -2,7 +2,7 @@
   "name": "template",
   "version": "0.0.0",
   "scripts": {
-    "devui": "vite",
+    "devui": "vite --config vite.config.web.js",
     "dev-cr": "npm run clear-cr && npm run prepare-cr && npm run build-cr",
     "build-cr": "cross-env VENDOR=chromium NODE_ENV=development vite build",
     "build-cr-cs": "vite build --config vite.config.content.js",
