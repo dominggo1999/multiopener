@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "devui": "vite --config vite.config.web.js",
-    "dev-cr": "npm run clear-cr && npm run prepare-cr && npm run build-cr",
-    "build-cr": "cross-env VENDOR=chromium NODE_ENV=development vite build",
-    "build-cr-cs": "vite build --config vite.config.content.js",
-    "clear-cr": "rimraf extension/chromium/dist extension/chromium/manifest.json extension.*",
-    "prepare-cr": "cross-env VENDOR=chromium NODE_ENV=development node ./src/createManifest.js",
+    "pack": "npm run clear && npm run prepare && npm run build-cs && npm run build",
+    "build": "cross-env VENDOR=chromium NODE_ENV=production  vite build",
+    "build-cs": "vite build --config vite.config.content.js",
+    "clear": "rimraf extension/chromium/dist extension/chromium/manifest.json extension.*",
+    "prepare": "cross-env VENDOR=chromium NODE_ENV=production  node ./src/createManifest.js",
     "gen-icons": "node ./src/icons/generateTooltipIcons.js",
     "build-web": "vite build --config vite.config.web.js",
     "serve-web": "vite preview --config vite.config.web.js"
