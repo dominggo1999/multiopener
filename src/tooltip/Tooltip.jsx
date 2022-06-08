@@ -79,6 +79,7 @@ const Tooltip = () => {
       const {
         width, height, left, top,
       } = rect.current;
+      const verticalPadding = 5;
       const scrollTop = window.pageYOffset || document.body.scrollTop;
       const scrollLeft = window.pageXOffset || document.body.scrollLeft;
       let tooltipTop = scrollTop + top + height;
@@ -91,7 +92,7 @@ const Tooltip = () => {
 
       // Move to the bottom if there is no avalaible space on the top
       if (tooltipTop + 50 > scrollTop + viewportHeight) {
-        tooltipTop = scrollTop + top - 50;
+        tooltipTop = scrollTop + top - 50 - verticalPadding;
       }
 
       setStyle({

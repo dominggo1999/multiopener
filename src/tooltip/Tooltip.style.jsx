@@ -31,7 +31,6 @@ export const CoolTooltip = styled.button`
   box-shadow: none !important;
   background-color: transparent !important;
   padding : 0 !important;
-  margin : 0 !important;
 
   &:hover{
     background-color: transparent !important;
