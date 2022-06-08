@@ -20,12 +20,13 @@ export const CoolTooltip = styled.button`
     cursor-pointer
   `}
 
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
   top:-50px;
   left:-50px;
-  width : 50px;
-  height : 50px;
-  min-width: 0 !important;
+  width : 50px !important;
+  height : 50px !important;
+  min-width: 50px !important;
+  min-height: 50px !important;
   transition: 0 !important;
   box-shadow: none !important;
   background-color: transparent !important;
@@ -35,6 +36,10 @@ export const CoolTooltip = styled.button`
   }
 
   img{
+    width : 50px !important;
+    height : 50px !important;
+    max-width: 50px !important;
+    max-height: 50px !important;
     ${tw`
       pointer-events-none
     `}
