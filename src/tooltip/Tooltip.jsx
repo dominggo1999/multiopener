@@ -34,7 +34,7 @@ const Tooltip = () => {
     const showTooltip = await storageGet('showTooltip');
     if (!showTooltip) return null;
 
-    const selection = document.getSelection && window.getSelection();
+    const selection = document.getSelection() && window.getSelection();
 
     if (selection && selection.type === 'Range' && selection.rangeCount > 0 && selection.focusNode) {
       const selectedText = selection.toString().trim();
