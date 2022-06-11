@@ -53,8 +53,8 @@ export const SidebarHeader = styled.div`
 export const SidebarBrand = styled.div`
   ${tw`
     text-accent 
-    text-2xl 
-    font-bold
+    text-2xl
+    font-semibold
   `}
 `;
 

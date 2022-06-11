@@ -58,7 +58,7 @@ const Sidebar = () => {
       <SidebarWrapper open={show}>
         <SidebarHeader>
           <SidebarBrand>
-            Iamlazy
+            Multi Search
           </SidebarBrand>
           {
             !isXLarge

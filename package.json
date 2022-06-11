@@ -1,6 +1,6 @@
 {
-  "name": "template",
-  "version": "0.0.0",
+  "name": "multi-search",
+  "version": "1.0.0",
   "scripts": {
     "devui": "vite --config vite.config.web.js",
     "pack": "npm run clear && npm run prepare && npm run build-cs && npm run build",
