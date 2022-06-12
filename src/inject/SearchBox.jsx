@@ -250,7 +250,9 @@ const SearchBox = ({ embedded, injected }) => {
               handleClose={handleClose}
             />
           </WebsiteList>
-          <BottomSpacing />
+          {
+            injected && <BottomSpacing />
+          }
         </SearchArea>
       </SearchAreaWrapper>
     </>
