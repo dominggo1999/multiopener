@@ -16,7 +16,7 @@ export const SearchAreaWrapper = styled.div`
     min-w-[90%]
     absolute  
     md:min-w-[750px]
-    top-0  
+    top-20 
     left-1/2
     -translate-x-1/2
   `}
@@ -31,7 +31,6 @@ export const SearchAreaWrapper = styled.div`
 
 export const SearchArea = styled.div`
   ${tw`
-      my-20
       bg-white
       dark:(bg-primary)
       rounded-lg
@@ -47,6 +46,19 @@ export const SearchArea = styled.div`
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
   ${({ embedded }) => embedded && tw`
     my-0
+  `}
+`;
+
+export const BottomSpacing = styled.div`
+  ${tw`
+    h-20 
+    w-full 
+    bg-red-500 
+    pointer-events-none
+    bg-transparent 
+    absolute 
+    left-0 
+    top-full
   `}
 `;
 

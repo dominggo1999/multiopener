@@ -3,7 +3,7 @@ import React, {
   useEffect, useState, useRef, useContext,
 } from 'react';
 import {
-  WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper,
+  WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper, BottomSpacing,
 } from './SearchBox.style';
 import SearchBar from './SearchBar';
 import Groups from './links/Groups';
@@ -250,7 +250,7 @@ const SearchBox = ({ embedded, injected }) => {
               handleClose={handleClose}
             />
           </WebsiteList>
-
+          <BottomSpacing />
         </SearchArea>
       </SearchAreaWrapper>
     </>
