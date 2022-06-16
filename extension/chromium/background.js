@@ -13,7 +13,7 @@ const getValueInStore = (key) => {
   });
 };
 
-const setValueInStore = async (values, callback = () => {}) => {
+const setValueInStore = async (values, callback = () => { }) => {
   await extensionStorage.set(values);
 
   callback();
@@ -57,7 +57,7 @@ chrome.runtime.onInstalled.addListener(startExtension);
 chrome.management.onEnabled.addListener(startExtension);
 
 const openURLS = async (links) => {
-  const domainAndSubdomain = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
+  const domainAndSubdomain = /^(https|chrome-extension)?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
 
   const tabs = await browserTabs?.query({});
 
@@ -80,11 +80,11 @@ const openURLS = async (links) => {
       return i.url === targetDomain;
     })[0];
 
-    if(targetTab) {
+    if (targetTab) {
       chrome.tabs.update(targetTab.id, {
         url: l,
       });
-    }else{
+    } else {
       chrome.tabs.create(
         {
           url: l,
@@ -98,12 +98,12 @@ const openURLS = async (links) => {
 chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
   const { message, links, url } = req;
 
-  if(message === 'open group') {
+  if (message === 'open group') {
     openURLS(links);
     sendRes(JSON.stringify({ ok: 'ok' }));
   }
 
-  if(message === 'open options page') {
+  if (message === 'open options page') {
     const openedTabURL = url;
     const baseURL = `chrome-extension://${chrome.runtime.id}`;
 
@@ -116,7 +116,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
 
       tabs.forEach((tab) => {
         const existingTabURL = tab.url;
-        if(existingTabURL.match(regexpTest)) {
+        if (existingTabURL.match(regexpTest)) {
           alreadyOpened = true;
 
           chrome.tabs.update(tab.id, {
@@ -124,7 +124,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
           });
 
           setTimeout(() => {
-            if(openedTabURL !== existingTabURL) {
+            if (openedTabURL !== existingTabURL) {
               chrome.tabs.update(tab.id, {
                 url: openedTabURL,
               });
@@ -133,7 +133,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
         }
       });
 
-      if(!alreadyOpened) {
+      if (!alreadyOpened) {
         chrome.tabs.create({
           active: true,
           url: openedTabURL,
@@ -152,20 +152,18 @@ chrome.tabs.onUpdated.addListener((openedTabId, changeInfo, tab) => {
     // Check if new tab is extension url
     const regexpTest = new RegExp(baseURL);
 
-    if(openedTabURL.match(regexpTest)) {
-    // if true check if chrome extension url already  opened
+    if (openedTabURL.match(regexpTest)) {
+      // if true check if chrome extension url already  opened
       chrome.tabs.query({}, (tabs) => {
         tabs.forEach((tab) => {
           const existingTabURL = tab.url;
-          if(existingTabURL.match(regexpTest) && tab.id !== openedTabId) {
-            console.log(tab);
-
+          if (existingTabURL.match(regexpTest) && tab.id !== openedTabId) {
             chrome.tabs.update(tab.id, {
               active: true,
             });
 
             setTimeout(() => {
-              if(openedTabURL !== existingTabURL) {
+              if (openedTabURL !== existingTabURL) {
                 chrome.tabs.update(tab.id, {
                   url: openedTabURL,
                 });

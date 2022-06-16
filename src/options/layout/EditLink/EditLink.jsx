@@ -13,10 +13,10 @@ import {
 import { AddButton } from '../../atom/Button';
 import { ListContext } from '../../../context/List.context';
 import Link from '../../atom/RouterLink';
-import { storageGet, createOptions } from '../../../util';
+import {
+  storageGet, createOptions, urlValidation, queryValidation,
+} from '../../../util';
 import Select from '../../atom/Select/Select';
-
-const queryText = /iamlazy/ig;
 
 const initialValue = {
   title: '',
@@ -29,27 +29,8 @@ const validationSchema = Yup.object({
     .max(100, 'Must be shorter than 100 characters')
     .required('Required'),
   link: Yup.string()
-    .url('Not A Valid URL')
-    .test('validateURL', 'URL must includes "iamlazy" to show where the query will be put ', ((url) => {
-      // If no value go to "required validation"
-      if (!url) return true;
-
-      const domainValidator = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
-      const match = domainValidator.exec(url);
-
-      if (match) {
-        // Get domain/subdmain from url
-        const domain = match[0];
-
-        // Cut domain/subdomain since we only need path
-        const path = url.split(domain)[1];
-
-        // Check whether queryText exist in path
-        const detectedQueryText = path.match(queryText);
-
-        return detectedQueryText?.length > 0;
-      }
-    }))
+    .test('validate url', 'Not a valid url', urlValidation)
+    .test('check query', 'URL must includes "iamlazy" to show where the query will be put ', queryValidation)
     .required('Required'),
 });
 

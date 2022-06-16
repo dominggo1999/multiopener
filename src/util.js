@@ -134,3 +134,35 @@ export const openOptionsURL = async (url) => {
     }
   }
 };
+
+export const urlValidation = (url) => {
+  const urlValidator = /(https|chrome-extension):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i;
+  if (urlValidator.test(url)) {
+    return true;
+  }
+  return false;
+};
+
+export const queryValidation = (url) => {
+  // If no value go to "required validation"
+  if (!url) return true;
+
+  const queryText = /iamlazy/ig;
+
+  const domainValidator = /^(https|chrome-extension)?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
+  const match = domainValidator.exec(url);
+  console.log(match);
+
+  if (match) {
+    // Get domain/subdmain from url
+    const domain = match[0];
+
+    // Cut domain/subdomain since we only need path
+    const path = url.split(domain)[1];
+
+    // Check whether queryText exist in path
+    const detectedQueryText = path.match(queryText);
+
+    return detectedQueryText?.length > 0;
+  }
+};
