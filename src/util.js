@@ -151,7 +151,6 @@ export const queryValidation = (url) => {
 
   const domainValidator = /^(https|chrome-extension)?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
   const match = domainValidator.exec(url);
-  console.log(match);
 
   if (match) {
     // Get domain/subdmain from url

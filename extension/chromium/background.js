@@ -57,7 +57,7 @@ chrome.runtime.onInstalled.addListener(startExtension);
 chrome.management.onEnabled.addListener(startExtension);
 
 const openURLS = async (links) => {
-  const domainAndSubdomain = /^(https|chrome-extension)?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
+  const domainAndSubdomain = /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i;
 
   const tabs = await browserTabs?.query({});
 
@@ -72,10 +72,10 @@ const openURLS = async (links) => {
   });
 
   links.forEach((l) => {
-    const targetDomain = domainAndSubdomain.exec(l)[1];
+    const match = domainAndSubdomain.exec(l); // Chrome extensions url will return null
+    const targetDomain = match && match[1];
 
     // Find id of target url in existing tabs
-
     const targetTab = validTabs.filter((i) => {
       return i.url === targetDomain;
     })[0];
@@ -141,6 +141,8 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
       }
     });
   }
+
+  return true;
 });
 
 // prevent client from visiting options page via omnibox search
