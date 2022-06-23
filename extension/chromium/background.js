@@ -93,7 +93,7 @@ const openURLS = async (links) => {
   });
 };
 
-const openOptionsPage = (url) => {
+const openOptionsPage = (url, windowId) => {
   const openedTabURL = url;
   const baseURL = `chrome-extension://${chrome.runtime.id}`;
 
@@ -119,6 +119,12 @@ const openOptionsPage = (url) => {
               url: openedTabURL,
             });
           }
+
+          setTimeout(() => {
+            sendMessageToTab(tab.id, {
+              message: 'update search query',
+            });
+          }, 200);
         }, 300);
       }
     });
@@ -208,7 +214,7 @@ chrome.contextMenus.create(toggleSearchBoxWithQuery);
 
 chrome.contextMenus.onClicked.addListener((clickData, tab) => {
   const { menuItemId, selectionText } = clickData;
-  const { id, url } = tab;
+  const { id, url, windowId } = tab;
 
   const urlValidator = /(https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i;
   // This validation is needed to prevent sending message to chrome://**/* and file://**/* since there is no content script there (there is no receiving end)
@@ -222,7 +228,7 @@ chrome.contextMenus.onClicked.addListener((clickData, tab) => {
         selectionText,
       });
     } else {
-      openOptionsPage(targetOptionUrl);
+      openOptionsPage(`${targetOptionUrl}?q=${selectionText}`, windowId);
     }
   }
 
@@ -232,7 +238,7 @@ chrome.contextMenus.onClicked.addListener((clickData, tab) => {
         contextMenu: 'toogle search box',
       });
     } else {
-      openOptionsPage(targetOptionUrl);
+      openOptionsPage(targetOptionUrl, windowId);
     }
   }
 });

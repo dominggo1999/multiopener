@@ -2,6 +2,7 @@
 import React, {
   useEffect, useState, useRef, useContext,
 } from 'react';
+import queryString from 'query-string';
 import {
   WebsiteList, SearchArea, TypeTitle, Overlay, SearchAreaWrapper, BottomSpacing,
 } from './SearchBox.style';
@@ -191,6 +192,35 @@ const SearchBox = ({ embedded, injected }) => {
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    const getQuery = () => {
+      const parsedHash = queryString.parse(location.hash);
+      return parsedHash['search?q'];
+    };
+
+    if (location?.hash && embedded) {
+      const q = getQuery();
+      if (q) {
+        setQuery(q);
+      }
+    }
+
+    const handleMessage = (e) => {
+      if (e.message === 'update search query') {
+        const q = getQuery();
+        if (q) {
+          document.querySelector('input').value = q;
+        }
+      }
+    };
+
+    embedded && chrome?.runtime?.onMessage.addListener(handleMessage);
+
+    return () => {
+      embedded && chrome?.runtime?.onMessage.removeListener(handleMessage);
+    };
+  }, [location?.hash]);
 
   if (!theme || !mode) return null;
 
