@@ -304,8 +304,8 @@ const useLists = () => {
   };
 
   const getData = async () => {
-    const links = await storageGet('links');
-    const groups = await storageGet('groups');
+    const links = await storageGet('links') || [];
+    const groups = await storageGet('groups') || [];
 
     setLinks(links);
     setGroups(groups);
