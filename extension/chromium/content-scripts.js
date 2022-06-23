@@ -5,24 +5,6 @@
 (() => {
   if (document.xmlVersion) return;
 
-  const messageToBackground = async (message) => {
-    await chrome?.runtime?.sendMessage(message, (response) => {
-      if (response) {
-        console.log(response);
-      }
-    });
-  };
-
-  const getValueInStore = (key) => {
-    const extensionStorage = chrome ? chrome?.storage.local : browser.storage.local;
-
-    return new Promise((resolve, reject) => {
-      extensionStorage.get([key], (result) => {
-        resolve(result);
-      });
-    });
-  };
-
   const deleteFrame = () => {
     const app = document.querySelector('iframe.injected');
     app?.remove();
@@ -58,17 +40,6 @@
     }
   };
 
-  chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
-    const { message } = request;
-
-    if (message === 'close frame') {
-      const iframe = document.querySelector('iframe.injected');
-      iframe.style.display = 'none';
-      iframe.blur();
-      sendResponse(JSON.stringify({ ok: 'ok' }));
-    }
-  });
-
   const toggleFrame = () => {
     const app = document.querySelector('iframe.injected');
     if (app.style.display === 'block') {
@@ -78,6 +49,37 @@
       app.focus();
     }
   };
+
+  chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
+    const { message, contextMenu, selectionText } = request;
+
+    const app = document.querySelector('iframe.injected');
+
+    if (message === 'close frame') {
+      const iframe = document.querySelector('iframe.injected');
+      iframe.style.display = 'none';
+      iframe.blur();
+      sendResponse(JSON.stringify({ ok: 'ok' }));
+    }
+
+    if (contextMenu === 'toogle search box with query') {
+      toggleFrame();
+      // On to show search box and not to hide
+      if (app) {
+        app.contentWindow.postMessage(
+          {
+            message: 'update query',
+            query: selectionText,
+          },
+          '*',
+        );
+      }
+    }
+
+    if (contextMenu === 'toogle search box') {
+      toggleFrame();
+    }
+  });
 
   const messageHandler = (e) => {
     if (!chrome.runtime?.id && e.data === 'close iframe') {
@@ -110,6 +112,7 @@
       app.style.display = 'none';
     }
   };
+
   const handleDeleteFrame = (e) => {
     if (e.data === 'removetheiframe') {
       deleteFrame();

@@ -49,7 +49,8 @@
     "activeTab",
     "unlimitedStorage",
     "scripting",
-    "management"
+    "management",
+    "contextMenus"
   ],
   "web_accessible_resources": [
     {

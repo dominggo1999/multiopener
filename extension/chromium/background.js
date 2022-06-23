@@ -21,12 +21,10 @@ const setValueInStore = async (values, callback = () => { }) => {
 
 const browserTabs = chrome.tabs;
 
-const sendMessage = async (message) => {
-  await browserTabs?.query({}, (tabs) => {
-    tabs?.forEach((tab) => {
-      browserTabs.sendMessage(tab.id, message);
-    });
-  });
+const sendMessageToTab = async (tabId, message) => {
+  if (chrome?.runtime?.id) {
+    await browserTabs.sendMessage(tabId, message);
+  }
 };
 
 const startExtension = async () => {
@@ -95,6 +93,45 @@ const openURLS = async (links) => {
   });
 };
 
+const openOptionsPage = (url) => {
+  const openedTabURL = url;
+  const baseURL = `chrome-extension://${chrome.runtime.id}`;
+
+  // Check if new tab is extension url
+  const regexpTest = new RegExp(baseURL);
+
+  // if true check if chrome extension url already  opened
+  chrome.tabs.query({}, (tabs) => {
+    let alreadyOpened = false;
+
+    tabs.forEach((tab) => {
+      const existingTabURL = tab.url;
+      if (existingTabURL.match(regexpTest)) {
+        alreadyOpened = true;
+
+        chrome.tabs.update(tab.id, {
+          active: true,
+        });
+
+        setTimeout(() => {
+          if (openedTabURL !== existingTabURL) {
+            chrome.tabs.update(tab.id, {
+              url: openedTabURL,
+            });
+          }
+        }, 300);
+      }
+    });
+
+    if (!alreadyOpened) {
+      chrome.tabs.create({
+        active: true,
+        url: openedTabURL,
+      });
+    }
+  });
+};
+
 chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
   const { message, links, url } = req;
 
@@ -104,42 +141,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
   }
 
   if (message === 'open options page') {
-    const openedTabURL = url;
-    const baseURL = `chrome-extension://${chrome.runtime.id}`;
-
-    // Check if new tab is extension url
-    const regexpTest = new RegExp(baseURL);
-
-    // if true check if chrome extension url already  opened
-    chrome.tabs.query({}, (tabs) => {
-      let alreadyOpened = false;
-
-      tabs.forEach((tab) => {
-        const existingTabURL = tab.url;
-        if (existingTabURL.match(regexpTest)) {
-          alreadyOpened = true;
-
-          chrome.tabs.update(tab.id, {
-            active: true,
-          });
-
-          setTimeout(() => {
-            if (openedTabURL !== existingTabURL) {
-              chrome.tabs.update(tab.id, {
-                url: openedTabURL,
-              });
-            }
-          }, 300);
-        }
-      });
-
-      if (!alreadyOpened) {
-        chrome.tabs.create({
-          active: true,
-          url: openedTabURL,
-        });
-      }
-    });
+    openOptionsPage(url);
   }
 
   return true;
@@ -183,3 +185,54 @@ chrome.tabs.onUpdated.addListener((openedTabId, changeInfo, tab) => {
 });
 
 try { initSettings(); } catch (e) { console.error(e); }
+
+// Context Menu
+// Toggle search box with or without query
+const toggleSearchBoxWithQuery = {
+  title: 'Open search box with query',
+  id: 'toggleSearchBoxWithQuery',
+  contexts: ['selection'],
+};
+
+const toggleSearchBox = {
+  title: 'Open search box',
+  id: 'toggleSearchBox',
+  contexts: ['page', 'frame', 'editable', 'image', 'video', 'audio'],
+};
+
+chrome.contextMenus.removeAll();
+chrome.contextMenus.create(toggleSearchBox);
+chrome.contextMenus.create(toggleSearchBoxWithQuery);
+
+// Open options page url
+
+chrome.contextMenus.onClicked.addListener((clickData, tab) => {
+  const { menuItemId, selectionText } = clickData;
+  const { id, url } = tab;
+
+  const urlValidator = /(https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i;
+  // This validation is needed to prevent sending message to chrome://**/* and file://**/* since there is no content script there (there is no receiving end)
+  const isNotLocalFile = urlValidator.test(url);
+  const targetOptionUrl = `chrome-extension://${chrome.runtime.id}/dist/options/index.html#search`;
+
+  if (menuItemId === 'toggleSearchBoxWithQuery') {
+    if (isNotLocalFile) {
+      sendMessageToTab(id, {
+        contextMenu: 'toogle search box with query',
+        selectionText,
+      });
+    } else {
+      openOptionsPage(targetOptionUrl);
+    }
+  }
+
+  if (menuItemId === 'toggleSearchBox') {
+    if (isNotLocalFile) {
+      sendMessageToTab(id, {
+        contextMenu: 'toogle search box',
+      });
+    } else {
+      openOptionsPage(targetOptionUrl);
+    }
+  }
+});

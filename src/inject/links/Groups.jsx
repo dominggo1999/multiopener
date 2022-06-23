@@ -24,8 +24,6 @@ const Groups = ({
           message: 'open group',
           links: targetLinks,
         });
-        console.log(res);
-        console.log('lol');
       } catch (error) {
         console.log(error);
       }
